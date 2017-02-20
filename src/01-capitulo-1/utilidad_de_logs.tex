@@ -1,0 +1,72 @@
+\subsection{Utilidad de los logs}
+\label{utilidad_de_los_logs}
+Se denomina log al registro de una operación en una computadora. Los logs son normalmente guardados en un archivo. Los logs se utilizan para describir un conjunto de acontecimientos, tales como: accesos de usuarios a un sistema, manipulación de datos, auditoría, diagnóstico de dispositivos y medidas de seguridad.
+
+Un registro de log contiene normalmente una marca temporal, la fuente de la información y el mensaje o contenido. Una marca temporal, también conocida como timestamp, es una secuencia de caracteres que indica la hora y fecha en la que ocurrió un evento. La fuente es la aplicación, programa o sistema que generó el mensaje. Muchas veces la fuente es representada por la IP o el nombre de un host.
+
+Los logs pueden ser de gran utilidad para visualizar información de recursos del sistema, de usuarios de las aplicaciones y del funcionamiento de las mismas aplicaciones. Sin embargo, los logs como fuente de información suelen ser subestimados por desarrolladores y operadores.
+
+A menudo los logs son completamente ignorados y solamente tomados en cuenta en situaciones de problemas en las aplicaciones o el sistema, y normalmente se los elimina sin haber sido revisados antes \cite[p.~16]{monitoreo:logging_and_log_management}.
+
+Los logs pueden ser catalogados según su utilidad de varias maneras. Cada aplicación define como clasificar los logs según su relevancia. Por ejemplo, syslog, el estandar de facto para el envío de mensajes de registro en redes informáticas IP, define los siguientes niveles de gravedad para sus logs \footnote{https://tools.ietf.org/html/rfc3164}:
+
+\begin{table}[h!]
+  \begin{tabular*}{\textwidth}{ @{\extracolsep{\fill}} | c | l | l | }
+    \hline
+    \textbf{Cód.} & \textbf{Gravedad} & \textbf{Descripción}                      \\ \hline
+    0             & Emergency         & El sistema se encuentra inutilizable      \\ \hline
+    1             & Alert             & Una acción debe ser tomada inmediatamente \\ \hline
+    2             & Critical          & Condición crítica                         \\ \hline
+    3             & Error             & Condición de error                        \\ \hline
+    4             & Warning           & Condición de advertencia                  \\ \hline
+    5             & Notice            & Condición normal pero significativa       \\ \hline
+    6             & Informational     & Mensaje informativo                       \\ \hline
+    7             & Debug             & Mensajes de bajo nivel                    \\ \hline
+  \end{tabular*}
+  \caption{Tabla de tipos de logs para Syslog.}
+  \label{logs_syslogs:tabla}
+\end{table}
+
+Si bien no todas las herramientas que implementan logs utilizan todos lo niveles de severidad anteriormente mencionados, la mayor parte de ellos toman esta tabla como referencia.
+
+A continuación explicaremos algunos de estos niveles de relevancia:
+
+\begin{itemize}
+  \item Los logs de información proveen evidencia documentada de una secuencia de actividades que afectan en algún momento a una operación específica, procedimiento o evento. Permiten a los desarrolladores y administradores advertir la ocurrencia de un evento benigno, como por ejemplo el inicio de sesión de un usuario en un sistema.
+  \item Los registros de depuración son generados por los desarrolladores con la finalidad de entender la actividad de un sistema, identificar problemas en el funcionamiento del código de la aplicación y encontrar soluciones para dichos problemas.
+
+  \item Los mensajes de advertencia indican comportamientos inesperados o situaciones que deben ser vigiladas por un programador pero que no tienen un impacto negativo en el funcionamiento normal del sistema. Un ejemplo es mensaje aconsejando la descontinuación del uso de una funcionalidad que será eliminada en futuras versiones de un software.
+
+  \item La etiqueta de error se usa para transmitir fallos que se producen en un sistema informático, y que requieren la atención inmediata de un programador o persona especializada. Indican que existe la posibilidad de que parte de la aplicación no esté funcionando \cite[p.~3]{monitoreo:logging_and_log_management}.
+\end{itemize}
+
+Es conveniente que los desarrolladores hagan buen uso de los niveles de severidad de los logs para beneficiarse de la información que estos puedan brindar acerca de las aplicaciones o sistemas. Si las etiquetas de relevancia son utilizadas correctamente, se logran datos de mejor calidad que facilitan el análisis posterior de los registros.
+
+\subsubsection*{Retos del manejo de logs}
+\label{retos_del_manejo_de_logs}
+
+Existen varios desafíos que la mayoría de las organizaciones deben enfrentar a la hora de gestionar los logs.
+
+Uno de estos desafíos es la existencia de numerosas fuentes de software generadores de registros de log. Muchas veces estas fuentes se encuentran ubicadas en diferentes hosts, y una fuente puede generar diferentes tipos de registros, por ejemplo almacenar los intentos de autenticación en una aplicación en un archivo de logs y la información relacionada con la ocupación de la red en otro archivo distinto.
+
+Otro reto que presenta el manejo de logs es el hecho de que los logs registran a menudo sólo las piezas de información consideradas más importantes para una registración particular. Esto puede dificultar analizar la correlación de eventos registrados por diferentes fuentes de logs, ya que pueden no tener valores comunes registrados.
+
+Estas diferencias pueden ser leves, como la utilización de formato de fechas MMDDYYYY en un archivo de logs y el uso de MM-DD-YYYY en otro. Pero también pueden ser complejas, como la identificación de un servicio por el nombre en un log, y la identificación de un servicio por el número de puerto en otro.
+
+Otro obstáculo en la gestión de logs es la inconsistencia de las marcas temporales. Cada host que genera logs suele hacer referencia a su reloj interno. Si el reloj de un host es inexacto, el timestamp que genera en los logs también lo es.
+
+Esto puede dificultar el análisis de los logs, particularmente cuando se analizan logs de varias computadoras. Por ejemplo podría suceder que la marca temporal de un evento A indique que dicho evento haya ocurrido 45 segundos antes que un evento B, cuando en realidad el evento B haya ocurrido varios minutos antes que el evento A.
+
+Otra complicación en la administración de logs es que distintas fuentes utilicen diferentes formatos para almacenar sus logs. Por ejemplo algunas herramientas pueden guardar sus logs como archivos de texto separados por comas o por tabs, utilizando el formato syslog o a través de SNMP (Simple Network Management Protocol). También pueden existir sistemas que almacenen logs con formato XML, JSON o como archivos binarios.
+
+Algunos registros de logs han sido diseñados para ser fácilmente leídos por seres humanos, y otros para ser fácilmente analizados por computadoras. Existen programas que usan formatos estándares para almacenar logs, y también existen otros que usan configuraciones propietarias. Además hay logs que no han sido diseñados para su almacenamiento local en un archivo, sino para ser transmitidos a un sistema de procesamiento, como por ejemplo los routers y switches que implementan el protocolo SNMP \cite[p.~23]{monitoreo:log_management_guide}.
+
+La naturaleza distribuida de los logs, el uso de formatos inconsistentes y el considerable volumen de información almacenado en los mismos consiguen que la gestión de la creación y almacenamiento de logs sea un desafío.
+
+Los administradores de las redes y sistemas son en la mayoría de las organizaciones los responsables de realizar el análisis de logs.
+
+Este análisis es tratado a menudo como una tarea de baja prioridad por parte de los administradores, y la razón de esto es que otras funciones como la solución de problemas operativos y la atención a vulnerabilidades de seguridad suelen requerir respuestas rápidas. Además, los administradores generalmente no cuentan con herramientas eficaces que permitan automatizar el proceso de análisis.
+
+Los logs pueden ser realmente muy útiles si se los gestiona de manera correcta. Por ejemplo pueden describir excepcionalidades que ocurran en nuestras infraestructuras, permitir el análisis del rendimiento de las aplicaciones y detectar errores en el sistema. También pueden ser una buena fuente de información para determinar las causas de un incidente.
+
+Además de describir un problema, los logs pueden ser beneficiosos para descubrir si se han tomado buenas decisiones de diseño de las aplicaciones y prevenir problemas futuros. Asimismo, un log puede contener información importante para generar alertas. En concreto, si los logs de un servidor web retorna un error HTTP con código 500, es porque una aplicación no está funcionando correctamente \cite[p.~30-31]{monitoreo:logging_and_log_management}.

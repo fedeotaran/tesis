@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt,titlepage,hidelinks,final]{article}
+
+\input{inc/paquetes}
+\input{inc/config}
+\input{inc/ambientes}
+\input{inc/comandos}
+
+% Generación de glosario e índices
+\loadglsentries{src/glosario/glosario}
+\makeglossaries
+\makeindex
+
+\begin{document}
+  % Carátula
+  \thispagestyle{empty} % Oculta numeración de las páginas
+  \setcounter{page}{0}
+  \caratula
+  \newpage
+
+  % Página en blanco
+  \newpage
+
+  % Meta previa al contenido principal
+  \setcounter{secnumdepth}{0}
+  \setcounter{tocdepth}{4}
+  \setcounter{page}{1}
+  \pagenumbering{Roman}
+
+  %   - Tabla de contenidos
+  \begingroup
+    \setlength{\parskip}{0pt}   % Sin separación entre párrafos
+    \setlength{\parindent}{0pt} % Sin sangría en cada párrafo
+    \tableofcontents
+  \endgroup
+  \newpage
+
+  % Contenido principal
+  \pagenumbering{arabic}      % Tipo de numeración de páginas a usar
+  %   - Introducción
+  \input{src/00-intro/_layout}
+  %   - Meta previa a capítulos
+  \setcounter{secnumdepth}{4}
+  %   - Capítulo I
+  \input{src/01-capitulo-1/_layout}
+  %   - Capítulo II
+  \input{src/02-capitulo-2/_layout}
+
+  % Apéndice
+  \appendix
+  \newpage
+  %   - Anexo I: Detalle de las aplicaciones cliente de la nube
+  \input{src/anexos/01-nombre-anexo}
+  \newpage
+  %   - Anexo II: Endpoints de la nube actual
+  \input{src/anexos/02-nombre-anexo}
+  \newpage
+  %   - Bibliografía
+  \bibliographystyle{plain}
+  \bibliography{src/bibliografia}
+  \newpage
+  %   - Glosario
+  \printglossary[title={Glosario}]
+  \newpage
+  %   - Lista de figuras
+  \listoffigures
+  %   - Lista de bloques de código
+  \listoflistings
+  %   - Lista de tablas
+  \listoftables
+\end{document}
