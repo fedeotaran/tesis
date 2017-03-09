@@ -1,44 +1,112 @@
 \subsection{Recolección de datos}
 \label{recoleccion_de_datos}
-El proceso de monitoreo comienza con la recolección de datos por agentes de recolección.
+El proceso de monitoreo comienza con la acumulación de datos por agentes de
+recolección.
 
-Un agente de recolección es un programa de software especializado que capta información significativa sobre entidades monitoreadas como hosts, bases de datos o dispositivos de red, la encapsula en entradas de datos cuantitativos y reporta estas entradas a un sistema de monitoreo en intervalos regulares.
+Un agente de recolección es un programa de software especializado que capta
+información significativa sobre entidades monitoreadas como pueden ser
+distintos tipos de terminales ,bases de datos o dispositivos de red, etc., la
+encapsula en entradas de datos cuantitativos y reporta estas entradas a un
+sistema de monitoreo en intervalos regulares.
 
-Estas entradas son transformadas en métricas que pueden ser almacenadas en series temporales, es decir, secuencias de datos, observaciones o valores ordenados cronológicamente.
+Estas entradas son transformadas en métricas que pueden ser almacenadas en
+series temporales, es decir, secuencias de datos, observaciones o valores
+ordenados cronológicamente.
 
-La recolección de datos puede ser un proceso continuo o también puede darse de forma periódica en intervalos regulares de tiempo, dependiendo la naturaleza de las mediciones y del costo de los recursos involucrados en dicha recolección de datos.
+La recolección de datos puede ser un proceso continuo o también puede darse de
+forma periódica en intervalos regulares de tiempo, dependiendo la naturaleza de
+las mediciones y del costo de los recursos involucrados en dicha recolección de
+datos.
 
-Según el conocimiento de la implementación de las entidades a monitorear, los agentes de recolección pueden clasificarse en caja blanca o caja negra.
+Según el conocimiento de la implementación de las entidades a monitorear, los
+agentes de recolección pueden clasificarse en caja blanca o caja negra.
 
-Los agentes de recolección de caja blanca son aquellos que trabajan sobre la estructura interna de las entidades a monitorear. Entre ellos podemos encontrar:
+Los agentes de recolección de caja blanca son aquellos que trabajan sobre la
+estructura interna de las entidades a monitorear. Entre ellos podemos
+encontrar:
 
 \begin{itemize}
-  \item \textbf{Log Parsers:} los analizadores gramaticales o parsers de logs extraen información específica proveniente de las entradas de los logs, tales como códigos de estado y tiempos de respuesta de las peticiones desde los logs de los servidores web.
+  \item \textbf{Log Parsers:} los analizadores gramaticales o parsers de logs
+    extraen información específica proveniente de las entradas de los logs,
+    tales como códigos de estado y tiempos de respuesta de las peticiones desde
+    los logs de los servidores web.
 
-  \item \textbf{Log Scanners:} los escaneadores de logs cuentan las ocurrencias de una cadena de caracteres en las líneas de los archivos de logs definidos por una expresión regular. Por ejemplo, para obtener información de errores regulares y críticos es posible calcular el número de ocurrencias de la expresión regular /ERROR|CRITICAL/ dentro de un archivo de logs.
+  \item \textbf{Log Scanners:} los escaneadores de logs cuentan las ocurrencias
+    de una cadena de caracteres en las líneas de los archivos de logs definidos
+    por una expresión regular. Por ejemplo, para obtener información de errores
+    regulares y críticos es posible calcular el número de ocurrencias de la
+    expresión regular /ERROR|CRITICAL/ dentro de un archivo de logs.
 
-  \item \textbf{Interface readers:} los lectores de interfaces leen e interpretan interfaces de sistemas y dispositivos. Un ejemplo son los lectores de temperatura y humedad de dispositivos especializados, o el pseudo sistema de ficheros /proc, que permite acceso a información del kernel sobre los procesos en sistemas UNIX.
+  \item \textbf{Interface readers:} los lectores de interfaces leen e
+    interpretan interfaces de sistemas y dispositivos. Un ejemplo son los
+    lectores de temperatura y humedad de dispositivos especializados, o el
+    pseudo sistema de ficheros /proc, que permite acceso a información del
+    kernel sobre los procesos en sistemas UNIX.
 \end{itemize}
 
-Los agentes de recolección de caja negra son aquellos que toman información sin adentrarse en la implementación de dichas entidades. Entre ellos se encuentran:
+Los agentes de recolección de caja negra son aquellos que toman información sin
+adentrarse en la implementación de dichas entidades. Entre ellos se encuentran:
 
 \begin{itemize}
-  \item \textbf{Probres:} son programas que se ejecutan fuera del sistema a monitorear enviando peticiones al sistema en cuestión para confirmar su respuesta. De esta forma trabajan las peticiones ping. Otro ejemplo de este tipo de agentes son las solicitudes HTTP hacia un sitio web con el propósito de verificar su disponibilidad.
+  \item \textbf{Probers:} son programas que se ejecutan fuera del sistema a
+    monitorear enviando peticiones al sistema en cuestión para confirmar su
+    respuesta. De esta forma trabajan las peticiones ping. Otro ejemplo de este
+    tipo de agentes son las solicitudes HTTP hacia un sitio web con el
+    propósito de verificar su disponibilidad.
 
-  \item \textbf{Sniffers:} son programas informáticos que registran la información que envían los periféricos. Por ejemplo, pueden monitorear interfaces de red y analizar estadísticas de tráfico como el número de paquetes transmitidos bajo un protocolo. \cite[p.~15-16]{monitoreo:efective_monitoring_and_alerting}
+  \item \textbf{Sniffers:} son programas informáticos que registran la
+    información que envían los periféricos. Por ejemplo, pueden monitorear
+    interfaces de red y analizar estadísticas de tráfico como el número de
+    paquetes transmitidos bajo un protocolo.
+    \cite[p.~15-16]{monitoreo:efective_monitoring_and_alerting}
 \end{itemize}
 
-En el marco de una infraestructura de software, los datos a recolectar por un agente pueden ser obtenidos de varias fuentes. Por ejemplo, de una computadora es posible obtener información del uso de CPU o espacio de disco utilizado, utilización de memoria. A partir del tráfico web es posible medir el uso del ancho de banda por usuario, aplicación, protocolo y grupo de direcciones IP. Se puede medir el rendimiento y uso de una aplicación web, y también reglas de negocio, como por ejemplo cantidad de hitos alcanzados.
+En el marco de una infraestructura de software, los datos a recolectar por un
+agente pueden ser obtenidos de varias fuentes. Por ejemplo, de una computadora
+es posible obtener información del uso de CPU o espacio de disco utilizado,
+utilización de memoria. A partir del tráfico web es posible medir el uso del
+ancho de banda por usuario, aplicación, protocolo y grupo de direcciones IP. Se
+puede medir el rendimiento y uso de una aplicación web, y también reglas de
+negocio, como por ejemplo cantidad de hitos alcanzados.
 
-Estas métricas pueden ser útiles para usuarios con diferentes necesidades. Por ejemplo, un sistema de monitoreo podría ser usado por un gerente, un líder de proyecto, un desarrollador, un encargado de soporte, un analista de datos y un cliente.
+Estas métricas pueden ser útiles para usuarios con diferentes necesidades. Por
+ejemplo, un sistema de monitoreo podría ser usado por un gerente, un líder de
+proyecto, un desarrollador, un responsable de IT, un analista de datos y un
+cliente.
 
-Teniendo en cuenta el rol que cumple una persona en un proyecto, podemos averiguar qué información puede serle útil y a partir de allí elegir el mejor método para almacenar esta información, analizar cómo construirla a partir de los datos y localizar dónde y cómo obtener dichos datos.
+Teniendo en cuenta el rol que cumple una persona en un proyecto, podemos
+averiguar qué información puede serle útil y a partir de allí elegir el mejor
+método para almacenar esta información, analizar cómo construirla a partir de
+los datos y localizar dónde y cómo obtener dichos datos.
 
-Al encargado de soporte le podría servir tener un tablero donde se observe la salud de los sistemas en tiempo real. Además podría interesarle conocer la disponibilidad de los servicios, la cantidad de tráfico en la red, el uso de CPU y memoria, el uso de memoria SWAP y la cantidad de disco utilizado.
+Al responsable de IT le podría servir tener un tablero donde se observe la
+salud de los sistemas en tiempo real. Además podría interesarle conocer la
+disponibilidad de los servicios, la cantidad de tráfico en la red, el uso de
+CPU y memoria, el uso de memoria SWAP y la cantidad de disco utilizado.
 
-Un líder de proyecto puede querer disponer de gráficos donde se visualice la cantidad de despliegues por semana, el número de problemas resueltos por los programadores, el rendimiento de la aplicación y el tiempo promedio de respuesta de la aplicación.
+Un líder de proyecto puede querer disponer de gráficos donde se visualice la
+cantidad de despliegues por semana, el número de problemas resueltos por los
+programadores, el rendimiento de la aplicación y el tiempo promedio de
+respuesta de la aplicación.
 
-Un desarrollador puede encontrar utilidad en la visibilización del rendimiento de diferentes funcionalidades de la aplicación, la eficiencia en tiempo de los accesos a las bases de datos y la cantidad de accesos a la aplicación en distintos períodos de tiempo. Además puede interesarle contar con información del comportamiento de los recursos del servidor en el ambiente productivo. Podemos decir que al desarrollador le interesan principalmente las métricas de aplicación.
+Un desarrollador puede encontrar utilidad en la visibilización del rendimiento
+de diferentes funcionalidades de la aplicación, la eficiencia en tiempo de los
+accesos a las bases de datos y la cantidad de accesos a la aplicación en
+distintos períodos de tiempo. Además puede interesarle contar con información
+del comportamiento de los recursos del servidor en el ambiente productivo.
+Podemos decir que al desarrollador le interesan principalmente las métricas de
+aplicación.
 
-Las métricas de negocio están por sobre las métricas de la aplicación aunque tienen un vínculo bastante estrecho. Por ejemplo, si se piensa medir el tiempo de ejecución de una transacción de pago como métrica de aplicación, podrían realizarse métricas de negocio con el contenido de estas solicitudes: número de nuevos usuarios/clientes, número de ventas, ventas por valor o ubicación, o cualquier otra cosa que ayude a medir el estado de un negocio. Estas métricas están compuestas del tipo de información que pueden interesarle al propietario del sistema \cite[p.~446]{monitoreo:art_of_monitoring}. Hay que tener en cuenta, como dice autor en The Art Of Monitoring, que “El primer cliente de su sistema de monitoreo es el negocio. El monitoreo existe para apoyar el negocio y para asegurarse de que continúa haciendo su trabajo.” \cite[p.~8]{monitoreo:art_of_monitoring}
+Las métricas de negocio están por sobre las métricas de la aplicación aunque
+tienen un vínculo bastante estrecho. Por ejemplo, si se piensa medir el tiempo
+de ejecución de una transacción de pago como métrica de aplicación, podrían
+realizarse métricas de negocio con el contenido de estas solicitudes: número de
+nuevos usuarios/clientes, número de ventas, ventas por valor o ubicación, o
+cualquier otra cosa que ayude a medir el estado de un negocio. Estas métricas
+están compuestas del tipo de información que pueden interesarle al propietario
+del sistema \cite[p.~446]{monitoreo:art_of_monitoring}. Hay que tener en
+cuenta, como dice autor en The Art Of Monitoring, que “El primer cliente de su
+sistema de monitoreo es el negocio. El monitoreo existe para apoyar el negocio
+y para asegurarse de que continúa haciendo su trabajo.”
+\cite[p.~8]{monitoreo:art_of_monitoring}
 

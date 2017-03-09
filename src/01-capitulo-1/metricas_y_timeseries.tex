@@ -1,80 +1,183 @@
-\subsection{Métricas y time-series}
+\subsection{Métricas y series de tiempo}
 \label{metricas_y_timeseries}
-Las métricas de monitoreo son colecciones de entradas de datos numéricos organizadas en grupos de listas consecutivas y cronológicamente ordenadas. Cada entrada de datos consiste en un valor de medición registrado, la marca de tiempo en la que tuvo lugar la medición y un conjunto de propiedades que la describen.
+Las métricas de monitoreo son colecciones de entradas de datos numéricos
+organizadas en grupos de listas consecutivas y cronológicamente ordenadas. Cada
+entrada de datos consiste en un valor de medición registrado, la marca de
+tiempo en la que tuvo lugar la medición y un conjunto de propiedades que la
+describen.
 
-Cuando las entradas de datos de una métrica son segmentadas en intervalos de tiempo fijos y convertidas en un estadístico mediante una transformación matemática, pueden ser presentadas como series de tiempo e interpretadas en gráficos bidimensionales.
+Cuando las entradas de datos de una métrica son segmentadas en intervalos de
+tiempo fijos y convertidas en un estadístico mediante una transformación
+matemática, pueden ser presentadas como series de tiempo e interpretadas en
+gráficos bidimensionales.
 
-El largo de los intervalos entre valores, también llamado granularidad, depende de los tipos de mediciones y el tipo de información que se quiere extraer. Intervalos comunes incluyen 1, 5, 15 y 60 minutos, pero también es posible mostrar intervalos tan pequeños como un segundo y tan extensos como un día.
+El largo de los intervalos entre valores, también llamado granularidad, depende
+de los tipos de mediciones y el tipo de información que se quiere extraer.
+Intervalos comunes incluyen 1, 5, 15 y 60 minutos, pero también es posible
+mostrar intervalos tan pequeños como un segundo y tan extensos como un día.
 
-La ventaja más importante de usar time-series para el monitoreo es su propiedad de ilustrar con precisión el proceso de cambio en un contexto de datos históricos. Son una herramienta indispensable para encontrar la respuesta a la pregunta crítica: ¿Qué ha cambiado y cuándo?
+La ventaja más importante de usar datos de serie de tiempo para el monitoreo es
+su propiedad de ilustrar con precisión el proceso de cambio en un contexto de
+datos históricos. Son una herramienta indispensable para encontrar la respuesta
+a la pregunta crítica: ¿Qué ha cambiado y cuándo?
 
-Los tiemeseries tienen dos dimensiones: una de datos y otra de tiempo. Esto significa que dos time-series independientes compartirán siempre la dimensión de tiempo. Es por esto que los time-series son útiles para destacar relaciones correlativas entre datos de muchas fuentes.
+Los datos de este tipo tienen dos dimensiones: una de datos propiamente dicha y
+otra de tiempo. Esto significa que dos registros independientes compartirán
+siempre la dimensión de tiempo. Es por esto que este tipo de registros son
+útiles para destacar relaciones correlativas entre datos de muchas fuentes.
 
 \subsubsection*{Estadísticos}
 \label{estadisticos}
 
-Las métricas de monitoreo almacenan las entradas de datos y describen sus propiedades. El proceso de generar y graficar series de tiempo implica recuperar un subconjunto de entradas de datos especificando un conjunto de propiedades, dividiéndolas en intervalos de tiempo espaciados uniformemente, y matemáticamente resumir entradas de datos en cada intervalo. Esto es realizado con el uso de estadísticos. Algunos de los estadísticos de uso más común son:
+Las métricas de monitoreo almacenan las entradas de datos y describen sus
+propiedades. El proceso de generar y graficar series de tiempo implica
+recuperar un subconjunto de entradas de datos especificando un conjunto de
+propiedades, dividiéndolas en intervalos de tiempo espaciados uniformemente, y
+matemáticamente resumir entradas de datos en cada intervalo. Esto es realizado
+con el uso de estadísticos. Algunos de los estadísticos de uso más común son:
 
 \begin{itemize}
   \item La cantidad de entradas por intervalo.
   \item La suma de valores de todas las entradas.
   \item El valor promedio de todas las entradas.
-  \item Los percentiles (0-100) de los valores entrada, incluyendo el mínimo (p0), el máximo (p100) y la mediana (p50).
-  \item La desviación estándar del promedio en la distribución de entradas recolectadas.
+  \item Los percentiles (0-100) de los valores entrada, incluyendo el mínimo
+    (p0), el máximo (p100) y la mediana (p50).
+  \item La desviación estándar del promedio en la distribución de entradas
+    recolectadas.
 \end{itemize}
 
-Los estadísticos describen conjuntos de entradas observadas por sus centros (promedio o mediana), el total (suma o cantidad), y la distribución y propagación (percentiles y desviaciones). Pueden resumir grandes conjuntos de datos de forma compacta y concisa. Convertir muchos números en uno sólo causa la pérdida de información, pero el resumen suele ser lo suficientemente preciso como para sacar conclusiones confiables.
+Los estadísticos describen conjuntos de entradas observadas por sus centros
+(promedio o mediana), el total (suma o cantidad), y la distribución y
+propagación (percentiles y desviaciones). Pueden resumir grandes conjuntos de
+datos de forma compacta y concisa. Convertir muchos números en uno sólo causa
+la pérdida de información, pero el resumen suele ser lo suficientemente preciso
+como para sacar conclusiones confiables.
 
 \subsubsection*{Distribución de frecuencia y percentiles}
 \label{distribucion_de_frecuencia_y_percentiles}
 
-La distribución de frecuencia es un resumen de un conjunto de datos que combina elementos numéricos en grupos a través de un proceso conocido como binning y presenta los grupos de manera que permite a las personas ver su tamaño relativo de forma rápida. Esta distribución es comúnmente ilustrada como un histograma.
+La distribución de frecuencia es un resumen de un conjunto de datos que combina
+elementos numéricos en grupos a través de un proceso conocido como binning.
+Esta distribución puede ser ilustrada como un histograma, que los presenta
+de manera que permite a las personas ver su tamaño relativo de forma rápida.
 
-Los histogramas a menudo caen a lo largo de una distribución normal, con sus columnas encajando justo debajo de la famosa curva gaussiana. Pero los datos del sistema no suelen ser tan regulares y suelen mostrar una cola larga del lado derecho; lo que significa que la distribución se encuentra inclinada hacia el lado izquierdo.
+Los histogramas a menudo caen a lo largo de una distribución normal, con sus
+columnas encajando justo debajo de la famosa curva gaussiana. Pero los datos
+del sistema no suelen ser tan regulares y suelen mostrar una cola larga del
+lado derecho; lo que significa que la distribución se encuentra inclinada hacia
+el lado izquierdo.
 
-Hay una razón simple para eso: el límite inferior en el rendimiento es un límite duro: el mejor caso de tiempo de respuesta debe ser siempre más de cero unidades de tiempo. Su límite superior es uno blando: teóricamente se puede esperar por siempre.
+Hay una razón simple para eso: el límite inferior en el rendimiento es un
+límite duro: el mejor caso de tiempo de respuesta debe ser siempre más de cero
+unidades de tiempo. Su límite superior es uno blando: teóricamente se puede
+esperar por siempre.
 
-Los estadísticos graficados como valores en el tiempo son convenientes para observar cambio, pero las series de tiempo no revelan necesariamente la verdadera naturaleza de los datos. Es posible extraer datos de entradas provenientes de análisis de logs sin conexión y presentarlos en un histograma para mostrar su frecuencia relativa. Esta información da a los operadores una buena idea de qué valor esperar de una entrada típica y cómo se ve la distribución de entradas detrás de cada valor resumido.
+Los estadísticos graficados como valores en el tiempo son convenientes para
+observar cambio, pero las series de tiempo no revelan necesariamente la
+verdadera naturaleza de los datos. Es posible extraer datos de entradas
+provenientes de análisis de logs sin conexión y presentarlos en un histograma
+para mostrar su frecuencia relativa. Esta información da a los operadores una
+buena idea de qué valor esperar de una entrada típica y cómo se ve la
+distribución de entradas detrás de cada valor resumido.
 
-Una forma alternativa de resumir la distribución de frecuencias es un gráfico de percentiles. Para cualquier conjunto de entradas, un percentil es un número real en el rango de 0 a 100 con un valor correspondiente de ese conjunto. El número en un percentil particular muestra cuántos valores son más pequeños que el valor de ese percentil.
+Una forma alternativa de resumir la distribución de frecuencias es un gráfico
+de percentiles. Para cualquier conjunto de entradas, un percentil es un número
+real en el rango de 0 a 100 con un valor correspondiente de ese conjunto. El
+número en un percentil particular muestra cuántos valores son más pequeños que
+el valor de ese percentil.
 
-Los percentiles se calculan clasificando el conjunto de entradas por valor en orden ascendente, encontrando el rango para un percentil dado (es decir, la dirección del valor en la lista ordenada) y buscando el valor por rango.
+Los percentiles se calculan clasificando el conjunto de entradas por valor en
+orden ascendente, encontrando el rango para un percentil dado (es decir, la
+dirección del valor en la lista ordenada) y buscando el valor por rango.
 
-El percentil 0 es la medida del valor más bajo (el primer elemento de una lista ordenada, o sea el mínimo), y el percentil 100 es el valor máximo registrado (el último elemento de la lista, o sea el máximo). Al percentil 50 se lo conoce comúnmente como la mediana, y representa el valor medio en el conjunto
+El percentil 0 es la medida del valor más bajo (el primer elemento de una lista
+ordenada, o sea el mínimo), y el percentil 100 es el valor máximo registrado
+(el último elemento de la lista, o sea el máximo). Al percentil 50 se lo conoce
+comúnmente como la mediana, y representa el valor medio en el conjunto
 
-Los percentiles facilitan la interpretación de la distribución; Por ejemplo, para medir el tiempo de respuesta un valor p98 de 3 segundos significa que el 98% de todas las solicitudes se completó en 3 segundos o menos. Por el contrario, el 2% de las solicitudes más lentas tomaron 3 segundos o más.
+Los percentiles facilitan la interpretación de la distribución; Por ejemplo,
+para medir el tiempo de respuesta el valor de percentil 98 en 3 segundos
+significa que el 98\% de todas las solicitudes se completó en 3 segundos o
+menos. Por el contrario, el 2\% de las solicitudes más lentas tomaron 3
+segundos o más.
 
 \subsubsection*{Tasa de cambio}
 \label{tasa_de_cambio}
 
-La tasa de cambio ilustra el grado de cambio entre valores en una serie de tiempo u otra curva. Efectivamente, cuando la pendiente del gráfico original está aumentando, su tasa de cambio tiene valores positivos. Por el contrario, cuando la pendiente desciende, los valores de la serie de tasas de cambios son negativos.
+La tasa de cambio ilustra el grado de cambio entre valores en una serie de
+tiempo u otra curva. Efectivamente, cuando la pendiente del gráfico original
+está aumentando, su tasa de cambio tiene valores positivos. Por el contrario,
+cuando la pendiente desciende, los valores de la serie de tasas de cambios son
+negativos.
 
-La tasa de cambio derivada de una serie de tiempos puede ser presentada como otra serie de tiempo. La tasa de cambio es una herramienta conceptual útil para ilustrar niveles de crecimiento o disminución con el tiempo. Es usada extensivamente con métricas de conteo para expresar el número de incrementos del contador por intervalo de tiempo.
+La tasa de cambio derivada de una serie de tiempos puede ser presentada como
+otra serie de tiempo. La tasa de cambio es una herramienta conceptual útil para
+ilustrar niveles de crecimiento o disminución con el tiempo. Es usada
+extensivamente con métricas de conteo para expresar el número de incrementos
+del contador por intervalo de tiempo.
 
 
 \subsection*{Granularidad de tiempo}
+Pero que vos decís, hay grupos dentro del feminismo (que no creo que sean ni la mayoría)  que creen que esa es la forma correcta de hacer activismo.
 \label{granularidad_de_tiempo}
 
-Los datos en un time-series son presentados en una granularidad de tiempo fijo. Una granularidad fina se traduce en períodos cortos de valores. Cuanto más gruesa sea la granularidad, más largo será el período.
+Los datos en una funsión de serie de tiempos son presentados en una
+granularidad de tiempo fijo. Una granularidad fina se traduce en períodos
+cortos de valores. Cuanto más gruesa sea la granularidad, más largo será el
+período.
 
-Las métricas de granularidad fina tienden a revelar el momento exacto en que ocurrió un evento y, por lo tanto, son útiles para describir líneas de tiempo y encontrar dirección en las relaciones causales. Sin embargo podrían ser más costosas de almacenar. 
+Las métricas de granularidad fina tienden a revelar el momento exacto en que
+ocurrió un evento y, por lo tanto, son útiles para describir líneas de tiempo y
+encontrar dirección en las relaciones causales. Sin embargo podrían ser más
+costosas de almacenar.
 
-Las métricas de granularidad gruesa, por el otro lado, son mucho más adecuadas para ilustrar tendencias.
+Las métricas de granularidad gruesa, por el otro lado, son mucho más adecuadas
+para ilustrar tendencias.
 
-La selección de la granularidad correcta para presentar una métrica es importante para una interpretación precisa de los datos. Tanto las medidas demasiado granulares como las demasiado gruesas pueden oscurecer el punto que está tratando de transmitir.
+La selección de la granularidad correcta para presentar una métrica es
+importante para una interpretación precisa de los datos. Tanto las medidas
+demasiado granulares como las demasiado gruesas pueden oscurecer el punto que
+está tratando de transmitir.
 
-Algunos sistemas de monitoreo usan intervalos constantes predefinidos y no permiten al usuario modificar su granularidad, mientras que otros sistemas permiten especificar períodos arbitrarios. 
+Algunos sistemas de monitoreo usan intervalos constantes predefinidos y no
+permiten al usuario modificar su granularidad, mientras que otros sistemas
+permiten especificar períodos arbitrarios.
 
-Sin embargo, siempre se requiere un intervalo mínimo. Incluso si fuéramos capaces de presentar eventos en una escala de tiempo continuo (con una granularidad infinitesimalmente fina), probablemente no sería muy útil.
+Sin embargo, siempre se requiere un intervalo mínimo. Incluso si fuéramos
+capaces de presentar eventos en una escala de tiempo continuo (con una
+granularidad infinitesimalmente fina), probablemente no sería muy útil.
 
-En el mundo real no pueden ocurrir dos eventos exactamente al mismo tiempo, por lo que el registro de eventos en una escala continua no podría hacer que el número de eventos se acumulara en el gráfico. el recuento máximo de eventos en nuestra serie de tiempos continua nunca excedería 1 para cualquier valor dado. Pasando al otro extremo, si el intervalo de datos es extremadamente largo, como un año, la salida será una enorme colección de eventos. Eso puede ser algo útil para los propósitos de análisis de datos pero no para monitoreo.
+En el mundo real no pueden ocurrir dos eventos exactamente al mismo tiempo, por
+lo que el registro de eventos en una escala continua no podría hacer que el
+número de eventos se acumulara en el gráfico.
+
+Pasando al otro extremo, si el intervalo de datos es extremadamente largo, como
+un año, la salida será un pequeño número de enormes colecciones de eventos. Eso
+puede ser algo útil para los propósitos de análisis de datos pero no para
+monitoreo.
 
 \subsection*{Agregación de métricas}
 \label{agregacion_de_metricas}
 
-En sistemas distribuidos, las entradas de datos para la misma métrica provienen de muchas fuentes. Por ejemplo, en un grupo de servidores web detrás de un balanceador de carga, reportando estadísticas acerca de solicitudes siendo servidas, los datos de solicitud podrían ser vistos en la forma de múltiples series de tiempo, una por cada servidor web, graficadas unas contra otras. Sin embargo, la agregación podría combinar los resultados de los servidores web en un único time-series con un total de todas las solicitudes.
+En sistemas distribuidos, las entradas de datos para la misma métrica provienen
+de muchas fuentes. Por ejemplo, en un grupo de servidores web detrás de un
+balanceador de carga, reportando estadísticas acerca de solicitudes siendo
+servidas, los datos de solicitud podrían ser vistos en la forma de múltiples
+funciones de series de tiempo, una por cada servidor web, graficadas unas
+contra otras. Sin embargo, la agregación podría combinar los resultados de los
+servidores web en una única secuencia de registros de serie de tiempos con un
+total de todas las solicitudes.
 
-La agregación permite obtener una vista general de los datos y simplifica el gráfico, pero la capacidad de explorar para ver cada fuente de datos no es menos importante. Si  uno de los servidores deja de tomar solicitudes, reportará valores en cero, o directamente dejará de enviar entradas por completo. La falla podría ser detectada mirando las métricas individuales del servidor, pero no necesariamente se mostrarían en el gráfico agregado.
+La agregación permite obtener una vista general de los datos y simplifica el
+gráfico, pero la capacidad de explorar para ver cada fuente de datos no es
+menos importante. Si  uno de los servidores deja de tomar solicitudes,
+reportará valores en cero, o directamente dejará de enviar entradas por
+completo. La falla podría ser detectada mirando las métricas individuales del
+servidor, pero no necesariamente se mostrarían en el gráfico agregado.
 
-Muchas fallas, sin embargo, son mucho más sutiles y se manifiestan a través de pequeñas depresiones en el número de peticiones en lugar de su desaparición completa. En estos casos, es también deseable agregar valores de todas las fuentes y presentarlos como una única métrica para mostrar el efecto acumulativo. \cite[p.~21-25]{monitoreo:efective_monitoring_and_alerting}
+Muchas fallas, sin embargo, son mucho más sutiles y se manifiestan a través de
+pequeñas depresiones en el número de peticiones en lugar de su desaparición
+completa. En estos casos, es también deseable agregar valores de todas las
+fuentes y presentarlos como una única métrica para mostrar el efecto
+acumulativo \cite[p.~21-25]{monitoreo:efective_monitoring_and_alerting}.
 
