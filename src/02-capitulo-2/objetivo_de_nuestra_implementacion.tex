@@ -3,8 +3,8 @@
 
 Creemos importante construir una infraestructura de monitoreo que nos permita
 obtener valiosa información sobre las reglas de negocio de las aplicaciones que
-se desarrollan en la oficina, de forma que permita al equipo de trabajo de la
-oficina contar con datos duros para tomar decisiones de negocio más confiables.
+se desarrollan en la oficina, de forma que permita al equipo de trabajo contar
+con datos duros para tomar decisiones de negocio más confiables.
 
 Además, los desarrolladores del laboratorio creen que sería útil contar con una
 herramienta de recolección y análisis de información sobre el rendimiento de
@@ -13,9 +13,9 @@ cuellos de botella en las aplicaciones.
 
 A las personas encargadas de mantener la infraestructura de la oficina les
 interesa tener un seguimiento de datos de uso del sistema operativo y las
-computadoras, como el uso de CPU, la cantidad de memoria utilizada y
-disponible, número de tareas en espera, uso de la memoria swap, cantidad de
-procesos, espacio utilizado en disco.
+computadoras, como el uso de \gls{acro:cpu}, la cantidad de memoria utilizada y
+disponible, número de tareas en espera, uso de la memoria \gls{term:swap},
+cantidad de procesos, espacio utilizado en disco.
 
 Anteriormente los desarrolladores no contaban con una implementación formal de
 monitoreo, sino que recurrían a diversas técnicas para llevar a cabo el
@@ -23,33 +23,35 @@ seguimiento de las aplicaciones, detectar errores y prevenir su aparición.
 
 Una de las técnicas utilizadas por el grupo de desarrollo era la búsqueda y
 lectura de registros de logs de forma manual. El programador se conectaba a
-través de SSH al servidor de la aplicación y visualizaba los logs directamente
-mediante la consola.
+través de \gls{term:ssh} al servidor de la aplicación y visualizaba los logs
+directamente mediante la consola.
 
 Si el desarrollador requería conocer información en tiempo real de los recursos
 del servidor donde estaban corriendo las aplicaciones, éste debía conectarse al
-servidor y ver la información utilizando el comando htop.
+servidor y ver la información utilizando el comando \gls{term:htop}.
 
 Para obtener una devolución del funcionamiento de las consultas a bases de
 datos se utilizaba una herramienta que permitía configurar el envío de reportes
-a través de correo electrónico usando la funcionalidad slow\_query\_log
-provista por MySQL. Esta funcionalidad guarda información de consultas SQL que
-toman mucho tiempo en llevarse a cabo. Este tiempo es por defecto de 10
-segundos, pero puede ser definido por un usuario.
+a través de correo electrónico usando la funcionalidad
+\texttt{slow\_query\_log} provista por \gls{term:mysql}. Esta funcionalidad
+guarda información de consultas que toman mucho tiempo en llevarse a cabo. Este
+tiempo es por defecto de 10 segundos, pero puede ser definido por un usuario.
 
-Para ser notificados de errores en producción de las aplicaciones Rails, los
-programadores hacían uso de la gema Exception Notifier. Esta librería permite
-configurar en el código de la aplicación, una dirección de correo para recibir
-las notificaciones de errores en la aplicación, y se acciona cuando la
-aplicación devuelve a un usuario un código HTTP de error.
+Para ser notificados de errores en producción de las aplicaciones
+\gls{term:ror}, los programadores hacían uso de la \gls{term:gema} Exception
+Notifier\footnote{Cf.
+\url{https://github.com/smartinez87/exception_notification}}. Esta librería
+permite configurar en el código de la aplicación, una dirección de correo para
+recibir las notificaciones de errores en la aplicación, y se acciona cuando la
+aplicación devuelve a un usuario un código \gls{acro:http} de error.
 
 La notificación cuenta con valiosa información del contexto de la aplicación.
 Algunos ejemplos son el tipo de solicitud, los datos de la sesión del usuario,
-los parámetros de la petición y también el stack trace, que contiene
+los parámetros de la petición y también el \gls{term:stack_trace}, que contiene
 información de las llamadas a los métodos que dieron origen al error.
 
 Para realizar recolección, análisis de datos y generación de alertas, en la
-oficina se utiliza las herramientas de monitoreo Graphite[*] y Nagios[*].
+oficina se utiliza las herramientas de monitoreo Graphite y Nagios.
 
 Graphite es una herramienta libre y de código abierto que sirve para monitorear
 y graficar la performance de sistemas de computadoras. Graphite recolecta,
@@ -57,7 +59,7 @@ almacena y muestra datos de tipo time-series en tiempo real.
 
 Nagios es una aplicación libre y de código abierto que monitoreo sistemas,
 redes e infraestructura. Nagios ofrece monitoreo y servicios de alertas para
-servidores, switches, aplicaciones y servicios.
+servidores, \eng{switches}, aplicaciones y servicios.
 
 Uno de los problemas que identificamos como consecuencia del uso de estas
 técnicas es que estos mecanismos generan una notificación cada vez que ocurría
@@ -70,7 +72,7 @@ monitoreo en el laboratorio.
 
 Opinamos que la oficina podría beneficiarse con una infraestructura de
 monitoreo que brinde información útil a los usuarios, sea fácil de utilizar,
-pueda adaptarse a una arquitectura de contenedores de Docker y sea dinámica y
+pueda adaptarse a una arquitectura de \glspl{term:contenedor} y sea dinámica y
 escalable.
 
 Nuestro primer paso para implementar la nueva infraestructura de monitoreo será
@@ -79,7 +81,7 @@ el formato de los logs y centralizar los logs que provengan de diversas fuentes
 en un único lugar.
 
 Luego buscaremos recolectar métricas en tiempo real que provengan del uso de
-las aplicaciones y los contenedores de docker, y obtener de ellos valiosa
+las aplicaciones y los \glspl{term:contenedor}, y obtener de ellos valiosa
 información que nos permita prevenir errores y tomar mejores decisiones de
 diseño.
 
@@ -87,18 +89,19 @@ La infraestructura de aplicaciones y servicios que queremos monitorear es
 dinámica, escalable, construida de forma automatizada y creada a partir de
 código reutilizable. Intentaremos lograr una forma de monitoreo que pueda
 adaptarse a las características de esta infraestructura, por lo que
-investigaremos cómo utilizar contenedores de docker para implementar algunos
-componentes del sistema de monitoreo, y también bases de datos que permitan
-crecimiento horizontal.
+investigaremos cómo utilizar \glspl{term:contenedor} de \gls{term:docker} para
+implementar algunos componentes del sistema de monitoreo, y también bases de
+datos que permitan crecimiento horizontal.
 
 Con el objetivo de impulsar un sistema que brinde información útil a los
 usuarios, trataremos de aplicar algunas de las técnicas de visualización
-efectiva mencionadas en el capítulo anterior durante la creación de tableros
-con gráficos.
+efectiva mencionadas en el capítulo anterior (\autoref{visualizacion_efectiva})
+durante la creación de tableros con gráficos.
 
 Finalmente, nos ocuparemos de implementar una solución de alertas de mayor
-utilidad que evite falsos positivos y negativos y brinde notificaciones útiles
-a los usuarios indicando concretamente el problema y ayudándolos a prevenirlos.
+utilidad que evite, en la medida de lo posible, falsos positivos y negativos y
+brinde notificaciones útiles a los usuarios indicando concretamente el problema
+y/o ayudándolos a prevenirlos.
 
 En los próximos capítulos explicaremos la forma en que desarrollamos una
 infraestructura de monitoreo que intente cumplir con las características
