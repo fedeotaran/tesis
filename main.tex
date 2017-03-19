@@ -8,7 +8,7 @@
 % Generación de glosario e índices
 \loadglsentries{src/glosario/glosario}
 \makeglossaries
-\makeindex
+\makeindex[name=palabras,title=Indice de palabras]
 
 \begin{document}
   % Carátula
@@ -60,6 +60,9 @@
   \newpage
   %   - Glosario
   \printglossary[title={Glosario}]
+  \newpage
+  %   - Glosario
+  \printindex[palabras]
   \newpage
   %   - Lista de figuras
   \listoffigures

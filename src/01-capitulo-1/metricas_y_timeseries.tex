@@ -34,72 +34,78 @@ propiedades. El proceso de generar y graficar series de tiempo implica
 recuperar un subconjunto de entradas de datos especificando un conjunto de
 propiedades, dividiéndolas en intervalos de tiempo espaciados uniformemente, y
 matemáticamente resumir entradas de datos en cada intervalo. Esto es realizado
-con el uso de estadísticos. Algunos de los estadísticos de uso más común son:
+con el uso de \glspl{term:estadistico}. Algunos de los estadísticos de uso más
+común son:
 
 \begin{itemize}
   \item La cantidad de entradas por intervalo.
   \item La suma de valores de todas las entradas.
   \item El valor promedio de todas las entradas.
-  \item Los percentiles (0-100) de los valores entrada, incluyendo el mínimo
-    (p0), el máximo (p100) y la mediana (p50).
-  \item La desviación estándar del promedio en la distribución de entradas
-    recolectadas.
+  \item Los \glspl{term:percentil}\footnote{pueden tener valores de 0 a 100} de
+    los valores entrada, incluyendo el mínimo\footnote{p0}, el
+    máximo\footnote{p100} y la mediana\footnote{p50}.
+  \item La \gls{term:desviacionestandar} del promedio en la distribución de
+    entradas recolectadas.
 \end{itemize}
 
-Los estadísticos describen conjuntos de entradas observadas por sus centros
-(promedio o mediana), el total (suma o cantidad), y la distribución y
-propagación (percentiles y desviaciones). Pueden resumir grandes conjuntos de
-datos de forma compacta y concisa. Convertir muchos números en uno sólo causa
-la pérdida de información, pero el resumen suele ser lo suficientemente preciso
-como para sacar conclusiones confiables.
+Los \glspl{term:estadistico} describen conjuntos de entradas observadas por sus
+centros (promedio o mediana), el total (suma o cantidad), y la distribución y
+propagación (\glspl{term:percentil} y desviaciones). Pueden resumir grandes
+conjuntos de datos de forma compacta y concisa. Convertir muchos números en uno
+sólo causa la pérdida de información, pero el resumen suele ser lo
+suficientemente preciso como para sacar conclusiones confiables.
 
-\subsubsection*{Distribución de frecuencia y percentiles}
+\subsubsection*{Distribución de frecuencia y \glspl{term:percentil}}
 \label{distribucion_de_frecuencia_y_percentiles}
 
 La distribución de frecuencia es un resumen de un conjunto de datos que combina
-elementos numéricos en grupos a través de un proceso conocido como binning.
-Esta distribución puede ser ilustrada como un histograma, que los presenta
-de manera que permite a las personas ver su tamaño relativo de forma rápida.
+elementos numéricos en grupos a través de un proceso conocido como
+\eng{binning}. Esta distribución puede ser ilustrada como un \gls{term:histograma}, que
+los presenta de manera que permite a las personas ver su tamaño relativo de
+forma rápida.
 
-Los histogramas a menudo caen a lo largo de una distribución normal, con sus
-columnas encajando justo debajo de la famosa curva gaussiana. Pero los datos
-del sistema no suelen ser tan regulares y suelen mostrar una cola larga del
-lado derecho; lo que significa que la distribución se encuentra inclinada hacia
-el lado izquierdo.
+Los \glspl{term:histograma} a menudo caen a lo largo de una distribución
+normal, con sus columnas encajando justo debajo de la famosa curva gaussiana.
+Pero los datos del sistema no suelen ser tan regulares y suelen mostrar una
+cola larga del lado derecho; lo que significa que la distribución se encuentra
+inclinada hacia el lado izquierdo.
 
 Hay una razón simple para eso: el límite inferior en el rendimiento es un
 límite duro: el mejor caso de tiempo de respuesta debe ser siempre más de cero
 unidades de tiempo. Su límite superior es uno blando: teóricamente se puede
 esperar por siempre.
 
-Los estadísticos graficados como valores en el tiempo son convenientes para
-observar cambio, pero las series de tiempo no revelan necesariamente la
-verdadera naturaleza de los datos. Es posible extraer datos de entradas
-provenientes de análisis de logs sin conexión y presentarlos en un histograma
-para mostrar su frecuencia relativa. Esta información da a los operadores una
-buena idea de qué valor esperar de una entrada típica y cómo se ve la
-distribución de entradas detrás de cada valor resumido.
+Los \glspl{term:estadistico} graficados como valores en el tiempo son
+convenientes para observar cambio, pero las series de tiempo no revelan
+necesariamente la verdadera naturaleza de los datos. Es posible extraer datos
+de entradas provenientes de análisis de logs sin conexión y presentarlos en un
+\gls{term:histograma} para mostrar su frecuencia relativa. Esta información da
+a los operadores una buena idea de qué valor esperar de una entrada típica y
+cómo se ve la distribución de entradas detrás de cada valor resumido.
 
 Una forma alternativa de resumir la distribución de frecuencias es un gráfico
-de percentiles. Para cualquier conjunto de entradas, un percentil es un número
-real en el rango de 0 a 100 con un valor correspondiente de ese conjunto. El
-número en un percentil particular muestra cuántos valores son más pequeños que
-el valor de ese percentil.
+de \glspl{term:percentil}. Para cualquier conjunto de entradas, un
+\gls{term:percentil} es un número real en el rango de 0 a 100 con un valor
+correspondiente de ese conjunto. El número en un \gls{term:percentil}
+particular muestra cuántos valores son más pequeños que el valor de ese
+\gls{term:percentil}.
 
-Los percentiles se calculan clasificando el conjunto de entradas por valor en
-orden ascendente, encontrando el rango para un percentil dado (es decir, la
-dirección del valor en la lista ordenada) y buscando el valor por rango.
+Los \glspl{term:percentil} se calculan clasificando el conjunto de entradas por
+valor en orden ascendente, encontrando el rango para un \gls{term:percentil}
+dado (es decir, la dirección del valor en la lista ordenada) y buscando el
+valor por rango.
 
-El percentil 0 es la medida del valor más bajo (el primer elemento de una lista
-ordenada, o sea el mínimo), y el percentil 100 es el valor máximo registrado
-(el último elemento de la lista, o sea el máximo). Al percentil 50 se lo conoce
-comúnmente como la mediana, y representa el valor medio en el conjunto
+El \gls{term:percentil} 0 es la medida del valor más bajo (el primer elemento
+de una lista ordenada, o sea el mínimo), y el \gls{term:percentil} 100 es el
+valor máximo registrado (el último elemento de la lista, o sea el máximo). Al
+\gls{term:percentil} 50 se lo conoce comúnmente como la mediana, y representa
+el valor medio en el conjunto
 
-Los percentiles facilitan la interpretación de la distribución; Por ejemplo,
-para medir el tiempo de respuesta el valor de percentil 98 en 3 segundos
-significa que el 98\% de todas las solicitudes se completó en 3 segundos o
-menos. Por el contrario, el 2\% de las solicitudes más lentas tomaron 3
-segundos o más.
+Los \glspl{term:percentil} facilitan la interpretación de la distribución; por
+ejemplo, para medir el tiempo de respuesta el valor de \gls{term:percentil} 98
+en 3 segundos significa que el 98\% de todas las solicitudes se completó en 3
+segundos o menos. Por el contrario, el 2\% de las solicitudes más lentas
+tomaron 3 segundos o más.
 
 \subsubsection*{Tasa de cambio}
 \label{tasa_de_cambio}
@@ -116,12 +122,10 @@ ilustrar niveles de crecimiento o disminución con el tiempo. Es usada
 extensivamente con métricas de conteo para expresar el número de incrementos
 del contador por intervalo de tiempo.
 
-
 \subsection*{Granularidad de tiempo}
-Pero que vos decís, hay grupos dentro del feminismo (que no creo que sean ni la mayoría)  que creen que esa es la forma correcta de hacer activismo.
 \label{granularidad_de_tiempo}
 
-Los datos en una funsión de serie de tiempos son presentados en una
+Los datos en una función de serie de tiempos son presentados en una
 granularidad de tiempo fijo. Una granularidad fina se traduce en períodos
 cortos de valores. Cuanto más gruesa sea la granularidad, más largo será el
 período.
@@ -160,13 +164,13 @@ monitoreo.
 \label{agregacion_de_metricas}
 
 En sistemas distribuidos, las entradas de datos para la misma métrica provienen
-de muchas fuentes. Por ejemplo, en un grupo de servidores web detrás de un
-balanceador de carga, reportando estadísticas acerca de solicitudes siendo
-servidas, los datos de solicitud podrían ser vistos en la forma de múltiples
-funciones de series de tiempo, una por cada servidor web, graficadas unas
-contra otras. Sin embargo, la agregación podría combinar los resultados de los
-servidores web en una única secuencia de registros de serie de tiempos con un
-total de todas las solicitudes.
+de muchas fuentes. Por ejemplo, en un grupo de servidores \gls{acro:web} detrás
+de un balanceador de carga, reportando estadísticas acerca de solicitudes
+siendo servidas, los datos de solicitud podrían ser vistos en la forma de
+múltiples funciones de series de tiempo, una por cada servidor \gls{acro:web},
+graficadas unas contra otras. Sin embargo, la agregación podría combinar los
+resultados de los servidores \gls{acro:web} en una única secuencia de registros
+de serie de tiempos con un total de todas las solicitudes.
 
 La agregación permite obtener una vista general de los datos y simplifica el
 gráfico, pero la capacidad de explorar para ver cada fuente de datos no es

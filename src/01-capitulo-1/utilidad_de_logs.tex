@@ -7,16 +7,16 @@ manipulación de datos, auditoría, diagnóstico de dispositivos y medidas de
 seguridad.
 
 Un registro de log contiene normalmente una marca temporal, la fuente de la
-información y el mensaje o contenido. Una marca temporal, también conocida como
+información y el mensaje o contenido. La marca temporal, también conocida como
 timestamp, es una secuencia de caracteres que indica la hora y fecha en la que
 ocurrió un evento. La fuente es la aplicación, programa o sistema que generó el
-mensaje. Muchas veces la fuente es representada por la IP o el nombre de un
-host y el nombre de la aplicación.
+mensaje. Muchas veces la fuente es representada por la \gls{acro:ip} o el
+nombre de un \gls{term:host} y el nombre de la aplicación.
 
 Los logs pueden ser de gran utilidad para visualizar información de recursos
 del sistema, de usuarios de las aplicaciones y del funcionamiento de las mismas
 aplicaciones. Sin embargo, los logs como fuente de información suelen ser
-subestimados por desarrolladores y operadores.
+subestimados por desarrolladores y los profecionesles de \gls{acro:it}.
 
 A menudo los logs son completamente ignorados y solamente tomados en cuenta en
 situaciones de problemas en las aplicaciones o el sistema, y normalmente se los
@@ -25,9 +25,9 @@ elimina sin haber sido revisados antes
 
 Los logs pueden ser catalogados según su utilidad de varias maneras. Cada
 aplicación define como clasificar los logs según su relevancia. Por ejemplo,
-Syslog, el estandar de facto para el envío de mensajes de registro en redes,
-define los siguientes niveles de gravedad para sus logs
-\footnote{https://tools.ietf.org/html/rfc3164}:
+Syslog, el estandar de más popular para el envío de mensajes de registro en
+redes, define los siguientes niveles de gravedad para sus logs
+\footnote{\url{https://tools.ietf.org/html/rfc3164}}:
 
 \begin{table}[h!]
   \begin{tabular*}{\textwidth}{ @{\extracolsep{\fill}} | c | l | l | }
@@ -54,13 +54,15 @@ A continuación explicaremos algunos de estos niveles de relevancia:
 
 \begin{itemize}
   \item Los logs de información proveen evidencia documentada de una secuencia
-  de actividades que afectan en algún momento a una operación específica,
-procedimiento o evento. Permiten a los desarrolladores y administradores
-advertir la ocurrencia de un evento benigno, como por ejemplo el inicio de
-sesión de un usuario en un sistema.  \item Los registros de depuración son
-  generados por los desarrolladores con la finalidad de entender la actividad
-    de un sistema, identificar problemas en el funcionamiento del código de la
-    aplicación y encontrar soluciones para dichos problemas.
+    de actividades que afectan en algún momento a una operación específica,
+    procedimiento o evento. Permiten a los desarrolladores y administradores
+    advertir la ocurrencia de un evento benigno, como por ejemplo el inicio de
+    sesión de un usuario en un sistema.
+
+  \item Los registros de depuración son generados por los desarrolladores con
+    la finalidad de entender la actividad de un sistema, identificar problemas
+    en el funcionamiento del código de la aplicación y encontrar soluciones
+    para dichos problemas.
 
   \item Los mensajes de advertencia indican comportamientos inesperados o
     situaciones que deben ser vigiladas por un programador pero que no tienen
@@ -89,8 +91,8 @@ la hora de gestionar los logs.
 
 Uno de estos desafíos es la existencia de numerosas fuentes de software
 generadores de registros de log. Muchas veces estas fuentes se encuentran
-ubicadas en diferentes hosts, y una fuente puede generar diferentes tipos de
-registros, por ejemplo almacenar los intentos de autenticación en una
+ubicadas en diferentes \glspl{term:host}, y una fuente puede generar diferentes
+tipos de registros, por ejemplo almacenar los intentos de autenticación en una
 aplicación en un archivo de logs y la información relacionada con la ocupación
 de la red en otro archivo distinto.
 
@@ -101,9 +103,10 @@ eventos registrados por diferentes fuentes de logs, ya que pueden no tener
 valores comunes registrados.
 
 Estas diferencias pueden ser leves, como la utilización de formato de fechas
-MMDDYYYY en un archivo de logs y el uso de MM-DD-YYYY en otro. Pero también
-pueden ser complejas, como la identificación de un servicio por el nombre en un
-log, y la identificación de un servicio por el número de puerto en otro.
+\texttt{MMDDYYYY} en un archivo de logs y el uso de \texttt{MM-DD-YYYY} en
+otro. Pero también pueden ser complejas, como la identificación de un servicio
+por el nombre en un log, y la identificación de un servicio por el número de
+puerto en otro.
 
 Otro obstáculo en la gestión de logs es la inconsistencia de las marcas
 temporales. Cada host que genera logs suele hacer referencia a su reloj
@@ -117,20 +120,21 @@ antes que un evento B, cuando en realidad el evento B haya ocurrido varios
 minutos antes que el evento A.
 
 Otra complicación en la administración de logs es que distintas fuentes
-utilicen diferentes formatos para almacenar sus logs. Por ejemplo algunas
+utilicen diferentes formatos para almacenar sus logs. Por ejemplo, algunas
 herramientas pueden guardar sus logs como archivos de texto separados por comas
-o por tabs, utilizando el formato syslog o a través de SNMP (Simple Network
-Management Protocol). También pueden existir sistemas que almacenen logs con
-formato XML, JSON o como archivos binarios.
+o por tabs, utilizando el formato Syslog o a través de \gls{acro:snmp}. También
+pueden existir sistemas que almacenen logs con formato \gls{acro:xml},
+\gls{acro:json} o como archivos binarios.
 
 Algunos registros de logs han sido diseñados para ser fácilmente leídos por
 seres humanos, y otros para ser fácilmente analizados por computadoras. Existen
 programas que usan formatos estándares para almacenar logs, y también existen
 otros que usan configuraciones propietarias. Además hay logs que no han sido
 diseñados para su almacenamiento local en un archivo, sino para ser
-transmitidos a un sistema de procesamiento, como por ejemplo los routers y
-switches que implementan el protocolo SNMP
-\cite[p.~23]{monitoreo:log_management_guide}.
+transmitidos a un sistema de procesamiento, como por ejemplo los \eng{routers}
+y \eng{switches} que implementan el protocolo
+\gls{acro:snmp}\cite[p.~23]{monitoreo:log_management_guide} anteriormente
+mensionado.
 
 La naturaleza distribuida de los logs, el uso de formatos inconsistentes y el
 considerable volumen de información almacenado en los mismos consiguen que la
@@ -147,7 +151,7 @@ cuentan con herramientas eficaces que permitan automatizar el proceso de
 análisis.
 
 Los logs pueden ser realmente muy útiles si se los gestiona de manera correcta.
-Por ejemplo pueden describir excepcionalidades que ocurran en nuestras
+Por ejemplo, pueden describir excepcionalidades que ocurran en nuestras
 infraestructuras, permitir el análisis del rendimiento de las aplicaciones y
 detectar errores en el sistema. También pueden ser una buena fuente de
 información para determinar las causas de un incidente.
@@ -155,8 +159,8 @@ información para determinar las causas de un incidente.
 Además de describir un problema, los logs pueden ser beneficiosos para
 descubrir si se han tomado buenas decisiones de diseño de las aplicaciones y
 prevenir problemas futuros. Asimismo, un log puede contener información
-importante para generar alertas. En concreto, si los logs de un servidor web
-retorna un error HTTP con código 500, es porque una aplicación no está
-funcionando correctamente
+importante para generar alertas. En concreto, si los logs de un servidor
+\gls{acro:web} retorna un error \gls{acro:http} con código 500, es porque una
+aplicación no está funcionando correctamente
 \cite[p.~30-31]{monitoreo:logging_and_log_management}.
 
