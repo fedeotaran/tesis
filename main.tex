@@ -60,27 +60,32 @@
 
   % Apéndice
   \appendix
+
   \newpage
-  %   - Anexo I: Detalle de las aplicaciones cliente de la nube
   \input{src/anexos/A-tecnologias-del-cespi}
+
   \newpage
-  %   - Anexo II: Endpoints de la nube actual
   \input{src/anexos/B-otras-herramientas}
+
   \newpage
+  \input{src/anexos/C-codigo-compose}
+
   %   - Bibliografía
+  \newpage
   \bibliographystyle{plain}
   \bibliography{src/bibliografia}
-  \newpage
+
   %   - Glosario
+  \newpage
   \printglossary[title={Glosario}]
+
+  %   - Glosario parte 2. TODO: que es esto?
   \newpage
-  %   - Glosario
   \printindex[palabras]
+
   \newpage
-  %   - Lista de figuras
-  \listoffigures
-  %   - Lista de bloques de código
-  \listoflistings
-  %   - Lista de tablas
-  \listoftables
+  \listoffigures  %   - Lista de figuras
+  \listoflistings %   - Lista de bloques de código
+  \listoftables   %   - Lista de tablas
+
 \end{document}

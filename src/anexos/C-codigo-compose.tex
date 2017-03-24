@@ -1,0 +1,72 @@
+\section{Código Docker Compose completo de ejemplo}
+\label{anexo:C}
+
+Copiamos a continuación el contenido del archivo \texttt{docker-compose.yml} completo de ejemplo para la configuración de una aplicación Rails con FluentD, NGINX, ElasticSearch y Kibana.
+
+\begin{lstlisting}
+version: "2"
+
+services:
+
+  fluentd:
+    image: fluent/fluentd:latest
+    ports:
+      - "24224:24224"
+    volumes:
+      - ./fluentd/etc:/fluentd/etc
+    command: /fluentd/etc/start.sh
+    networks:
+      - lognet
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+    networks:
+      - lognet
+
+  kibana:
+    image: kibana
+    restart: always
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+      - lognet
+
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    logging:
+      driver: fluentd
+      options:
+        tag: "nginx.docker.{{.Name}}"
+    networks:
+      - lognet
+
+  app:
+    build: app
+    command: rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./app/:/app
+    ports:
+      - "3000:3000"
+    logging:
+      driver: fluentd
+      options:
+        tag: "rails.docker.{{.Name}}"
+    networks:
+      - lognet
+
+networks:
+  lognet:
+    driver: bridge
+
+\end{lstlisting}
