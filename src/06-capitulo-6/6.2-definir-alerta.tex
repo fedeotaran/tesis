@@ -1,0 +1,145 @@
+\subsection{Definición de una alerta}
+\label{definir-alerta}
+
+Una vez que se tiene instalado y configurado Kapacitor, ya es posible definir alertas.
+
+Para esto, es necesario crear un archivo utilizando el lenguage TICKscript. A modo de ejemplo, crearemos un archivo de nombre \texttt{cpu\_alert.tick} con la siguiente configuración:
+
+\begin{lstlisting}
+stream
+    // Select just the cpu measurement from our example database.
+    |from()
+        .measurement('cpu')
+    |alert()
+        .crit(lambda: "usage_idle" <  70)
+        // Whenever we get an alert write it to a file.
+        .log('/tmp/alerts.log')
+\end{lstlisting}
+
+Una vez creado el archivo de configuración, es posible usarlo para definir una alerta de tipo stream con el siguiente comando:
+
+\begin{lstlisting}
+kapacitor define cpu_alert -type stream -tick cpu_alert.tick -dbrp cadvisor.autogen
+\end{lstlisting}
+
+Con la configuración anterior cargada, Kapacitor ya tiene la información necesaria para lanzar la alerta. Para que Kapacitor comienze a notificar la alerta, se la debe habilitar. Esta tarea puede realizarse con el siguiente comando:
+
+\begin{lstlisting}
+kapacitor enable cpu_alert
+\end{lstlisting}
+
+Finalmente, para consultar si la alerta se encuentra cargada y visualizar los datos que estén siendo procesados, se puede ejecutar el siguiente comando:
+
+\begin{lstlisting}
+kapacitor show cpu_alert
+\end{lstlisting}
+
+En nuestro caso, este comando nos retornará un mensaje similar al siguiente:
+
+\begin{lstlisting}
+ID: cpu_alert
+ID: cpu_alert
+Error: 
+Template: 
+Type: stream
+Status: enabled
+Executing: true
+Created: 14 Mar 17 20:56 UTC
+Modified: 14 Mar 17 21:22 UTC
+LastEnabled: 14 Mar 17 21:21 UTC
+Databases Retention Policies: ["cadvisor"."autogen"]
+TICKscript:
+stream
+    // Select just the cpu measurement from our example database.
+    |from()
+        .measurement('cpu')
+    |alert()
+        .crit(lambda: "usage_idle" <  70)
+        // Whenever we get an alert write it to a file.
+        .log('/tmp/alerts.log')
+
+DOT:
+digraph cpu_alert {
+graph [throughput="0.00 points/s"];
+
+stream0 [avg_exec_time_ns="0" ];
+stream0 -> from1 [processed="0"];
+
+from1 [avg_exec_time_ns="0" ];
+from1 -> alert2 [processed="0"];
+
+alert2 [alerts_triggered="0" avg_exec_time_ns="0" crits_triggered="0" infos_triggered="0" oks_triggered="0" warns_triggered="0" ];
+}
+\end{lstlisting}
+
+
+Siguiendo estos pasos es posible generar alertas que sean de utilidad. Para esto es importante analizar cuales son las situaciones para las cuales podría servir recibir una alerta y de qué forma se deberían enviar, ya que, como hemos mencionado anteriormente, Kapacitor brinda la posibilidad de enviar alertas de distintas formas y a varios destinos diferentes.
+
+A continuación mostraremos un ejemplo sobre cómo puede ser usado TICKscript para definir alertas más complejas.
+
+\begin{lstlisting}
+stream
+    |from()
+        .measurement('cpu')
+    // create a new field called 'used' which inverts the idle cpu.
+    |eval(lambda: 100.0 - "usage_idle")
+        .as('used')
+    |groupBy('service', 'datacenter')
+    |window()
+        .period(1m)
+        .every(1m)
+    // calculate the 95th percentile of the used cpu.
+    |percentile('used', 95.0)
+    |eval(lambda: sigma("percentile"))
+        .as('sigma')
+        .keep('percentile', 'sigma')
+    |alert()
+        .id('{{ .Name }}/{{ index .Tags "service" }}/{{ index .Tags "datacenter"}}')
+        .message('{{ .ID }} is {{ .Level }} cpu-95th:{{ index .Fields "percentile" }}')
+        // Compare values to running mean and standard deviation
+        .warn(lambda: "sigma" > 2.5)
+        .crit(lambda: "sigma" > 3.0)
+        .log('/tmp/alerts.log')
+
+        // Post data to custom endpoint
+        .post('https://alerthandler.example.com')
+
+        // Execute custom alert handler script
+        .exec('/bin/custom_alert_handler.sh')
+
+        // Send alerts to slack
+        .slack()
+        .channel('#alerts')
+
+        // Sends alerts to PagerDuty
+        .pagerDuty()
+
+        // Send alerts to VictorOps
+        .victorOps()
+        .routingKey('team_rocket')
+\end{lstlisting}
+
+
+El script toma las medidas del porcentaje de uso de CPU, las invierte para obtener el porcentaje de tiempo en que la CPU se encuentra ociosa, las agrupa por servicio y centro de datos en ventanas de 1 minuto. Luego calcula el percentil 95 y genera alertas en caso de que se pasen determinados umbrales.
+
+Finalmente se guardan los datos en un log, se envían a un endpoint determinado, se ejecuta un script que maneje las alertas y se envía a Slack, a PagerDuty y a VictorOps.
+
+Kapacitor además, permite enviar datos a InfluxDB de la siguiente manera:
+
+\begin{lstlisting}
+ stream
+        |eval(lambda: "errors" / "total")
+            .as('error_percent')
+        // Write the transformed data to InfluxDB
+        |influxDBOut()
+            .database('mydb')
+            .retentionPolicy('myrp')
+            .measurement('errors')
+            .tag('kapacitor', 'true')
+            .tag('version', '0.2')
+\end{lstlisting}
+
+
+Esto puede resultar muy útil en caso de que queramos alimentar a nuestra instancia de InfluxDB con datos procesados por Kapacitor. Incluso, se podría almacenar información de las alertas en InfluxDB para tener un seguimiento de las mismas (ver trabajos futuros, sección 8.1)
+
+En esta sección hemos mostrado cómo usar TICKscript para definir alertas para que sean lanzadas por Kapacitor.
