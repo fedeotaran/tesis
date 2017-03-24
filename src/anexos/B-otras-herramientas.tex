@@ -1,0 +1,105 @@
+\section{Otras Herramientas}
+\label{anexo:B}
+
+Durante nuestra investigación hemos explorado varias herramientas de monitoreo que finalmente no fueron elegidas para nuestra solución, debido a diferentes factores, como por ejemplo el hecho de que algunas de estas son herramientas privativas, o que no se ajustaban a nuestros problemas, o que eran frameworks completos de los cuales sólo nos servía un pequeño subconjunto de su funcionalidad.
+
+A continuación explicaremos un poco más a fondo estas herramientas, con el propósito de dar a conocer otras herramientas que han sido parte de nuestra investigación y que resuelven varios problemas similares a los que hemos mencionado durante la tesis.
+
+\subsection{Prometheus}
+
+\url{https://github.com/prometheus/prometheus}
+
+Prometheus es un sistema de monitoreo de servicios y sistemas creado por Cloud Native Computing Foundation. Prometheus recolecta métricas de objetivos configurados a intervalos dados, evalúa expresiones, muestra resultados y activa alertas si observa que alguna condición es verdadera.
+
+Las prestaciones más distinguidas de Prometheus son:
+
+\begin{itemize}
+  \item Un modelo de datos multidimensional, es decir series de tiempo definidas por un nombre de métrica y un conjunto de dimensiones clave-valor.
+  \item Un lenguaje de consultas flexible.
+  \item No depende de un almacenamiento distribuido.
+  \item Almacenamiento de series de tiempo en memoria y en disco local en un formato eficiente.
+  \item La recolección de datos de series de tiempo ocurre a través de un modelo pull por sobre HTTP.
+  \item Los objetivos son encontrados a través de configuración estática o descubrimiento de servicios.
+  \item Múltiples modos de representación gráfica, soporte de tableros e integración con Grafana
+  \item Gran conjunto de librerías para los clientes en varios lenguajes, que permite una sencilla instrumentación de servicios.
+  \item Integración con Docker, HAProxy, StatsD, entre otros.
+\end{itemize}
+
+
+
+\subsection{New Relic APM}
+
+\url{https://docs.newrelic.com/docs/apm/new-relic-apm}
+
+El producto de software de monitoreo de rendimiento de aplicaciones de New Relic envía datos en tiempo real sobre el rendimiento de las aplicaciones web y el nivel de satisfacción que experimentan los usuarios.
+
+Con seguimiento de transacciones de punto a punto y una variedad de reportes y gráficos a color, APM visualiza los datos hasta los niveles más profundos. Con APM es posible identificar de forma rápida problemas potenciales antes que estos afecten a los usuarios finales.
+
+
+
+APM es software privativo y cuenta con varios planes pagos, según los requerimientos de los clientes. Dependiendo del nivel de subscripción, es posible tomar ventaja de diversas prestaciones.
+
+NewRelic tiene una excelente integración con el lenguaje de programación Ruby
+
+
+\subsection{Google Analytics}
+
+\url{https://es.wikipedia.org/wiki/Google_Analytics}
+
+Google Analytics es una herramienta de analítica web que ofrece información agrupada del tráfico que reciben los sitios web, según factores como características de la audiencia, el comportamiento de los usuarios y las conversiones o hitos alcanzados en el sitio web.
+
+Fue creada por Google a partir de un producto anterior comprado por la empresa, llamado Urchin. 
+
+Con Analytics se pueden obtener informes sobre el rendimiento de las páginas, los resultados de campañas de marketing online, cantidad de sesiones agrupadas por fuente del tráfico, tasas de rebote, duración de las sesiones y contenidos visitados, entre otras.
+
+Para usar esta herramienta en el desarrollo web, basta con añadir un código JavaScript en cada una de las páginas web que se desea analizar.
+
+
+Google Analytics cuenta con una interfaz muy completa de informes con gráficos.
+
+\subsection{Piwik}
+
+\url{https://piwik.org}
+
+Piwik es un programa completo de PHP y MySQL que puede ser descargado e instalado por los programadores en su servidor web. El proceso de instalación no toma más de 5 minutos. Luego de instalar Piwik se obtiene un código de Javascript, que se puede copiar y pegar en sitios web de los que se desea hacer un seguimiento y acceder a sus reportes de análisis en tiempo real.
+
+Piwik dice ser una alternativa de software libre a Google Analytics, y al momento de escribir esta tesis es usado por más de 1.000.000 de sitios web.
+
+
+
+Piwik provee reportes de analiticas web en tiempo real. Para sitios web de mucho tráfico, es posible elegir la frecuencia con la que los reportes deben ser procesados.
+
+Como Piwik se encuentra instalado en un servidor personal, los datos son almacenados en una base de datos propia. Esto significa que uno es dueño de sus propios datos.
+
+Piwik es software libre, y puede ser fácilmente configurado para respetar la privacidad de los visitantes del sitio web.Piwik tiene una comunidad de más de 200.000 usuarios activos.
+
+Piwik es moderno, y tiene una interfaz que lo hace fácil de utilizar. Es posible personalizar los tableros y los widgets.
+
+Piwik tiene avanzadas capacidades de análisis web, como seguimiento de e-commerce, seguimiento de metas, seguimiento de campaña, variables personalizadas, reportes de emails, localización espacial y mapas en tiempo real.
+
+
+\subsection{Datadog}
+
+\url{https://en.wikipedia.org/wiki/Datadog}
+
+Datadog es un servicio de monitoreo para aplicaciones en la nube, que junta datos de servidores, bases de datos, herramientas y servicios, y los presenta en una vista unificada de un stack entero. Estas capacidades son provistas en una plataforma de análisis de datos  basada en SaaS (Software como un servicio).
+ 
+Datadog usa un agente de código abierto escrito en Python para recolectar métricas y eventos. Su backend está construido usando un número de tecnologías de código abierto y cerrado, incluyendo D3, Apache Cassandra, Kafka y PostgreSQL.
+
+Datadog ayuda a los desarrolladores y equipos de IT a ver su infraestructura en su totalidad, incluyendo la nube, los servidores, las aplicaciones, los servicios, las métricas y más. Todo en un sólo lugar. Esto incluye tableros interactivos en tiempo real que pueden ser personalizados para las necesidades específicas de un equipo de trabajo. También capacidad de búsquedas de texto completo para métricas y eventos, herramientas de colaboración de equipos de trabajo, alertas para problemas críticos y una API de acceso.
+
+Datadog integra varias herramientas de software, de forma que los flujos de trabajo de equipos no sean modificados ni interrumpidos al adoptar el servicio de Datadog.
+
+
+\subsection{Riemann}
+
+\url{http://riemann.io/}
+
+Riemann permite la agregación de eventos provenientes de servidores y aplicaciones utilizando un poderoso lenguaje de procesamiento de streaming. Puede enviar un email por cada excepción ocurrida en las aplicaciones, mantener un seguimiento de la distribución de latencia en las aplicaciones web, y observar los procesos principales de cualquier host, por memoria y cpu.
+
+Puede combinar estadísticas de todos los nodos Riak en un cluster y reenviar la información a Graphite, y mantener un seguimiento de la actividad de los usuarios, segundo a segundo.
+
+Los streams de Riemann son simplemente funciones que aceptan un evento. Los eventos son sólo estructuras con algunos campos comunes, como host y service. Es posible usar docenas de streams integrados en Riemann para filtros, alertas y combinación de eventos, y también escribir los propios.
+
+La configuración de Riemann es un programa de Clojure, y por esto su sintaxis es concisa, regular y extensible. La configuración como código minimiza repeticiones en código, y otorga la flexibilidad para adaptarse a situaciones complejas.
+
