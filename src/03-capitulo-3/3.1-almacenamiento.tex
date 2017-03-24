@@ -1,0 +1,161 @@
+\subsection{Almacenamiento}
+\label{almacenamiento}
+
+En la sección 1.2 hemos descrito las particularidades que tienen los datos de
+series de tiempo. Una de estas particularidades es que todas las series de
+tiempo comparten entre sí una dimensión: la dimensión de tiempo, y por eso son
+útiles para correlacionar datos de varias fuentes.
+
+Las bases de datos relacionales tradicionales pueden no ser prácticas para
+manejar almacenar estos tipos de datos. Una base de datos de series de tiempo es
+un sistema de software que está optimizado para manejarlos de forma correcta,
+confiable y eficiente.
+
+Hemos analizado las herramientas InfluxDB y Graphite para almacenar datos de
+este tipo. 
+
+InfluxDB es una base de datos de código abierto implementada en el lenguaje Go
+con el propósito de manejar datos de series de tiempo con requerimientos de gran
+disponibilidad y alto rendimiento. InfluxDB no tiene dependencias externas.
+
+InfluxDB viene con una API HTTP integrada, lo que permite que no sea necesario
+escribir ningún código del lado de servidor para comenzar a trabajar.
+\footnote{\url{https://github.com/influxdata/influxdb}}
+
+Es posible etiquetar los datos, lo que permite una consulta muy flexible. Esta
+consulta se escribe en un lenguaje similar a SQL, llamado InfluxQL. \footnote{
+  \url{https://docs.influxdata.com/influxdb/v0.9/query_language/query_syntax/}
+}
+
+InfluxDB permite contestar consultas en tiempo real, lo que significa que cada
+valor se indexa a medida que llega y está disponible casi inmediatamente para su
+uso.
+
+Graphite es una herramienta de monitoreo capaz de ser ejecutada en una amplia
+gama de computadoras, y también en la nube. Graphite es usado para tener un
+seguimiento del rendimiento de sitios web, aplicaciones, servicios de negocio y
+servidores en una red.
+
+Con Graphite es relativamente sencillo almacenar, recuperar, compartir y
+visualizar datos de tipo series de tiempo.
+
+Graphite consiste en tres componentes de software:
+
+\begin{itemize}
+
+  \item \textbf{carbon:}
+  Un servicio de alto rendimiento que recepta datos de tipo series de tiempo
+
+  \item \textbf{whisper:}
+  Una base de datos sencilla para almacenar datos de tipo series de tiempo
+
+  \item \textbf{graphite-web:}
+  Una interfaz de usuario y API para visualizar gráficos y tableros.
+
+\end{itemize}
+
+Las métricas son alimentadas a través del servicio Carbon, que envía datos a las
+bases de datos Whisper para su almacenamiento a largo plazo. Los usuarios
+interactúan con la interfaz de graphite-web o con su API, que a su vez consulta
+a Carbon y Whisper por los datos necesarios para construir los gráficos
+requeridos.
+
+
+La plataforma web de Graphite ofrece una variedad de estilos y formatos de
+salidas, incluyendo imágenes, archivos separados por comas, XML y JSON.
+\footnote{
+  \url{http://graphite.readthedocs.io/en/latest/overview.html}
+}
+
+OpenTSDB es una base de datos de series de tiempos distribuida y escalable,
+escrita sobre HBase. OpenTSDB almacena, indexa y sirve métricas recolectadas de
+sistemas de computadoras, como por ejemplo redes, sistemas operativos y
+aplicaciones, a gran escala, y hace que estos datos sean accesibles y
+graficables de forma fácil.
+
+OpenTSDB permite recolectar métricas de hosts y aplicaciones a una taza de
+tiempo alta y es capaz de recolectar miles de métricas de decenas de miles de
+hosts y aplicaciones, y almacenar miles de millones de valores estadísticos.
+
+OpenTSDB es software libre y está disponible en ambas licencias LGPLv2.1 + GPLv3
+\footnote{Find more about OpenTSDB at \url{http://opentsdb.net}}
+
+Finalmente hemos elegido InfluxDB para nuestra implementación por sobre las
+demás herramientas. La decisión no fue fácil, ya que todas las herramientas nos
+parecieron muy prometedoras. La razón por la que elegimos InfluxDB es que nos
+pareció que esta herramienta tenía mejor soporte para el lenguaje Ruby que las
+alternativas. Además, creímos que el hecho de que InfluxDB tenga un lenguaje de
+consulta similar a SQL facilitaría el desarrollo de consultas al personal de la
+oficina.
+
+InfluxDB es fácil de instalar y administrar.
+
+Puede ser instalado usando uno de sus paquetes pre armados para diferentes
+sistemas operativos. \footnote{\url{https://portal.influxdata.com/downloads}}.
+Para instalar InfluxDB versión 1.2 en una distribución Linux basada en Debian,
+basta con correr los siguientes comandos en una terminal:
+
+\begin{lstlisting}
+wget https://dl.influxdata.com/influxdb/releases/influxdb_1.2.0_amd64.deb
+sudo dpkg -i influxdb_1.2.0_amd64.deb
+\end{lstlisting}
+
+Luego, para ejecutar el programa basta con correr el comando service influxdb
+start.
+
+Una vez que InfluxDB está instalado, es posible crear una base de datos,
+insertar datos y realizar consultas usando la API de InfluxDB. Incluso se puede
+hacer todo esto desde la consola usando el comando curl:
+
+1- Crear una base de datos de nombre monitoreo:
+
+\begin{lstlisting}
+curl -XPOST 'http://localhost:8086/query' --data-urlencode "q=CREATE DATABASE monitoreo"
+\end{lstlisting}
+
+2- Insertar algunos datos:
+
+\begin{lstlisting}
+curl -XPOST 'http://localhost:8086/write?db=monitoreo \
+-d 'cpu,host=server01,region=uswest load=42 1434055562000000000'
+
+curl -XPOST 'http://localhost:8086/write?db=monitoreo \
+-d 'cpu,host=server02,region=uswest load=78 1434055562000000000'
+
+curl -XPOST 'http://localhost:8086/write?db=monitoreo \
+-d 'cpu,host=server03,region=useast load=15.4 1434055562000000000'
+\end{lstlisting}
+
+
+3- Consultar los datos:
+
+\begin{lstlisting}
+curl -G http://localhost:8086/query?pretty=true --data-urlencode "db=monitoreo" \
+--data-urlencode "q=SELECT * FROM cpu WHERE host='server01' AND time < now() - 1d"
+
+curl -G http://localhost:8086/query?pretty=true --data-urlencode "db=monitoreo" \
+--data-urlencode "q=SELECT mean(load) FROM cpu WHERE region='uswest'"
+\end{lstlisting}
+
+InfluxDB utiliza varios puertos de red para funcionar. Todos los mapeos de
+puertos pueden ser modificados en el archivo de configuración que suele estar
+localizado en /etc/influxdb/influxdb.conf.
+
+Por defecto, InfluxDB usa los siguientes puertos de red:
+
+\begin{itemize}
+
+  \item
+  El puerto TCP \textbf{8086} es usado para la comunicación entre cliente y
+  servidor sobre la API HTTP de InfluxDB
+
+  \item
+  El puerto TCP \textbf{8088} es usado para el servicio RPC de backup y
+  restauración.
+
+
+\end{itemize}
+
+
+Además de estos puertos, InfluxDB ofrece múltiples plugins que pueden requerir
+puertos personalizados. 

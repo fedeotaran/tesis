@@ -1,0 +1,104 @@
+\subsection{Recolección de datos de contenedores Docker}
+\label{aplicaciones}
+ 
+Como hemos mencionado anteriormente, el laboratorio usa contenedores de Docker en su infraestructura. Mientras estos contenedores están en ejecución, es posible tomar información de su funcionamiento en tiempo real.
+
+Para realizar la recolección de datos de los contenedores, donde se mantienen en ejecución las aplicaciones, hemos investigado las herramientas cAdvisor y Telegraf. 
+
+cAdvisor (Container Advisor) es un demonio que recolecta, agrega, procesa y exporta información de contenedores en ejecución. Específicamente, para cada contenedor guarda parámetros de aislamiento de recursos, uso de recursos históricos, histogramas de uso completo de recursos históricos y estadísticas de red. Estos datos se exportan para la máquina host donde está corriendo y para cada uno de los contenedores.
+
+cAdvisor facilita a los usuarios el entendimiento del uso de recursos y las características de rendimiento de los contenedores en ejecución. Tiene soporte nativo para contenedores Docker y puede utilizarse con casi cualquier otro tipo de contenedor. \footnote{\url{https://github.com/google/cadvisor}}
+
+Telegraf es un agente escrito en el lenguaje de programación Go para recolectar, procesar, agregar y escribir métricas. Fue diseñado con el objetivo de requerir poca memoria, y de proveer un sistema de plugins de forma que los desarrolladores de la comunidad pudieran fácilmente agregar soporte para recolección de métricas de diferentes servicios y APIs.
+
+Telegraf utiliza cuatro conceptos distintos de plugins:
+
+\begin{itemize}
+
+  \item \textbf{Input Plugins:}
+  Recolectan métricas del sistema, servicios o APIs de terceros.
+
+  \item \textbf{Processor Plugins:}
+  Transforman, decoran y filtran métricas.
+
+  \item \textbf{Aggregator Plugins:}
+  Crean métricas de agregación, como promedio, mínimo o máximo.
+
+  \item \textbf{Output Plugins:}
+  Escriben métricas a varios destinos.
+
+\end{itemize}
+
+Finalmente hemos elegido la herramienta cAdvisor para nuestra implementación por sobre Telegraf porque la primera tenía soporte nativo para contenedores de Docker, lo cual consideramos una ventaja.
+
+La recomendación oficial para utilizar cAdvisor es ejecutarlo desde un contenedor de Docker a partir de la imágen oficial \footnote{\url{https://hub.docker.com/r/google/cadvisor/}}. Con el siguiente comando se puede iniciar la ejecución de la imagen mencionada para monitorizar los recursos de una máquina y todos los contenedores corriendo en la misma:
+
+\begin{lstlisting}
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest
+\end{lstlisting}
+
+
+Además cAdvisor permite exportar estadísticas a distintos tipos de herramientas de almacenamiento por medio de plugins. Las herramientas que tienen integración con cAdvisor son:
+
+\begin{itemize}
+  \item BigQuery
+  \item ElasticSearch
+  \item InfluxDB
+  \item Kafka
+  \item Prometheus
+  \item Redis
+  \item StatsD
+\end{itemize}
+
+Además de las herramientas permite la salida de información a la salida estandar (STDOUT).
+
+Utilizaremos un plugin para permitir a cAdvisor enviar la información recolectada a InfluxDB. Para configurar la comunicación con la instancia de InfluxDB que se desea utilizar, se dispone de las siguiente opciones: \footnote{\url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
+
+\begin{lstlisting}
+# Elección de manejador de almacenamiento
+ -storage_driver=influxdb
+
+# IP y puerto de la base de datos. Por defecto es 'localhost:8086'
+ -storage_driver_host=ip:port
+
+# Nombre de la base de datos. Por defecto es 'cadvisor'
+ -storage_driver_db
+
+# Usuario de la base de datos. Por defecto es 'root'
+ -storage_driver_user
+
+# Contraseña de la base de datos. Por defecto es 'root'
+ -storage_driver_password
+
+# Indicador de conexión segura con la base de datos. Falso por defecto.
+ -storage_driver_secure
+\end{lstlisting}
+
+Para configurar el servicio de cAdvisor agregamos las siguientes líneas al archivo \lstinline{docker-compose.yml}:
+
+\begin{lstlisting}
+  cadvisor:
+    image: google/cadvisor:v0.24.0
+    command: -storage_driver=influxdb \
+             -storage_driver_db=cadvisor \
+             -storage_driver_host=influxsrv:8086
+    ports:
+      - "9090:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - lognet
+\end{lstlisting}
+
+Con estas configuraciones logramos recolectar los datos de los contenedores Docker y configurar cAdvisor para enviarlos a nuestra base de datos de series de tiempo.
