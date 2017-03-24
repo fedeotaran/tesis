@@ -200,12 +200,12 @@ paquetes \gls{acro:tcp}\footnote{Cf.
 
 La directiva \lstinline{match} busca eventos con etiquetas que coincidan con un
 patrón y los procesa. En este caso, sólo tomará las entradas con etiqueta
-comenzando con \lstinline{rails.docker.}. Las instrucciones type parser,
-\lstinline{key\_name} log y format json nos indican que la clave de nombre
-‘log’ en la entrada será analizada sintácticamente y transformada a formato
-\gls{acro:json}.
+comenzando con \lstinline{rails.docker.}. Las instrucciones
+\lstinline{type parser}, \lstinline{key\_name log} y \lstinline{format json}
+nos indican que la clave de nombre \lstinline{log} en la entrada será analizada
+sintácticamente y transformada a formato \gls{acro:json}.
 
-La línea \lstinline{reserve\_data} yes es usada para mantener los datos
+La línea \lstinline{reserve\_data yes} es usada para mantener los datos
 originales. Por ejemplo, si la entrada fue la cadena de texto
 \texttt{'log': \{"user":1,"num":2\}}, la salida será:
 
@@ -215,10 +215,10 @@ originales. Por ejemplo, si la entrada fue la cadena de texto
 
 \end{lstlisting}
 
-Finalmente, la instrucción add\_prefix logs es utilizada para agregar la
-subcadena “logs.” al comienzo del nombre de la etiqueta. Por ejemplo, si la
-etiqueta se llamaba rails.docker.app1, la nueva etiqueta será
-\lstinline{logs.rails.docker.app1}.
+Finalmente, la instrucción \lstinline{add\_prefix logs} es utilizada para
+agregar la subcadena \lstinline{logs.} al comienzo del nombre de la etiqueta.
+Por ejemplo, si la etiqueta se llamaba \lstinline{rails.docker.app1}, la nueva
+etiqueta será \lstinline{logs.rails.docker.app1}.
 
 De esta forma, la salida de este bloque se podrá convertir en la entrada de
 otro bloque.
@@ -237,22 +237,24 @@ otro bloque.
 \end{lstlisting}
 
 Este bloque funciona de forma similar al anterior. Toma aquellas entradas con
-etiquetas que comienzan con la cadena \lstinline{nginx.docker.}, es decir, aquellas que
-provengan de NGINX.
+etiquetas que comienzan con la cadena \lstinline{nginx.docker.}, es decir,
+aquellas que provengan de \gls{term:nginx}.
 
-En lugar de utilizar el formato \gls{acro:json}, se usa una expresión regular para
-recuperar los valores importantes de la expresión. Algunos de estos valores son
-la marca de tiempo, el tipo de solicitud \gls{acro:web}, la URL a la que se intentó
-acceder, el protocolo \gls{acro:http}, el código de estado \gls{acro:http}, el tamaño del mensaje de
-solicitud y el cliente \gls{acro:web} utilizado.
+En lugar de utilizar el formato \gls{acro:json}, se usa una expresión regular
+para recuperar los valores importantes de la expresión. Algunos de estos
+valores son la marca de tiempo, el tipo de solicitud \gls{acro:web}, la URL a
+la que se intentó acceder, el protocolo \gls{acro:http}, el código de estado
+\gls{acro:http}, el tamaño del mensaje de solicitud y el cliente \gls{acro:web}
+utilizado.
 
 Las marcas de tiempo suelen ser problemáticas en los logs. Cada fuente de
 registros puede tener formatos de hora y fecha diferentes, lo que dificulta el
-análisis de estos datos. La instrucción \lstinline{time\_format} permite definir el formato
-que se quiere que cumplan las fechas y de esa forma evitar estos problemas.
+análisis de estos datos. La instrucción \lstinline{time\_format} permite
+definir el formato que se quiere que cumplan las fechas y de esa forma evitar
+estos problemas.
 
 \begin{lstlisting}
- 
+
 <match logs.rails.**>
   type elasticsearch
   host elasticsearch
@@ -272,19 +274,20 @@ que se quiere que cumplan las fechas y de esa forma evitar estos problemas.
 \end{lstlisting}
 
 Los últimos dos bloques toman como entrada las salidas de los bloques
-anteriores, y las envían a \gls{term:elasticsearch} con un formato adecuado, haciendo uso
-del plugin fluentd-plugin-elasticsearch. Este plugin además, crea índices en
-\gls{term:elasticsearch}.
+anteriores, y las envían a \gls{term:elasticsearch} con un formato adecuado,
+haciendo uso del \eng{plugin} \texttt{fluentd-plugin-elasticsearch}. Este
+plugin además, crea índices en \gls{term:elasticsearch}.
 
 Teniendo en consideración la arquitectura general de la infraestructura, hemos
-decidido, para nuestra solución, que \gls{term:fluentd} sea ejecutado sobre su propio
-contenedor de \gls{term:docker}. Para lograr que este contenedor se comunique con el
-contenedor de la aplicación y con la base de datos, usaremos la herramienta
-Compose de \gls{term:docker}.
+decidido, para nuestra solución, que \gls{term:fluentd} sea ejecutado sobre su
+propio contenedor de \gls{term:docker}. Para lograr que este contenedor se
+comunique con el contenedor de la aplicación y con la base de datos, usaremos
+la herramienta Compose de \gls{term:docker}.
 
-Se puede encontrar una descripción más completa de Compose en el Anexo 3 [REF].
+Se puede encontrar una descripción más completa de Compose en el \autoref{anexo:C}.
 
-Creamos el archivo \texttt{docker-compose.yml} y agregamos la siguiente configuración:
+Creamos el archivo \texttt{docker-compose.yml} y agregamos la siguiente
+configuración:
 
 \begin{lstlisting}
 
@@ -300,13 +303,14 @@ fluentd:
 
 \end{lstlisting}
 
-La línea image: fluent/fluentd;latest indica la imagen de \gls{term:docker} que se va a
-utilizar. En este caso, se utiliza la imagen oficial de \gls{term:fluentd}. (pie de
-página: \url{https://hub.docker.com/r/fluent/fluentd/l}).
+La línea image: \lstinline{fluent/fluentd:latest} indica la imagen de
+\gls{term:docker} que se va a utilizar. En este caso, se utiliza la imagen
+oficial de \gls{term:fluentd}\footnote{Cf.
+\url{https://hub.docker.com/r/fluent/fluentd/l}}.
 
 La clave ports se utiliza para exponer puertos. Gracias a esta capacidad es
 posible conectar el contenedor con el sistema externo, para intercambiar
-información por sockets, y de la misma forma, se permite conectar varios
+información por \eng{sockets}, y de la misma forma, se permite conectar varios
 contenedores entre sí.
 
 Para usar esta configuración se requiere indicar puerto origen y puerto
@@ -314,13 +318,14 @@ destino. El puerto origen es interno al contenedor, y el puerto destino existe
 sólo en el entorno no virtualizado. En el ejemplo, un contenedor abre el puerto
 interno 24224 y lo mapea con el puerto del entorno externo 24224.
 
-La configuración volumes es usada para compartir el directorio .fluentd/etc con
-el contenedor. La instrucción command: \texttt{/fluentd/etc/start.sh} sirve para que el
-script que corre \gls{term:fluentd} sea ejecutado al poner en marcha el contenedor.
+La configuración volumes es usada para compartir el directorio
+\lstinline{fluentd/etc} con el contenedor. La instrucción command:
+\texttt{/fluentd/etc/start.sh} sirve para que el script que corre
+\gls{term:fluentd} sea ejecutado al poner en marcha el contenedor.
 
 Finalmente, para que los contenedores con NGINX y con las aplicaciones rails
-pueda enviar los datos a \gls{term:fluentd}, se agrega en el archivo docker-compose las
-siguientes líneas:
+pueda enviar los datos a \gls{term:fluentd}, se agrega en el archivo
+\texttt{docker-compose.yml} las siguientes líneas:
 
 \begin{lstlisting}
 
@@ -334,11 +339,11 @@ app:
 
 \end{lstlisting}
 
-Se puede encontrar la configuración completa de ejemplo en el Anexo 4 [REF].
+Se puede encontrar la configuración completa de ejemplo en el \autoref{anexo:C}
 
 En esta instancia ya tenemos configurada la salida de los logs de la aplicación
-de la aplicación rails, la recolección y parseo de los mismos con \gls{term:fluentd} y el
-envío de los mismos a la base de datos destinada a este fin con ElasticSearch.
-Ahora ya es posible consultar en nuestra base de datos información sobre los
-logs.
+de la aplicación rails, la recolección y parseo de los mismos con
+\gls{term:fluentd} y el envío de los mismos a la base de datos destinada a este
+fin con \gls{term:elasticsearch}. Ahora ya es posible consultar en nuestra base
+de datos información sobre los logs.
 
