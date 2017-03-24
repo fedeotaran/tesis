@@ -1,0 +1,31 @@
+\newpage
+\section{Conclusiones}
+\label{conclusiones}
+
+A lo largo de nuestra tesis hemos investigado numerosas herramientas de software para construir una solución de monitoreo en el CeSPI.
+
+En primer lugar hemos instalado InfluxDB para almacenar métricas de tipo series de tiempo. Hemos mostrado cómo hacer para que las aplicaciones Rails sean ejecutadas dentro de contenedores de Docker y cómo lograr que envíen información a InfluxDB a través de la gema influxdb-rails.
+
+Además hemos mostrado cómo instalar y configurar cAdvisor para obtener valiosa información del sistema y enviarla a InfluxDB.
+
+También hemos descripto cómo configurar NGINX y las aplicaciones para recuperar los datos de sus logs e imprimirlos en el STDOUT de nuestro contenedor de Docker para luego enviarlos a través de FluentD a Elasticsearch. De esta forma hemos logrado utilizar toda la información guardada en logs que antes era desaprovechada.
+
+Hemos demostrado cómo usar Kibana para crear gráficos a partir de la información de los logs en elasticsearch y cómo configurar un tablero de Grafana para mostrar los datos almacenados en InfluxDB.
+
+Finalmente hemos configurado Kapacitor para generar alertas útiles, definiendolas en el lenguaje TICKscript y luego hemos usado la herramienta Alerta para resolver el problema de múltiples alertas.
+
+Durante el transcurso de nuestra investigación hemos explorado otras herramientas como Logstash, OpenTSDB, Graphite y Telegraf, que finalmente no formaron parte de nuestra solución.
+
+Nos hemos dado cuenta durante el transcurso de nuestra investigación que ninguna herramienta cumplía con todas las características que nos interesaban, por lo que muchas veces hemos resuelto tomar sólo algunas funcionalidades de cada herramienta para resolver el problema.
+
+Hemos logrado construir una solución de monitoreo que se acopla al diseño de la infraestructura, y lo hemos hecho utilizando solamente herramientas gratuitas, de código abierto y albergadas por nosotros mismo (self-hosted).
+
+El sistema que hemos diseñado puede utilizarse para armar tableros y alertas que permitan mejorar el proceso de toma de decisiones para todos los roles de la organización.
+
+Consideramos que hemos armado una solución de monitoreo base para que el área de desarrollo del CeSPI pueda realizar un control básico y efectivo de sus aplicaciones, extendiendola de acuerdo a lo que crea necesario medir en cada aplicación. Creemos que esta solución se ajusta perfectamente a la escalabilidad, dinamismo y automatización con los que cuenta la infraestructura.
+
+El monitoreo es una rama de investigación que sigue creciendo cada día. Si bien actualmente existen varias herramientas relacionadas con el monitoreo, creemos que en un futuro contaremos con herramientas más completas.
+
+Durante el desarrollo de la tesis hemos tenido que investigar sobre disciplinas ajenas a la informática, como lo son la administración de proyectos, la estadística, la visualización efectiva de información e incluso la psicología.
+
+Hemos aprendido acerca de la importancia del monitoreo para resolver problemas rápidamente, estudiar el comportamiento de los sistemas y aplicaciones y tomar decisiones para mejorar la implementación de los procesos de desarrollo, la infraestructura de software y las aplicaciones.
