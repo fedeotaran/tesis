@@ -40,10 +40,11 @@
   \input{src/00-intro/_layout}
   %   - Meta previa a capítulos
   \setcounter{secnumdepth}{4}
-  %   - Capítulo I
+
   \input{src/01-capitulo-1/_layout}
-  %   - Capítulo II
   \input{src/02-capitulo-2/_layout}
+  \input{src/03-capitulo-3/_layout}
+  \input{src/05-capitulo-5/_layout}
 
   % Apéndice
   \appendix
@@ -52,19 +53,23 @@
   \input{src/anexos/01-nombre-anexo}
   \newpage
   %   - Anexo II: Endpoints de la nube actual
-  \input{src/anexos/02-nombre-anexo}
-  \newpage
+  \input{src/anexos/02-nombre-anexo}ç
+
   %   - Bibliografía
+  \newpage
   \bibliographystyle{plain}
   \bibliography{src/bibliografia}
-  \newpage
+
   %   - Glosario
+  \newpage
   \printglossary[title={Glosario}]
-  \newpage
+
   %   - Glosario
-  \printindex[palabras]
   \newpage
+  \printindex[palabras]
+  
   %   - Lista de figuras
+  \newpage
   \listoffigures
   %   - Lista de bloques de código
   \listoflistings
