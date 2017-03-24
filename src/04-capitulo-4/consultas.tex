@@ -1,0 +1,230 @@
+\subsection{Consultas}
+\label{consultas}
+
+Una vez que tenemos todo configurado, podemos comenzar a realizar consultas
+sobre la base de datos Elasticsearch donde están los logs. A través del comando
+curl podemos solicitar los datos de los índices creados en la base de datos por
+nuestras herramientas:
+
+\begin{lstlisting}
+
+curl localhost:9200/_cat/indices?v
+-------------------------------------------------------------------------------
+health status index                 uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   nginx-logs-2017.03.22 fNCeXckpQwyWtr5dntS9aQ   5   1          4            0       51kb           51kb
+yellow open   rails-logs-2017.03.22 nh9ID9o3TwmrxYmBOven8Q   5   1         46            0     87.3kb         87.3kb
+yellow open   .kibana               sHMjKRIWRuKrtZlZ9b31IQ   1   1          2            0     10.2kb         10.2kb
+
+\end{lstlisting}
+
+En la respuesta de la consulta se pueden visualizar tres índices: .kibana,
+rails-logs-2017.02.21 y nginx-logs-2017.02.21.
+
+Si quisiéramos visualizar la configuración de uno de estos índices, alcanzaría
+con hacer una consulta como la siguiente:
+
+\begin{lstlisting}
+
+curl localhost:9200/rails-logs-2017.02.21
+-------------------------------------------------------------------------------
+{
+  "rails-logs-2017.03.22": {
+    "aliases": {},
+      "mappings": {
+        "fluentd": {
+          "properties": {
+            "@timestamp": {
+              "type": "date"
+            },
+            "action": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "app_timestamp": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "container_id": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "container_name": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "controller": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "db": {
+              "type": "float"
+            },
+            "duration": {
+              "type": "float"
+            },
+            "format": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "log": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "method": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "path": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "source": {
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
+            },
+            "status": {
+              "type": "long"
+            },
+            "view": {
+              "type": "float"
+            }
+          }
+        }
+      },
+      "settings": {
+        "index": {
+          "creation_date": "1490215976161",
+          "number_of_replicas": "1",
+          "number_of_shards": "5",
+          "provided_name": "rails-logs-2017.03.22",
+          "uuid": "nh9ID9o3TwmrxYmBOven8Q",
+          "version": {
+            "created": "5000299"
+          }
+        }
+      }
+  }
+}
+
+\end{lstlisting}
+
+En el resultado de la consulta se puede ver la estructura de los registros y la
+composición del índice que almacena los logs de las aplicaciones rails.
+
+Para visualizar todos los documentos dentro de un índice, se puede ejecutar la
+siguiente instrucción:
+
+\begin{lstlisting}
+
+curl localhost:9200/nginx-logs-2017.02.21/_search
+------------------------------------------------------------------------------
+{
+    "_shards": {
+        "failed": 0,
+        "successful": 5,
+        "total": 5
+    },
+    "hits": {
+        "hits": [
+            {
+                "_id": "AVpiotVhd2D1TjttLYvK",
+                "_index": "nginx-logs-2017.02.21",
+                "_score": 1.0,
+                "_source": {
+                    "@timestamp": "2017-02-21T21:45:20+00:00",
+                    "container_id": "e7e13c19bf035d28f8d5ed087b7fd60aca6c82e8dce6223ccd8b5a03e6a6240b",
+                    "container_name": "/logger_nginx_1",
+                    "log": "172.23.0.1 - - [21/Feb/2017:21:45:20 +0000] \"GET / HTTP/1.1\" 304 0 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36\" \"-\"",
+                    "referer": "-",
+                    "remote_addr": "172.23.0.1",
+                    "remote_user": "-",
+                    "request_http_protocol": "HTTP/1.1",
+                    "request_size": "0",
+                    "request_type": "GET",
+                    "request_url": "/",
+                    "source": "stdout",
+                    "status_code": "304",
+                    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+                },
+                "_type": "fluentd"
+            },
+           .
+           .
+           .
+        ],
+        "max_score": 1.0,
+        "total": 10
+    },
+    "timed_out": false,
+    "took": 2
+}
+
+\end{lstlisting}
+
+Esta consulta nos retorna información sobre todos los documentos en el índice
+de requerimientos web que han pasado por NGINX. Entre otros datos, se pueden
+ver el identificador y nombre del contenedor, el código de estado HTTP, el
+cliente web utilizado y la marca de tiempo.
+
+FluentD nos ha permitido analizar el contenido del mensaje de los logs y
+separar aquellos campos importantes. Esto nos permitirá realizar búsquedas
+fácilmente.
+
+A lo largo de este capítulo hemos conseguido configurar varias herramientas
+para unificar los logs de diferentes fuentes en una base de datos centralizada,
+y utilizar un motor de búsquedas para obtener información importante de ellos.
+
+Los logs pueden ser muy útiles, pero no son la única fuente de datos de la que
+se puede obtener información valiosa. En el capítulo siguiente analizaremos
+cómo recolectar datos de diversas fuentes generados en tiempo real.
+

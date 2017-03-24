@@ -1,0 +1,95 @@
+\subsection{Almacenamiento}
+\label{almacenamiento}
+
+Para poder almacenar los logs de una forma centralizada, y hacer consultas
+sobre las mismas de una forma sencilla, hemos elegido utilizar Elasticsearch.
+
+Elasticsearch es un servidor de búsqueda que provee un motor de búsqueda de
+texto completo, distribuido y con capacidad de multi-tenencia con una interfaz
+web RESTful y con documentos JSON. Elasticsearch está desarrollado en Java y
+está publicado como código abierto bajo las condiciones de la licencia Apache.
+
+Elasticsearch permite almacenar, buscar y analizar datos estructurados y no
+estructurados, incluyendo texto, logs del sistema, registros de base de datos y
+más. Además puede ser usado para guardar métricas de series de tiempos
+proporcionadas por otras herramientas.
+
+Elasticsearch permite escalabilidad y posibilidad de agregar nuevas métricas en
+tiempo de ejecución, tiene facilidades para la integración con APIs y
+herramientas como Logstash, y consigue un buen rendimiento incluso al procesar
+grandes volúmenes de datos.
+
+Además tiene excelente integración con la herramienta de visualización de datos
+Kibana, que permite analizar datos de múltiples fuentes y correlacionar
+métricas almacenadas en ElasticSearch.
+
+Elasticsearch no es una base de datos relacional. Es orientada a documentos, y
+tiene su propia terminología. Para facilitar la comprensión de su
+funcionamiento, es importante que mencionemos los conceptos de documento e
+índice en elasticsearch:
+
+Un documento es una unidad básica de información que puede ser indexada. Por
+ejemplo, se puede tener un documento por un único cliente, otro documento por
+un producto específico y otro documento por una orden de compras. Estos
+documentos son expresados en formato JSON.  Un índice es una colección de
+documentos que tienen características similares. Por ejemplo, es posible tener
+un índice para datos de clientes, otro índice para un catálogo de productos y
+otro índice para datos de órdenes de compras. Un índice es identificado por un
+nombre escrito en minúsculas. Este nombre es usado para referirse al índice al
+realizar operaciones de indexado, búsqueda, actualización y eliminación sobre
+los documentos en el mismo.  Un tipo en Elasticserach representa una clase de
+documentos similares. Un tipo consiste en un nombre y un mapeo que, como el
+esquema de una base de datos, describe los campos o propiedades que los
+documentos de ese tipo pueden tener.
+
+
+Elasticsearch provee una API RESTful JSON sobre HTTP para realizar todas las
+operaciones importantes. Por defecto, Elasticsearch corre sobre el puerto 9200.
+Es posible comunicarse con esta API mediante clientes web, y también usando el
+comando curl desde una terminal.
+
+Elasticsearch provee clientes oficiales para muchos lenguajes, como Groovy,
+JavaScript, .NET, PHP, Perl, Python y Ruby, y hay numerosos clientes e
+integraciones provistos por la comunidad, que pueden ser encontrados en el
+sitio web de Elasticsearch.
+
+Por ejemplo, si quisiera indexar un documento por cada empleado, de tal forma
+que cada documento sea de tipo empleado y ese tipo exista en el índice de la
+biblioteca, basta con llamar a la API de la siguiente manera:
+
+\begin{lstlisting}
+
+PUT /biblioteca/empleado/1
+{
+    "nombre" :   "Juan",
+    "apellido" : "Gomez",
+    "edad" :      25,
+    "areas" :     [ "encargado" ]
+}
+
+\end{lstlisting}
+
+
+Para instalar Elasticsearch es necesario contar con Java instalado en el
+equipo.  Una vez configurado Java, simplemente es necesario descargar y
+ejecutar Elasticsearch.  Para descargar y ejecutar Elasticsearch 5.1, podemos
+correr los siguientes comandos:
+
+\begin{lstlisting}
+
+curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.1.1.tar.gz
+tar -xvf elasticsearch-5.1.1.tar.gz
+cd elasticsearch-5.1.1/bin
+./elasticsearch
+
+\end{lstlisting}
+
+Para nuestra solución, hemos elegido instalar elasticsearch en un servidor
+aparte. Esto nos da varias ventajas. En primer lugar, con esto apartamos los
+datos de los logs del entorno donde corren las aplicaciones, lo que nos permite
+tener disponibilidad de los datos en caso de que ocurra un que afecte a la
+infraestructura completa. Además, al tener una sola instancia separada lo que
+estamos haciendo es centralizar los datos de los logs para tener sólo una
+fuente que consultar. Para el segundo caso tenemos que tener en cuenta poder
+identificar la fuente de cada uno de los logs.
+
