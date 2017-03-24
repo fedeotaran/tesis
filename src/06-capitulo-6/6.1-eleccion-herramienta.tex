@@ -1,0 +1,32 @@
+\subsection{Elección de la herramienta y funcionamiento}
+\label{eleccion-herramienta}
+
+Hemos elegido la herramienta Kapacitor para implementar las alertas en nuestra solución. Las razón detrás de nuestra decisión es que Kapacitor cuenta con una DSL realmente simple, la cual nos ha permitido implementar algunas alertas complejas de forma verdaderamente rápida. Además, el hecho de que haya sido desarrollado por la misma empresa que creó InfluxDB le ha otorgado una integración excelente con el mismo.
+
+Kapacitor es un framework de procesamiento de datos de código abierto, que permite crear alertas, correr procesos ETL (de extracción, transformación y carga) y detectar anomalías. Kapacitor es parte del stack TICK, junto con Telegraf, InfluxDB y Chronograf.
+
+Kapacitor permite procesar datos por streaming y por lotes. También consultar los datos de InfluxDB en un programa y recibir datos a través del protocolo de línea y cualquier otro método que InfluxDB admita.
+
+Adicionalmente, admite realizar cualquier transformación actualmente posible en el lenguaje de consulta InfluxQL y almacenar los datos transformados en InfluxDB. Además permite añadir funciones personalizadas definidas por el usuario para detectar anomalías.
+
+Kapacitor puede ser configurado para notificar alertas a distintos destinos. Por ejemplo se pueden enviar a un archivo de logs, una URL con método HTTP POST, a través de correo electrónico y servicios como HipChat, Alerta, Sensu, Slack y PagerDuty, entre otros. Incluso es posible ejecutar un comando dirigiendo los datos de la alerta por STDIN. \footnote{\url{https://docs.influxdata.com/kapacitor/v1.2/}}
+
+Kapacitor cuenta con una DSL llamada TICKscript para generar alertas. Esta DSL es usada para definir canales de procesamiento de datos en Kapacitor.
+
+Kapacitor usa este lenguaje para definir canales de procesamiento de datos, o pipelines. Un pipeline es un conjunto de nodos que procesa datos y aristas que conectan nodos. Los pipelines en Kapacitor son grafos acíclicos dirigidos, lo que significa que cada arista tiene una dirección en la que fluyen los datos y no puede haber ningún ciclo en el pipeline.
+
+Kapacitor puede ser descargado e instalado en Debian o Ubuntu con los siguientes comandos:
+
+\begin{lstlisting}
+wget https://dl.influxdata.com/kapacitor/releases/kapacitor_1.2.0_amd64.deb
+sudo dpkg -i kapacitor_1.2.0_amd64.deb
+\end{lstlisting}
+
+Para correr el servicio de Kapacitor simplemente es necesario ejecutar el siguiente comando en la terminar:
+
+sudo service kapacitor start
+Además, es posible usarlo como contenedor de Docker, a través de la imágen oficial de Kapacitor \footnote{\url{https://hub.docker.com/_/kapacitor/}}, con el comando:
+
+\begin{lstlisting}
+docker pull kapacitor
+\end{lstlisting}

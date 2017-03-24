@@ -1,0 +1,67 @@
+\subsection{Manejador de alertas}
+\label{manejador-alertas}
+
+Ahora que hemos configurado Kapacitor, contamos con una infraestructura de monitoreo que permite generar alertas ante anomalías identificadas por condiciones previamente definidas.
+
+Pero lanzar demasiadas alertas puede provocar una serie de situaciones no deseadas.
+
+Una de las formas más comunes de enviar notificaciones es a través del uso de correo electrónico. Pero si se genera una alerta cuando falla la conexión a un servicio de la aplicación, y el mismo está caído, la alerta se generará todas las veces que se realice el llamado.
+
+Si la frecuencia con la que se hace el llamado es alta, es posible que se generen un gran número de alertas. Sin embargo, para ser notificado, con una sóla alerta que lea el usuario, ya debería ser suficiente.
+
+Esto no significa que no sea deseable que la alerta se genere, ya que la cantidad de veces que la invocación al servicio falló también podría ser un dato que querríamos obtener.
+
+Es en situaciones como ésta que el envío de correo electrónico de las notificaciones generadas por las alertas puede no ser una buena decisión.
+
+El sistema de monitoreo Alerta es una herramienta usada para consolidar alertas de múltiples fuentes y evitar su duplicación, para una visualización rápida. Con sólo un sistema es posible monitorear alertas que provengan de otras herramientas de monitoreo en una única pantalla.
+
+La herramienta Alerta nos parece la más indicada para resolver nuestro problema:
+
+Alerta es una plataforma que combina un servidor de una API JSON para recibir, procesar y renderizar alertas con una simple y efectiva interfaz de usuario web y una herramienta de líneas de comandos. Existen numerosas integraciones con otras herramientas populares de monitoreo y es fácil agregar una propia usando directamente la API.
+
+El acceso a la API y la herramienta de línea de comandos puede ser restringida usando claves de API y la consola usando Basic Auth o proveedores de OAuth2 como Google, GitHub y Gitlab.
+
+Alerta acepta alertas de fuentes estándar como lo son Syslog, SNMP, Nagios, Zabbix y Sensu. Cualquier herramienta de monitores que pueda disparar una petición URL puede ser integrada de forma sencilla. Además, se pueden mandar alertas a través de scripts que usen la herramienta de línea de comandos.
+
+Con Alerta es posible usar la cantidad de etiquetas que se prefieran para medir la importancia de las alertas. Para herramientas simples pueden usarse los niveles de severidad critical, warning y ok. Para una aplicación pueden usarse además info y debug.
+
+Kapacitor cuenta con soporte nativo para redirigir alertas a Alerta.
+
+Para hacer esto se debe realizar la siguiente configuración:
+
+\begin{lstlisting}
+    [alerta]
+      enabled = true
+      url = "https://alerta.yourdomain"
+      token = "9hiWoDOZ9IbmHsOTeST123ABciWTIqXQVFDo63h9"
+      environment = "Production"
+      origin = "Kapacitor"
+\end{lstlisting}
+
+Finalmente, en TICKscript se puede enviar un mensaje a Alerta de la siguiente forma:
+
+\begin{lstlisting}
+    stream
+         |alert()
+             .alerta()
+                 .resource('Hostname or service')
+                 .event('Something went wrong')
+\end{lstlisting}
+
+Las propiedades resource y event son requeridas. Además de éstas, se puede enviar algunas propiedades opcionales:
+
+\begin{lstlisting}
+    stream
+         |alert()
+             .alerta()
+                 .resource('Hostname or service')
+                 .event('Something went wrong')
+                 .environment('Development')
+                 .group('Dev. Servers')
+\end{lstlisting}
+
+[ Agregar ejemplo de uso de un caso real y ventajas ]
+
+En este capítulo hemos mostrado cómo instalar y configurar Kapacitor para generar alertas. Cómo definir alertas utilizando el lenguaje TICKscript y cómo resolver el problema de visualización y manejo de alertas agregando Alerta a la lista de herramientas.
+
+Con ésto hemos completado la parte práctica de nuestro trabajo. En el próximo capítulo daremos nuestras conclusiones finales de la tesis.
