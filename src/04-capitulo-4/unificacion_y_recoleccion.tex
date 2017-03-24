@@ -2,71 +2,75 @@
 \label{unificacion_y_recoleccion}
 
 El siguiente paso es tomar los datos de ambas fuentes, unificarlos y enviarlos
-a nuestra instancia en ejecución de Elasticsearch. Para cumplir con esta tarea
-utilizaremos la herramienta FluentD.
+a nuestra instancia en ejecución de \gls{term:elasticsearch}. Para cumplir con
+esta tarea utilizaremos la herramienta \gls{term:fluentd}.
 
-Fluentd es un colector de datos multiplataforma y de código abierto escrito en
-Ruby y desarrollado por la compañía TreasureData. Esta herramienta permite
-unificar el consumo y recolección de datos.
+\gls{term:fluentd} es un colector de datos multiplataforma y de código abierto
+escrito en \gls{term:ruby} y desarrollado por la compañía TreasureData. Esta
+herramienta permite unificar el consumo y recolección de datos.
 
-Fluentd cuenta con un sistema flexible de plugins que permite a la comunidad
-extender su funcionalidad. Hoy en día cuenta con más de 300 plugins que
-permiten tomar datos de docenas de fuentes diferentes.
+\gls{term:fluentd} cuenta con un sistema flexible de \eng{plugins} que permite
+a la comunidad extender su funcionalidad. Hoy en día cuenta con más de 300
+\eng{plugins} que permiten tomar datos de docenas de fuentes diferentes.
 
-Fluentd es muy utilizado debido a su mínimo consumo de memoria, su gran poder
-de procesamiento de datos, su robustez y su alta disponibilidad.
+\gls{term:fluentd} es muy utilizado debido a su mínimo consumo de memoria, su
+gran poder de procesamiento de datos, su robustez y su alta disponibilidad.
 
-Además de Fluentd hemos analizado las siguientes herramientas para resolver
-este problema:
+Además de \gls{term:fluentd} hemos analizado las siguientes herramientas para
+resolver este problema:
 
-Logstash Heka Splunk
+\subsubsection{Logstash, Heka y Splunk}
 
-Logstash es un motor de recolección de datos de código abierto. Logstash puede
-unificar dinámicamente datos de fuentes dispares y normalizar los datos en
-destinos de su elección. 
+\gls{term:logstash} es un motor de recolección de datos de código abierto.
+\gls{term:logstash} puede unificar dinámicamente datos de fuentes dispares y
+normalizar los datos en destinos de su elección. 
 
-Logstash funciona como un canal de procesamiento de datos del lado de servidor,
-que toma datos de una multitud de fuentes de forma simultánea, los transforma y
-envía para que sirvan como entrada de otra herramienta.
+\gls{term:logstash} funciona como un canal de procesamiento de datos del lado
+de servidor, que toma datos de una multitud de fuentes de forma simultánea, los
+transforma y envía para que sirvan como entrada de otra herramienta.
 
-Con Logstash es posible recolectar logs y cualquier tipo de evento. Estos
-eventos pueden ser transformados a partir de una amplia gama de entradas,
-filtros y plugins de salida.  \url{https://www.elastic.co/products/logstash}
+Con \gls{term:logstash} es posible recolectar logs y cualquier tipo de evento.
+Estos eventos pueden ser transformados a partir de una amplia gama de entradas,
+filtros y \eng{plugins} de salida.
 
-Heka es una solución de manejo de logs de código abierto. Fue diseñada por el
-equipo de Mozilla y está escrita en el lenguaje de programación Go. Al igual
-que Logstash, provee un sistema basado en plugins para recolectar y procesar
-logs. Además permite dirigir las salidas a una variedad de destinos, incluyendo
-Elasticsearch. Lamentablemente, Heka no se encuentra actualmente en
-mantenimiento.
+\gls{term:heka} es una solución de manejo de logs de código abierto. Fue
+diseñada por el equipo de Mozilla y está escrita en el lenguaje de programación
+\gls{term:go}. Al igual que \gls{term:logstash}, provee un sistema basado en
+\eng{plugins} para recolectar y procesar logs. Además permite dirigir las
+salidas a una variedad de destinos, incluyendo \gls{term:elasticsearch}.
+Lamentablemente, \gls{term:heka} no se encuentra actualmente en mantenimiento.
 
-Splunk es una herramienta comercial para buscar, monitorizar y analizar datos
-de aplicaciones y sistemas a través de una interfaz web. Cuenta con soluciones
-basadas en la nube. Splunk captura, indexa y correlaciona datos en tiempo real
-y los almacena en un repositorio, desde donde se pueden recuperar para generar
-gráficos, alertas y tableros de control definibles por un usuario.
+\gls{term:splunk} es una herramienta comercial para buscar, monitorizar y
+analizar datos de aplicaciones y sistemas a través de una interfaz
+\gls{acro:web}. Cuenta con soluciones basadas en la nube. \gls{term:splunk}
+captura, indexa y correlaciona datos en tiempo real y los almacena en un
+repositorio, desde donde se pueden recuperar para generar gráficos, alertas y
+tableros de control definibles por un usuario.
 
-Hemos descartado el uso de Heka, por no ser mantenida de forma activa, y de
-Splunk, por ser software privativo.
+Hemos descartado el uso de \gls{term:heka}, por no ser mantenida de forma
+activa, y de \gls{term:splunk}, por ser software privativo.
 
-Fluentd y Logstash resuelven problemas similares y tienen una fácil integración
-con Docker. Finalmente hemos elegido Fluentd para nuestra solución en lugar de
-Logstash, porque Fluentd se configura usando Ruby, lo que es una gran ventaja
-para el laboratorio, ya que sus programadores cuentan con experiencia en ese
-lenguaje.
+\gls{term:fluentd} y \gls{term:logstash} resuelven problemas similares y tienen
+una fácil integración con \gls{term:docker}. Finalmente hemos elegido
+\gls{term:fluentd} para nuestra solución en lugar de \gls{term:logstash},
+porque \gls{term:fluentd} se configura usando \gls{term:ruby}, lo que es una
+gran ventaja para el laboratorio, ya que sus programadores cuentan con
+experiencia en ese lenguaje.
 
-Fluentd usa el formato JSON para estructurar los datos, lo que permite unificar
-todas las facetas del procesamiento de datos de logs: recolección, filtrado,
-buffering y envío de logs a través de múltiples fuentes y destinos.
+\gls{term:fluentd} usa el formato \gls{acro:json} para estructurar los datos,
+lo que permite unificar todas las facetas del procesamiento de datos de logs:
+recolección, filtrado, \eng{buffering} y envío de logs a través de múltiples
+fuentes y destinos.
 
-Una vez que se tiene Fluentd instalado, debemos configurarlo para que pueda
-leer los datos de los logs desde la salida estándar de docker, y enviarlos a
-nuestra instancia de Elasticsearch.
+Una vez que se tiene \gls{term:fluentd} instalado, debemos configurarlo para
+que pueda leer los datos de los logs desde la salida estándar de
+\gls{term:docker}, y enviarlos a nuestra instancia de \gls{term:elasticsearch}.
 
-Para lograr este objetivo agregaremos dos gemas a la configuración de fluentd
-que nos permitirán enviar los datos a elasticsearch y parsear los datos de
-distintas fuentes para tomar la información que creamos importante. Esto lo
-haremos en un archivo llamado start.sh:
+Para lograr este objetivo agregaremos dos gemas a la configuración de
+\gls{term:fluentd} que nos permitirán enviar los datos a
+\gls{term:elasticsearch} y parsear los datos de distintas fuentes para tomar la
+información que creamos importante. Esto lo haremos en un archivo llamado
+\texttt{start.sh}:
 
 \begin{lstlisting}
 
@@ -78,15 +82,16 @@ exec fluentd -c /fluentd/etc/$FLUENTD_CONF -p /fluentd/plugins $FLUENTD_OPT
 
 \end{lstlisting}
 
-Este archivo instala las gemas que necesarias, y luego inicia el servicio de
-fluentd, pasandole la ruta del archivo de configuración y la carpeta en la que
-se encuentran los plugins.
+Este archivo instala las \glspl{term:gema} que necesarias, y luego inicia el
+servicio de \gls{term:fluentd}, pasandole la ruta del archivo de configuración
+y la carpeta en la que se encuentran los \eng{plugins}.
 
-La gema fluent-plugin-elasticsearch permite que fluentD pueda enviar sus datos
-a Elasticsearch. Este plugin crea índices de Elasticsearch simplemente
-escribiendolos. Basta con agregar a la configuración de Fluentd, el atributo
-type con valor elasticsearch y opcionalmente configuraciones adicionales. Por
-ejemplo: 
+La \gls{term:gema} \texttt{fluent-plugin-elasticsearch} permite que \gls{term:fluentd}
+pueda enviar sus datos a \gls{term:elasticsearch}. Este plugin crea índices de
+\gls{term:elasticsearch} simplemente escribiendolos. Basta con agregar a la
+configuración de \gls{term:fluentd}, el atributo \lstinline{type} con valor
+\gls{term:elasticsearch} y opcionalmente configuraciones adicionales. Por
+ejemplo:
 
 \begin{lstlisting}
 
@@ -100,10 +105,10 @@ ejemplo:
 
 \end{lstlisting}
 
-La gema fluent-plugin-parser permite a FluentD reconocer patrones en las
-cadenas de texto y reemitirlas. Por ejemplo, el siguiente código es capaz de
-reconocer a partir de una expresión regular las partes importantes del mensaje
-(host, user y time):
+La \gls{term:gema} \texttt{fluent-plugin-parser} permite a \gls{term:fluentd}
+reconocer patrones en las cadenas de texto y remitirlas. Por ejemplo, el
+siguiente código es capaz de reconocer a partir de una expresión regular las
+partes importantes del mensaje (\eng{host}, \eng{user} y \eng{time}):
 
 \begin{lstlisting}
 
@@ -117,8 +122,8 @@ reconocer a partir de una expresión regular las partes importantes del mensaje
 
 \end{lstlisting}
 
-El siguiente paso es escribir la configuración de FluentD, en el archivo
-fluentd.conf:
+El siguiente paso es escribir la configuración de \gls{term:fluentd}, en el
+archivo \texttt{fluentd.conf}:
 
 \begin{lstlisting}
 
@@ -173,11 +178,13 @@ A continuación explicaremos el funcionamiento del código, bloque por bloque.
 
 \end{lstlisting}
 
-Las fuentes de entrada de Fluentd se habilitan seleccionando y configurando los
-plugins de entrada deseados usando la directiva source. La instrucción type
-forward convierte a fluentd en un endpoint TCP. La línea port 24224, indica el
-puerto en donde Fluentd aceptará paquetes TCP.
-\url{http://docs.fluentd.org/v0.12/articles/config-file}
+Las fuentes de entrada de \gls{term:fluentd} se habilitan seleccionando y
+configurando los \eng{plugins} de entrada deseados usando la directiva
+\lstinline{source}. La instrucción \lstinline{type forward} convierte a
+\gls{term:fluentd} en un \eng{endpoint} \gls{acro:tcp}. La línea
+\lstinline{port 24224}, indica el puerto en donde \gls{term:fluentd} aceptará
+paquetes \gls{acro:tcp}\footnote{Cf.
+\url{http://docs.fluentd.org/v0.12/articles/config-file}}.
 
 \begin{lstlisting}
 
@@ -196,7 +203,7 @@ patrón y los procesa. En este caso, sólo tomará las entradas con etiqueta
 comenzando con \lstinline{rails.docker.}. Las instrucciones type parser,
 \lstinline{key\_name} log y format json nos indican que la clave de nombre
 ‘log’ en la entrada será analizada sintácticamente y transformada a formato
-JSON.
+\gls{acro:json}.
 
 La línea \lstinline{reserve\_data} yes es usada para mantener los datos
 originales. Por ejemplo, si la entrada fue la cadena de texto
@@ -233,11 +240,11 @@ Este bloque funciona de forma similar al anterior. Toma aquellas entradas con
 etiquetas que comienzan con la cadena \lstinline{nginx.docker.}, es decir, aquellas que
 provengan de NGINX.
 
-En lugar de utilizar el formato JSON, se usa una expresión regular para
+En lugar de utilizar el formato \gls{acro:json}, se usa una expresión regular para
 recuperar los valores importantes de la expresión. Algunos de estos valores son
-la marca de tiempo, el tipo de solicitud web, la URL a la que se intentó
-acceder, el protocolo HTTP, el código de estado HTTP, el tamaño del mensaje de
-solicitud y el cliente web utilizado.
+la marca de tiempo, el tipo de solicitud \gls{acro:web}, la URL a la que se intentó
+acceder, el protocolo \gls{acro:http}, el código de estado \gls{acro:http}, el tamaño del mensaje de
+solicitud y el cliente \gls{acro:web} utilizado.
 
 Las marcas de tiempo suelen ser problemáticas en los logs. Cada fuente de
 registros puede tener formatos de hora y fecha diferentes, lo que dificulta el
@@ -265,15 +272,15 @@ que se quiere que cumplan las fechas y de esa forma evitar estos problemas.
 \end{lstlisting}
 
 Los últimos dos bloques toman como entrada las salidas de los bloques
-anteriores, y las envían a Elasticsearch con un formato adecuado, haciendo uso
+anteriores, y las envían a \gls{term:elasticsearch} con un formato adecuado, haciendo uso
 del plugin fluentd-plugin-elasticsearch. Este plugin además, crea índices en
-Elasticsearch.
+\gls{term:elasticsearch}.
 
 Teniendo en consideración la arquitectura general de la infraestructura, hemos
-decidido, para nuestra solución, que Fluentd sea ejecutado sobre su propio
-contenedor de Docker. Para lograr que este contenedor se comunique con el
+decidido, para nuestra solución, que \gls{term:fluentd} sea ejecutado sobre su propio
+contenedor de \gls{term:docker}. Para lograr que este contenedor se comunique con el
 contenedor de la aplicación y con la base de datos, usaremos la herramienta
-Compose de Docker.
+Compose de \gls{term:docker}.
 
 Se puede encontrar una descripción más completa de Compose en el Anexo 3 [REF].
 
@@ -293,8 +300,8 @@ fluentd:
 
 \end{lstlisting}
 
-La línea image: fluent/fluentd;latest indica la imagen de docker que se va a
-utilizar. En este caso, se utiliza la imagen oficial de Fluentd. (pie de
+La línea image: fluent/fluentd;latest indica la imagen de \gls{term:docker} que se va a
+utilizar. En este caso, se utiliza la imagen oficial de \gls{term:fluentd}. (pie de
 página: \url{https://hub.docker.com/r/fluent/fluentd/l}).
 
 La clave ports se utiliza para exponer puertos. Gracias a esta capacidad es
@@ -309,10 +316,10 @@ interno 24224 y lo mapea con el puerto del entorno externo 24224.
 
 La configuración volumes es usada para compartir el directorio .fluentd/etc con
 el contenedor. La instrucción command: \texttt{/fluentd/etc/start.sh} sirve para que el
-script que corre Fluentd sea ejecutado al poner en marcha el contenedor.
+script que corre \gls{term:fluentd} sea ejecutado al poner en marcha el contenedor.
 
 Finalmente, para que los contenedores con NGINX y con las aplicaciones rails
-pueda enviar los datos a Fluentd, se agrega en el archivo docker-compose las
+pueda enviar los datos a \gls{term:fluentd}, se agrega en el archivo docker-compose las
 siguientes líneas:
 
 \begin{lstlisting}
@@ -330,7 +337,7 @@ app:
 Se puede encontrar la configuración completa de ejemplo en el Anexo 4 [REF].
 
 En esta instancia ya tenemos configurada la salida de los logs de la aplicación
-de la aplicación rails, la recolección y parseo de los mismos con fluentD y el
+de la aplicación rails, la recolección y parseo de los mismos con \gls{term:fluentd} y el
 envío de los mismos a la base de datos destinada a este fin con ElasticSearch.
 Ahora ya es posible consultar en nuestra base de datos información sobre los
 logs.
