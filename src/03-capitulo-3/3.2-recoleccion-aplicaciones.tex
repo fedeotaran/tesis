@@ -7,10 +7,13 @@ Esta gema proporciona métodos para vincular Ruby on Rails con InfluxDB.
 
 Para que la aplicación Rails pueda hacer uso de estos métodos, es necesario agregar la siguiente línea al archivo GEMFILE:
 
-gem ‘influxdb-rails’
+\begin{lstlisting}
+gem "influxdb-rails"
+\end{lstlisting}
 
 Una vez que tenemos instalada la gema, podemos configurar el adaptador InfluxDB::Rails en un archivo de configuración de la aplicación. La configuración por defecto debería verse de la siguiente manera:
 
+\begin{lstlisting}
 InfluxDB::Rails.configure do |config|
   config.influxdb_database = "rails"
   config.influxdb_username = "root"
@@ -18,14 +21,17 @@ InfluxDB::Rails.configure do |config|
   config.influxdb_hosts    = ["influx"]
   config.influxdb_port     = 8086
 end
+\end{lstlisting}
 
 El código ruby anterior configura los datos necesarios para que la aplicación pueda comunicarse con la base de datos. Estos datos son el nombre de la base de datos, el nombre de usuario, la contraseña del usuario y el nombre del host y el número de puerto por el cual comunicarse con la API de InfluxDB.
 
 Sin necesidad de configurar nada más, la gema brinda automáticamente reportes de los tiempos de ejecución de cada solicitud web para los controladores, las vistas y las bases de datos. Pero además, posibilita la realización de llamadas al cliente InfluxDB directamente, escribiendo datos arbitrarios de la siguiente manera:
 
+\begin{lstlisting}
 InfluxDB::Rails.client.write_point "events",
   tags:   { url: "/ejemplo", user_id: 1 },
   values: { value: 0 }
+\end{lstlisting}
 
 A continuación mostraremos un ejemplo concreto de cómo se puede utilizar esta herramienta para generar métricas útiles para el equipo de desarrollo y para los dueños de un sistema:
 
@@ -37,6 +43,7 @@ El SSO centraliza la información de todos los usuarios pertenecientes a la univ
 
 Creemos que puede ser importante mantener un seguimiento de los inicios de sesión de usuarios en las diferentes aplicaciones. Podemos utilizar la librería influxdb-rails para cumplir este objetivo, escribiendo el siguiente código Ruby para que sea ejecutado cada vez que un usuario inicia sesión exitosamente:
 
+\begin{lstlisting}
 InfluxDB::Rails.client.write_point(
   "logins",
   tags:   { 
@@ -46,27 +53,32 @@ InfluxDB::Rails.client.write_point(
   },
   values: { value: request_time }
 )
+\end{lstlisting}
 
-Las expresiones request.remote_ip y current_user.id contienen respectivamente la dirección IP y el identificador único del usuario que está iniciando sesión en alguno de los sistemas de la UNLP. La aplicación a la cual se quiere conectar el usuario es obtenida a través de access.application. El tiempo que demoró la petición web en resolverse lo encontramos en la variable request_time.
+Las expresiones \lstinline{request.remote_ip} y \lstinline{current_user.id} contienen respectivamente la dirección IP y el identificador único del usuario que está iniciando sesión en alguno de los sistemas de la UNLP. La aplicación a la cual se quiere conectar el usuario es obtenida a través de \lstinline{access.application}. El tiempo que demoró la petición web en resolverse lo encontramos en la variable \lstinline{request_time}.
+
 A partir de esta información que estamos enviando a InfluxDB, es posible obtener varias métricas que pueden ser útiles para los desarrolladores, profesionales de IT y otros. Algunos ejemplos de estas métricas son:
 
-Tiempo de respuesta promedio para la operación de inicio de sesión
-Cantidad de accesos por unidad de tiempo al servicio de autentificación
-Promedio de accesos a cada aplicación
-Accesos a cada aplicación agrupados por aplicación y franja horaria.
+\begin{itemize}
+  \item Tiempo de respuesta promedio para la operación de inicio de sesión.
+  \item Cantidad de accesos por unidad de tiempo al servicio de autentificación.
+  \item Promedio de accesos a cada aplicación.
+  \item Accesos a cada aplicación agrupados por aplicación y franja horaria.
+\end{itemize}
 
-Un usuario con un perfil gerencial podría verse beneficiado al hacer uso de estas métricas. Por ejemplo, podría tomar la cantidad de accesos a servicios de la Universidad agrupados por aplicación y descubrir cuáles son los servicios más o menos utilizados.
+Un usuario con un perfil gerencial podría verse beneficiado al hacer uso de estas métricas. Por ejemplo, podría tomar la cantidad de accesos a servicios de la Universidad agrupados por aplicación y descubrir cuáles son los servicios más y menos utilizados.
 
 Este tipo de información puede ayudar a guiar decisiones dentro de las distintas áreas del CeSPI.
 
-Ruby on Rails incluye una API de instrumentación http://guides.rubyonrails.org/active_support_instrumentation.html que sirve para medir eventos. Con esta API, los desarrolladores pueden elegir ser notificados cuando ciertas acciones ocurren dentro de las aplicaciones.
+Ruby on Rails incluye una API de instrumentación \footnote{\url{http://guides.rubyonrails.org/active_support_instrumentation.html}} que sirve para medir eventos. Con esta API, los desarrolladores pueden elegir ser notificados cuando ciertas acciones ocurren dentro de las aplicaciones.
 
 La API de instrumentación provee enganches, o hooks a los cuales los desarrolladores pueden suscribirse y así ser notificados en caso de que determinados eventos se produzcan. De esta forma, se podrán tomar acciones a partir de la ocurrencia de estos eventos. Además, la API provee herramientas para que un programador pueda crear sus propios hooks a los cuales subscribirse.
 
-Por ejemplo, existe un hook provisto por la librería de Rails, Active Record, http://guides.rubyonrails.org/active_record_basics.html que es llamado cada vez que se lleva a cabo una consulta SQL en una base de datos. Es posible subscribirse a este hook, y utilizarlo para tener un seguimiento del número de consultas realizadas.
+Por ejemplo, existe un hook provisto por la librería de Rails, Active Record, \footnote{\url{http://guides.rubyonrails.org/active_record_basics.html}} que es llamado cada vez que se lleva a cabo una consulta SQL en una base de datos. Es posible subscribirse a este hook, y utilizarlo para tener un seguimiento del número de consultas realizadas.
 
 Podemos aprovechar las facilidades que provee la API de instrumentación de Rails para enviar a InfluxDB información sobre las consultas que se hacen a la base de datos, agregando las siguientes líneas a un archivo de configuración:
 
+\begin{lstlisting}
 ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, finish, id, payload|
   InfluxDB::Rails.client.write_point name,
     value: (finish-start),
@@ -74,11 +86,13 @@ ActiveSupport::Notifications.subscribe("sql.active_record") do |name, start, fin
     finish: finish,
     name: name
 end
+\end{lstlisting}
 
-La gema influxdb-rails viene configurada por defecto para apoyarse en el hook "process_action.action_controller" y enviar a InfluxDB información sobre los tiempos de respuesta de cada petición web, distinguiendo el tiempo que demora en el renderizado de las vistas, el procesamiento de los controladores y las consultas a las bases de datos.
+La gema influxdb-rails viene configurada por defecto para apoyarse en el hook \lstinline{"process_action.action_controller"} y enviar a InfluxDB información sobre los tiempos de respuesta de cada petición web, distinguiendo el tiempo que demora en el renderizado de las vistas, el procesamiento de los controladores y las consultas a las bases de datos.
 
 Para ejecutar la aplicación Rails usando contenedores de Docker, agregaremos el archivo dockerfile en el directorio raíz de la aplicación:
 
+\begin{lstlisting}
 FROM ruby:2.3.1
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs sqlite libsqlite3-dev
@@ -99,17 +113,21 @@ EXPOSE 3000
 ENTRYPOINT ["bundle", "exec"]
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
+\end{lstlisting}
 
-La línea FROM ruby:2.3.1 declara que el contenedor se basa en la imagen de Docker de nombre ruby:2.3.1. La siguiente lìnea se ocupa de instalar las librerías necesarias para usar la aplicación Rails.
+La línea \lstinline{FROM ruby:2.3.1} declara que el contenedor se basa en la imagen de Docker de nombre \lstinline{ruby:2.3.1}. La siguiente lìnea se ocupa de instalar las librerías necesarias para usar la aplicación Rails.
 
-Luego se crea la carpeta de la aplicación, se copian los archivos Gemfile y Gemfile.lock, donde se describen las dependencias de la aplicación, y se instalan las gemas de esos archivos con el comando bundle install.
+Luego se crea la carpeta de la aplicación, se copian los archivos \lstinline{Gemfile} y \lstinline{Gemfile.lock}, donde se describen las dependencias de la aplicación, y se instalan las gemas de esos archivos con el comando \lstinline{bundle install}.
 
-Finalmente, se copia el contenido de la aplicación al contenedor Docker, se expone el puerto 3000, y se corre la aplicación con el comando rails server -b 0.0.0.0.
+Finalmente, se copia el contenido de la aplicación al contenedor Docker, se expone el puerto 3000, y se corre la aplicación con el comando \lstinline{rails server -b 0.0.0.0}.
 
-Mostraremos a continuación cómo podemos hacer para correr la aplicación al mismo tiempo que ejecutamos sus servicios. Para esta tarea utilizaremos Compose de Docker. Compose permite definir una configuración de los servicios de una aplicación en un archivo, e iniciar todos estos servicios con un sólo comando. Hemos escrito una explicación un poco más detallada de DockerCompose en el anexo [ref].
+Mostraremos a continuación cómo podemos hacer para correr la aplicación al mismo tiempo que ejecutamos sus servicios. Para esta tarea utilizaremos Compose de Docker. Compose permite definir una configuración de los servicios de una aplicación en un archivo, e iniciar todos estos servicios con un sólo comando.
+
+Hemos escrito una explicación un poco más detallada de DockerCompose en el anexo.
 
 El siguiente archivo Docker Compose es un ejemplo de cómo configurar la aplicación Rails para trabajar con InfluxDB.
 
+\begin{lstlisting}
 version: "2"
 services:
   app:
@@ -136,10 +154,10 @@ services:
 networks:
   metricnet:
     driver: bridge
+\end{lstlisting}
 
-En el archivo se definen dos servicios. La aplicación Rails es el servicio de nombre app, y la base de datos InfluxDB es el servicio de nombre influx. Ambos utilizan la red lognet para comunicarse entre sí.
+En el archivo se definen dos servicios. La aplicación Rails es el servicio de nombre \lstinline{app}, y la base de datos InfluxDB es el servicio de nombre \lstinline{influx}. Ambos utilizan la red \lstinline{lognet} para comunicarse entre sí.
 
-app usa el dockerfile que definimos anteriormente para inicializar el servicio de la aplicación, y define los puertos externo e interno 3000:3000.
+\lstinline{app} usa el dockerfile que definimos anteriormente para inicializar el servicio de la aplicación, y define los puertos externo e interno \lstinline{3000:3000}.
 
-influx utiliza la imágen influxdb:1.0.0-rc1 y configura algunas variables de ambiente, como lo son el nombre del usuario administrador, la contraseña del usuario y el nombre de la base de datos a crear por defecto. Finalmente define los puertos por donde estará la API y el cliente web.
-
+\lstinline{influx} utiliza la imágen \lstinline{influxdb:1.0.0-rc1} y configura algunas variables de ambiente, como lo son el nombre del usuario administrador, la contraseña del usuario y el nombre de la base de datos a crear por defecto. Finalmente define los puertos por donde estará la API y el cliente web.
