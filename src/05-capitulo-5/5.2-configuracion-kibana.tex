@@ -1,7 +1,7 @@
 \subsection{Configuración de Kibana}
 \label{configuracion-de-kibana}
 
-En el capítulo 4 hemos hablado de cómo usamos Elasticsearch para almacenar los datos obtenidos de Logs. El siguiente paso es usar Kibana para poder visualizar los datos almacenados en Elasticsearch.
+En el capítulo 4 hemos hablado de cómo usamos \gls{term:elasticsearch} para almacenar los datos obtenidos de Logs. El siguiente paso es usar Kibana para poder visualizar los datos almacenados en \gls{term:elasticsearch}.
 
 Usaremos Kibana a través de la imagen de Docker oficial. Esta imagen provee varios métodos para configurar Kibana. El enfoque convencional es proveer un archivo \lstinline{kibana.yml}, pero también es posible utilizar variables de ambiente para definir las opciones.
 
@@ -40,7 +40,7 @@ Es posible alcanzar el estado de página del servidor de Kibana navegando a la d
 \end{figure}
 
 
-Para poder comenzar a usar Kibana, debemos indicarle los índices de Elasticsearch que queremos explorar. La primera vez que se accede a Kibana, se solicita al usuario definir un patrón que coincida con los nombres de uno o más índices. Una vez hecho esto ya podemos empezar a explorar datos.
+Para poder comenzar a usar Kibana, debemos indicarle los índices de \gls{term:elasticsearch} que queremos explorar. La primera vez que se accede a Kibana, se solicita al usuario definir un patrón que coincida con los nombres de uno o más índices. Una vez hecho esto ya podemos empezar a explorar datos.
 
 
 
@@ -59,7 +59,7 @@ Si un campo de tiempo es configurado para el patrón de índice seleccionado, la
 
 Kibana permite crear visualizaciones de datos en los índices de Elasticsearch, y con ellas construir tableros que muestren visualizaciones relacionadas.
 
-Las visualizaciones de Kibana están basadas en consultas de Elasticsearch. Al usar una serie de agregaciones de Elasticsearch para extraer y procesar datos, se pueden crear gráficos que muestren tendencias, picos y caídas que puede ser importante conocer.
+Las visualizaciones de Kibana están basadas en consultas de \gls{term:elasticsearch}. Al usar una serie de agregaciones de \gls{term:elasticsearch} para extraer y procesar datos, se pueden crear gráficos que muestren tendencias, picos y caídas que puede ser importante conocer.
 
 Es posible crear visualizaciones de distintos tipos. Algunos de estos tipos son:
 
@@ -120,4 +120,4 @@ Además es posible agrupar los datos por fechas, rangos, términos o filtros. Po
 
 En la \autoref{fig:kibana-logs} vemos como se visualiza en Kibana una línea de logs tomada de nuestras aplicaciones Rails. En la misma se puede apreciar cómo logramos separar la información contenida en una única línea de log en varias para poder realizar consultas.
 
-Ya tenemos Kibana configurado para poder comenzar a explorar los logs almacenados en Elasticsearch. En la próxima sección contaremos cómo configurar Grafana.
+Ya tenemos Kibana configurado para poder comenzar a explorar los logs almacenados en \gls{term:elasticsearch}. En la próxima sección contaremos cómo configurar Grafana.
