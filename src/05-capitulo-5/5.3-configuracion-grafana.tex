@@ -1,9 +1,14 @@
-\subsection{Configuración de Grafana}
+\subsection{Configuración de \gls{term:grafana}}
 \label{configuracion-de-grafana}
 
-Hemos elegido Grafana para la creación de los tableros que mostraran la información que hemos recolectado en el capítulo 4. Para elegir los gráficos incluidos en los tableros tendremos en cuenta las necesidades de cada tipo de usuario.
+Hemos elegido \gls{term:grafana} para la creación de los tableros que mostraran
+la información que hemos recolectado en el \autoref{cap4}. Para elegir los
+gráficos incluidos en los tableros tendremos en cuenta las necesidades de cada
+tipo de usuario.
 
-Para instalar Grafana en Debian o Ubuntu, podemos correr los siguientes comandos en una consola:
+Para instalar \gls{term:grafana} en Debian o Ubuntu
+\footnote{Sistemas operativos construidos sobre el kernel de \gls{term:linux}},
+podemos correr los siguientes comandos en una consola:
 
 \begin{lstlisting}
 $ wget https://grafanarel.s3.amazonaws.com/builds/grafana_4.1.2-1486989747_amd64.deb
@@ -11,40 +16,69 @@ $ sudo apt-get install -y adduser libfontconfig
 $ sudo dpkg -i grafana_4.1.2-1486989747_amd64.deb
 \end{lstlisting}
 
-Para iniciar el servicio de Grafana en Linux, basta con ejecutar el siguiente comando en la terminal:
+Para iniciar el servicio de \gls{term:grafana} en \gls{term:linux}, basta con
+ejecutar el siguiente comando en la terminal:
 
 \begin{lstlisting}
 $ sudo service grafana-server start
 \end{lstlisting}
 
 
-Esta orden inicializa el proceso grafana-sever como el usuario Grafana, que fue creado durante la instalación.
+Esta orden inicializa el proceso \texttt{grafana-sever} como el usuario
+\gls{term:grafana}, que fue creado durante la instalación.
 
-Una vez que el proceso está en ejecución es posible acceder al servicio en el puerto 3000 del navegador e iniciar sesión. \footnote{\url{http://docs.grafana.org/}}
+Una vez que el proceso está en ejecución es posible acceder al servicio en el
+puerto 3000 del navegador e iniciar sesión.
+\footnote{\url{http://docs.grafana.org/}}
 
-Grafana soporta varios backends de almacenamiento diferentes, llamados DataSources. Cada uno de ellos tiene un editor de consultas visual específico, para facilitar el armado de paneles de control a los usuarios.
+\gls{term:grafana} soporta varios \eng{backends} de almacenamiento diferentes,
+llamados \eng{DataSources}. Cada uno de ellos tiene un editor de consultas
+visual específico, para facilitar el armado de paneles de control a los
+usuarios.
 
-Grafana tiene soporte para tomar información de Graphite, InfluxDB, OpenTSDB, Prometheus, \gls{term:elasticsearch}, CloudWatch y KairosDB.
+\gls{term:grafana} tiene soporte para tomar información de Graphite, \gls{term:influx},
+OpenTSDB, Prometheus, \gls{term:elasticsearch}, CloudWatch y KairosDB.
 
-Para conectar Grafana con la instancia de InfluxDB configurada en el capítulo anterior, se debe comenzar por crear un DataSource que consuma información de la base de datos.
+Para conectar \gls{term:grafana} con la instancia de \gls{term:influx}
+configurada en el capítulo anterior, se debe comenzar por crear un DataSource
+que consuma información de la base de datos.
 
+Por ejemplo, a partir de los datos almacenados en \gls{term:influx}, podemos
+crear gráficos con la intención de que sean útiles a un responsable de IT de la
+aplicación. En dichos gráficos podemos elegir que se visualice el tiempo de
+respuesta de la aplicación, el rendimiento de sus componentes, disponibilidad
+total de la aplicación, cantidad de espacio en disco y memoria usada por el
+servidor.
 
+Si quisiéramos medir el tiempo de respuesta de la aplicación \gls{term:ror},
+podríamos optar por un gráfico de líneas donde el eje horizontal sea la hora, y
+el eje vertical sea el tiempo de respuesta. Dicho gráfico podría aprovechar la
+información que hemos enviado desde la aplicación \gls{term:ror} a
+\gls{term:influx} en la \autoref{configuracion_de_las_aplicaciones}. El gráfico
+se encontraría desglosado en tiempo de renderizado de las vistas, tiempo de
+acceso a las bases de datos, y otros tiempos, y se vería como el siguiente:
 
-Por ejemplo, a partir de los datos almacenados en InfluxDB, podemos crear gráficos con la intención de que sean útiles a un responsable de IT de la aplicación. En dichos gráficos podemos elegir que se visualice el tiempo de respuesta de la aplicación, el rendimiento de sus componentes, disponibilidad total de la aplicación, cantidad de espacio en disco y memoria usada por el servidor.
+Para poder recrear dicho gráfico hemos debido realizar varias consultas a la
+base de datos \gls{term:influx} configurada en el capítulo anterior usando la
+herramienta visual provista por \gls{term:grafana}.
 
-Si quisiéramos medir el tiempo de respuesta de la aplicación Rails, podríamos optar por un gráfico de líneas donde el eje horizontal sea la hora, y el eje vertical sea el tiempo de respuesta. Dicho gráfico podría aprovechar la información que hemos enviado desde la aplicación Rails a InfluxDB en la sección 4.1. El gráfico se encontraría desglosado en tiempo de renderizado de las vistas, tiempo de acceso a las bases de datos, y otros tiempos, y se vería como el siguiente:
+A modo de ejemplo, mostraremos cómo podemos usar grafana para medir la
+experiencia de usuario utilizando la métrica Apdex.
 
+Apdex es un método estándar para reportar y comparar el rendimiento de
+aplicaciones de software. Su propósito es convertir medidas en información
+sobre la satisfacción del usuario especificando una forma uniforme de analizar
+y reportar el grado en el que el rendimiento medido cumple las expectativas del
+usuario.
 
-Para poder recrear dicho gráfico hemos debido realizar varias consultas a la base de datos InfluxDB configurada en el capítulo anterior usando la herramienta visual provista por Grafana.
+Hemos estudiado diferentes maneras de mostrar esta información y consensuamos
+en utilizar un gráfico de barras donde cada barra se corresponda con un período
+de 1 hora, con el objetivo de contemplar la variación del valor apdex en las
+anteriores 24 horas. De esta forma podemos analizar si influyen de algún modo
+las franjas horarias en la experiencia final del usuario.
 
-
-A modo de ejemplo, mostraremos cómo podemos usar grafana para medir la experiencia de usuario utilizando la métrica Apdex.
-
-Apdex es un método estándar para reportar y comparar el rendimiento de aplicaciones de software. Su propósito es convertir medidas en información sobre la satisfacción del usuario especificando una forma uniforme de analizar y reportar el grado en el que el rendimiento medido cumple las expectativas del usuario.
-
-
-Hemos estudiado diferentes maneras de mostrar esta información y consensuamos en utilizar un gráfico de barras donde cada barra se corresponda con un período de 1 hora, con el objetivo de contemplar la variación del valor apdex en las anteriores 24 horas. De esta forma podemos analizar si influyen de algún modo las franjas horarias en la experiencia final del usuario. (No se si me gusta esta forma. Revisar de qué otra manera se puede mostrar esta información.)
-
-
-
-En este capítulo hemos mostrado cómo se pueden configurar algunas herramientas de visualización para reflejar los datos que hemos almacenado hasta ahora en InfluxDB y en \gls{term:elasticsearch}. En el capítulo siguiente mostraremos cómo crear alertas que permitan a los usuarios descubrir de forma rápida eventos a los que deberían prestar atención.
+En este capítulo hemos mostrado cómo se pueden configurar algunas herramientas
+de visualización para reflejar los datos que hemos almacenado hasta ahora en
+\gls{term:influx} y en \gls{term:elasticsearch}. En el capítulo siguiente
+mostraremos cómo crear alertas que permitan a los usuarios descubrir de forma
+rápida eventos a los que deberían prestar atención.
