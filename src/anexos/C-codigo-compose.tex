@@ -1,9 +1,76 @@
 \section{Código Docker Compose completo de ejemplo}
 \label{anexo:C}
 
-Copiamos a continuación el contenido del archivo \texttt{docker-compose.yml} completo de ejemplo para la configuración de una aplicación Rails con FluentD, NGINX, ElasticSearch y Kibana.
+Para realizar la obtención de datos de nuestro sistema, contenedores o
+aplicaciones explicadas en \autoref{cap3} utilizamos el siguiente archivo
+\texttt{docker-compose.yml} que levanta todas las herramientas propuestas:
 
 \begin{lstlisting}
+
+version: "2"
+services:
+
+  app:
+    build: app
+    command: rails server -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./app/:/app
+    ports:
+      - "8080:3000"
+    networks:
+      - lognet
+
+  influxsrv:
+    image: influxdb:1.0.0-rc1
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    expose:
+      - "8090"
+      - "8099"
+    environment:
+      - PRE_CREATE_DB=cadvisor
+    networks:
+      - metricsnet
+
+  cadvisor:
+    image: google/cadvisor:v0.24.0
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+    ports:
+      - "9090:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - metricsnet
+
+  grafana:
+    image: grafana/grafana:3.1.1
+    ports:
+      - "3000:3000"
+    environment:
+      - INFLUXDB_HOST=localhost
+      - INFLUXDB_PORT=8086
+      - INFLUXDB_NAME=cadvisor
+      - INFLUXDB_USER=root
+      - INFLUXDB_PASS=root
+    networks:
+      - metricsnet
+
+networks:
+  metricsnet:
+    driver: bridge
+
+\end{lstlisting}
+
+Copiamos a continuación el contenido del archivo \texttt{docker-compose.yml}
+completo de ejemplo para la configuración de una aplicación Rails con FluentD,
+NGINX, ElasticSearch y Kibana.
+
+\begin{lstlisting}
+
 version: "2"
 
 services:
