@@ -1,9 +1,12 @@
 \subsection{Definición de una alerta}
 \label{definir-alerta}
 
-Una vez que se tiene instalado y configurado Kapacitor, ya es posible definir alertas.
+Una vez que se tiene instalado y configurado \gls{term:kapacitor}, ya es
+posible definir alertas.
 
-Para esto, es necesario crear un archivo utilizando el lenguage TICKscript. A modo de ejemplo, crearemos un archivo de nombre \texttt{cpu\_alert.tick} con la siguiente configuración:
+Para esto, es necesario crear un archivo utilizando el lenguage
+\gls{term:tick_script}. A modo de ejemplo, crearemos un archivo de nombre
+\texttt{cpu\_alert.tick} con la siguiente configuración:
 
 \begin{lstlisting}
 stream
@@ -16,19 +19,24 @@ stream
         .log('/tmp/alerts.log')
 \end{lstlisting}
 
-Una vez creado el archivo de configuración, es posible usarlo para definir una alerta de tipo stream con el siguiente comando:
+Una vez creado el archivo de configuración, es posible usarlo para definir una
+alerta de tipo stream con el siguiente comando:
 
 \begin{lstlisting}
 kapacitor define cpu_alert -type stream -tick cpu_alert.tick -dbrp cadvisor.autogen
 \end{lstlisting}
 
-Con la configuración anterior cargada, Kapacitor ya tiene la información necesaria para lanzar la alerta. Para que Kapacitor comienze a notificar la alerta, se la debe habilitar. Esta tarea puede realizarse con el siguiente comando:
+Con la configuración anterior cargada, \gls{term:kapacitor} ya tiene la
+información necesaria para lanzar la alerta. Para que \gls{term:kapacitor}
+comienze a notificar la alerta, se la debe habilitar. Esta tarea puede
+realizarse con el siguiente comando:
 
 \begin{lstlisting}
 kapacitor enable cpu_alert
 \end{lstlisting}
 
-Finalmente, para consultar si la alerta se encuentra cargada y visualizar los datos que estén siendo procesados, se puede ejecutar el siguiente comando:
+Finalmente, para consultar si la alerta se encuentra cargada y visualizar los
+datos que estén siendo procesados, se puede ejecutar el siguiente comando:
 
 \begin{lstlisting}
 kapacitor show cpu_alert
@@ -73,9 +81,14 @@ alert2 [alerts_triggered="0" avg_exec_time_ns="0" crits_triggered="0" infos_trig
 \end{lstlisting}
 
 
-Siguiendo estos pasos es posible generar alertas que sean de utilidad. Para esto es importante analizar cuales son las situaciones para las cuales podría servir recibir una alerta y de qué forma se deberían enviar, ya que, como hemos mencionado anteriormente, Kapacitor brinda la posibilidad de enviar alertas de distintas formas y a varios destinos diferentes.
+Siguiendo estos pasos es posible generar alertas que sean de utilidad. Para
+esto es importante analizar cuales son las situaciones para las cuales podría
+servir recibir una alerta y de qué forma se deberían enviar, ya que, como hemos
+mencionado anteriormente, \gls{term:kapacitor} brinda la posibilidad de enviar
+alertas de distintas formas y a varios destinos diferentes.
 
-A continuación mostraremos un ejemplo sobre cómo puede ser usado TICKscript para definir alertas más complejas.
+A continuación mostraremos un ejemplo sobre cómo puede ser usado
+\gls{term:tick_script} para definir alertas más complejas.
 
 \begin{lstlisting}
 stream
@@ -120,11 +133,18 @@ stream
 \end{lstlisting}
 
 
-El script toma las medidas del porcentaje de uso de CPU, las invierte para obtener el porcentaje de tiempo en que la CPU se encuentra ociosa, las agrupa por servicio y centro de datos en ventanas de 1 minuto. Luego calcula el percentil 95 y genera alertas en caso de que se pasen determinados umbrales.
+El script toma las medidas del porcentaje de uso de \gls{acro:cpu}, las
+invierte para obtener el porcentaje de tiempo en que la \gls{acro:cpu} se
+encuentra ociosa, las agrupa por servicio y centro de datos en ventanas de 1
+minuto. Luego calcula el \gls{term:percentil} 95 y genera alertas en caso de
+que se pasen determinados umbrales.
 
-Finalmente se guardan los datos en un log, se envían a un endpoint determinado, se ejecuta un script que maneje las alertas y se envía a Slack, a PagerDuty y a VictorOps.
+Finalmente se guardan los datos en un log, se envían a un endpoint determinado,
+se ejecuta un script que maneje las alertas y se envía a Slack, a PagerDuty y a
+VictorOps.
 
-Kapacitor además, permite enviar datos a InfluxDB de la siguiente manera:
+\gls{term:kapacitor} además, permite enviar datos a \gls{term:influx} de la
+siguiente manera:
 
 \begin{lstlisting}
  stream
@@ -140,6 +160,10 @@ Kapacitor además, permite enviar datos a InfluxDB de la siguiente manera:
 \end{lstlisting}
 
 
-Esto puede resultar muy útil en caso de que queramos alimentar a nuestra instancia de InfluxDB con datos procesados por Kapacitor. Incluso, se podría almacenar información de las alertas en InfluxDB para tener un seguimiento de las mismas (ver trabajos futuros, sección 8.1)
+Esto puede resultar muy útil en caso de que queramos alimentar a nuestra
+instancia de \gls{term:influx} con datos procesados por \gls{term:kapacitor}.
+Incluso, se podría almacenar información de las alertas en \gls{term:influx}
+para tener un seguimiento de las mismas (ver \autoref{del-sistema-de-alertas}).
 
-En esta sección hemos mostrado cómo usar TICKscript para definir alertas para que sean lanzadas por Kapacitor.
+En esta sección hemos mostrado cómo usar \gls{term:tick_script} para definir
+alertas para que sean lanzadas por \gls{term:kapacitor}.
