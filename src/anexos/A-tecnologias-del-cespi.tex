@@ -2,12 +2,12 @@
 \label{anexo:A}
 
 En esta sección describiremos aspectos de algunas herramientas usadas por el
-CeSPI, que si bien no es necesario conocerlos a fondo para entender la tesis,
-han formado parte de nuestra investigación y creemos que es importante que las
-mencionemos.
+\gls{acro:cespi}, que si bien no es necesario conocerlos a fondo para entender
+la tesis, han formado parte de nuestra investigación y creemos que es
+importante que las mencionemos.
 
 \subsection{Ruby}
-(\url{https://es.wikipedia.org/wiki/Ruby})
+\url{https://es.wikipedia.org/wiki/Ruby}
 
 Ruby es un lenguaje de programación interpretado y orientado a objetos, creado
 en 1995 por Yukihiro Matsumoto. Ruby combina una sintaxis inspirada en Python y
@@ -21,7 +21,7 @@ variables siempre son referencias a objetos, y no los objetos mismos.
 
 Ruby soporta herencia con enlace dinámico, mixins y métodos definidos por
 instancia. Ruby no soporta herencia múltiple, pero esta se puede imitar
-haciendo que una clase importe módulos como si fueran mixins. 
+haciendo que una clase importe módulos como si fueran mixins.
 
 Ruby es un lenguaje multiparadigma, en el sentido en que permite programación
 procedural, con orientación a objetos y funcional. Todas las sentencias tienen
@@ -29,8 +29,8 @@ valores, y las funciones devuelven la última evaluación. Ruby soporta
 introspección, reflexión y metaprogramación.
 
 \subsection{Ruby on Rails}
+\url{http://rubyonrails.org/}
 
-Wikipedia:
 Ruby on Rails, también conocido como RoR o Rails, es un framework de
 aplicaciones web de código abierto escrito en el lenguaje de programación Ruby,
 siguiendo el patrón Modelo Vista Controlador (MVC).
@@ -45,6 +45,7 @@ muy legible. Rails se distribuye a través de RubyGems, que es el formato
 oficial de paquete y canal de distribución de bibliotecas y aplicaciones Ruby.
 
 \subsection{Docker}
+\url{https://www.docker.com/what-docker}
 
 Docker es un proyecto de código abierto que permite la automatización del
 despliegue de aplicaciones dentro de contenedores de software en Linux. Los
@@ -90,6 +91,7 @@ Información obtenida y luego adaptada de wikipedia:
 
 
 \subsection{Docker Compose}
+\url{https://docs.docker.com/compose/}
 
 Docker Compose es una herramienta para definir y ejecutar aplicaciones Docker
 multicontenedor. Con Compose, es posible definir la configuración de los
@@ -101,10 +103,13 @@ ambientes de desarrollo, y para definir flujos de integración continua. Para
 usar Compose, se necesitan seguir los siguientes pasos:
 
 Definir el ambiente de una aplicación con un Dockerfile Referencia:
-\url{https://docs.docker.com/engine/reference/builder/}, para poder reproducirlo en
-cualquier lugar.
-Definir los servicios que constituyen la aplicación en un archivo llamado docker-compose.yml Referencia: \url{https://docs.docker.com/compose/compose-file/}, de forma que puedan ser ejecutados juntos en un ambiente aislado.
-Finalmente, ejecutar el comando docker-compose up y Compose iniciara y correrá la aplicación en su totalidad. Referencia: \url{https://docs.docker.com/compose/reference/up/}
+\url{https://docs.docker.com/engine/reference/builder/}, para poder
+reproducirlo en cualquier lugar.  Definir los servicios que constituyen la
+aplicación en un archivo llamado docker-compose.yml Referencia:
+\url{https://docs.docker.com/compose/compose-file/}, de forma que puedan ser
+ejecutados juntos en un ambiente aislado.  Finalmente, ejecutar el comando
+docker-compose up y Compose iniciara y correrá la aplicación en su totalidad.
+Referencia: \url{https://docs.docker.com/compose/reference/up/}
 
 
 \subsection{Rancher}
@@ -123,47 +128,51 @@ manejar aplicaciones de forma confiable.
 
 Rancher consiste en cuatro componentes principales:
 
-Orquestación de infraestructura:
-Rancher toma recursos informáticos de cualquier nube pública o privada en la
-forma de hosts de Linux. Cada host de Linux puede ser una máquina virtual o
-física. Rancher no espera más de cada host que CPU, memoria, almacenamiento en
-el disco local y conectividad en la red.
+\begin{itemize}
 
-Rancher implementa una capa protable de servicios de infraestructura diseñados
-específicamente para alimentar aplicaciones en contenedores. Los servicios de
-infraestructura de rancher incluyen servicios de red, almacenamiento, balance
-de carga, DNS y seguridad. Los servicios de infraestructura de Rancher son
-típicamente desplegados como contenedores, y de esta forma el mismo servicio de
-infraestructura de Rancher puede correr en cualquier host de linux de cualquier
-nube.
+  \item \textbf{Orquestación de infraestructura:}
+    Rancher toma recursos informáticos de cualquier nube pública o privada en
+    la forma de hosts de Linux. Cada host de Linux puede ser una máquina
+    virtual o física. Rancher no espera más de cada host que CPU, memoria,
+    almacenamiento en el disco local y conectividad en la red.
 
-Orquestación y programación de contenedores:
-Muchos usuarios eligen correr aplicaciones en contenedores usando un framework
-de orquestación y programación de contenedores. Rancher incluye una
-distribución de todos los frameworks populares hoy en día, incluyendo Docker
-Swarm, Kubernetes y Mesos. Un mismo usuario puede crear múltiples clusters de
-Swarm o Kubernetes, y luego usar las herramientas nativas de estos frameworks
-para manejar sus aplicaciones.
+    Rancher implementa una capa protable de servicios de infraestructura
+    diseñados específicamente para alimentar aplicaciones en contenedores. Los
+    servicios de infraestructura de rancher incluyen servicios de red,
+    almacenamiento, balance de carga, DNS y seguridad. Los servicios de
+    infraestructura de Rancher son típicamente desplegados como contenedores, y
+    de esta forma el mismo servicio de infraestructura de Rancher puede correr
+    en cualquier host de linux de cualquier nube.
 
-Además de Swarm, Kubernetes, y Mesos, Rancher soporta su propio framework de
-orquestación y programación de contenedores, llamado Cattle. Cattle fue
-originalmente diseñado como una extensión de Docker Swarm, pero fue divergiendo
-a medida que continuó el desarrollo de ambos.
+  \item \textbf{Orquestación y programación de contenedores:}
+    Muchos usuarios eligen correr aplicaciones en contenedores usando un
+    framework de orquestación y programación de contenedores. Rancher incluye
+    una distribución de todos los frameworks populares hoy en día, incluyendo
+    Docker Swarm, Kubernetes y Mesos. Un mismo usuario puede crear múltiples
+    clusters de Swarm o Kubernetes, y luego usar las herramientas nativas de
+    estos frameworks para manejar sus aplicaciones.
 
-Catálogo de aplicación:
-Un usuario de Rancher puede desplegar una aplicación multicontenedor en
-clusters desde el catálogo de aplicación presionando un único botón. Los
-usuario pueden manejar las aplicaciones desplegadas y ejecutar actualizaciones
-completamente automatizadas cuando nuevas versiones de la aplicación se vuelven
-disponibles. Rancher mantiene un catálogo público que consiste en aplicaciones
-populares creadas por la comunidad de Rancher. Un usuario puede crear su propio
-catálogo privado.
+    Además de Swarm, Kubernetes, y Mesos, Rancher soporta su propio framework
+    de orquestación y programación de contenedores, llamado Cattle. Cattle fue
+    originalmente diseñado como una extensión de Docker Swarm, pero fue
+    divergiendo a medida que continuó el desarrollo de ambos.
 
-Control de nivel empresarial.
-Rancher soporta plugins de autenticación de usuarios flexibles y viene por
-defecto con integración de autenticación de usuarios con ActiveDirectory, LDAP
-y Github. Rancher soporta Control de Acceso basado en Roles (RBAC) a nivel de
-ambientes, permitiendo a los usuarios y grupos compartir o negar acceso a , por
-ejemplo, ambientes de desarrollo y producción.
+  \item \textbf{Catálogo de aplicación:}
+    Un usuario de Rancher puede desplegar una aplicación multicontenedor en
+    clusters desde el catálogo de aplicación presionando un único botón. Los
+    usuario pueden manejar las aplicaciones desplegadas y ejecutar
+    actualizaciones completamente automatizadas cuando nuevas versiones de la
+    aplicación se vuelven disponibles. Rancher mantiene un catálogo público que
+    consiste en aplicaciones populares creadas por la comunidad de Rancher. Un
+    usuario puede crear su propio catálogo privado.
+
+  \item \textbf{Control de nivel empresarial:}
+    Rancher soporta plugins de autenticación de usuarios flexibles y viene por
+    defecto con integración de autenticación de usuarios con ActiveDirectory,
+    LDAP y Github. Rancher soporta Control de Acceso basado en Roles (RBAC) a
+    nivel de ambientes, permitiendo a los usuarios y grupos compartir o negar
+    acceso a, por ejemplo, ambientes de desarrollo y producción.
+
+\end{itemize}
 
 \clearpage
