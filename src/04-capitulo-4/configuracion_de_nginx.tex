@@ -1,7 +1,7 @@
 \subsection{Configuración de Nginx} \label{configuracion_de_nginx}
 
 \gls{term:nginx} es una herramienta multiplataforma que funciona como servidor
-\gls{acro:web} o proxy inverso ligero\footnote{Cf.
+\eng{web} o proxy inverso ligero\footnote{Cf.
 \url{https://www.nginx.com/resources/admin-guide/reverse-proxy/}} de alto
 rendimiento. Es software libre y de código abierto, y está licenciado bajo la
 licencia \gls{acro:bsd} simplificada.
@@ -9,7 +9,7 @@ licencia \gls{acro:bsd} simplificada.
 Es posible usar \gls{term:nginx} como un balanceador de carga \gls{acro:http}
 para distribuir tráfico entre varios servidores de aplicaciones y para aumentar
 el rendimiento, escalabilidad y confiabilidad de aplicaciones
-\gls{acro:web}\footnote{Cf.
+\eng{web} \footnote{Cf.
 \url{http://nginx.org/en/docs/http/load_balancing.html}}.
 
 \gls{term:nginx} es conocido por su alta performance, estabilidad, rico
@@ -19,14 +19,14 @@ La infraestructura de la oficina a partir de contenedores de \gls{term:docker},
 nos otorga casi gratuitamente la funcionalidad de balanceo de carga. En este
 trabajo usaremos \gls{term:nginx} simplemente como un medio confiable y
 eficiente para obtener información de todas las solicitudes que reciban las
-aplicaciones \gls{acro:web}.
+aplicaciones \eng{web}.
 
 De esta forma, podremos obtener información precisa sobre el tiempo de
 respuesta de las aplicaciones desde el momento en que se recibe la petición
 hasta que la solicitud es respondida.
 
 \gls{term:nginx} escribe información sobre solicitudes de clientes en el access
-log luego de que la petición \gls{acro:web} es procesada. Por defecto, este
+log luego de que la petición \eng{web} es procesada. Por defecto, este
 archivo se ubica en la ruta \texttt{logs/access.log}, y la información es
 impresa en el mismo en un formato predefinido.
 

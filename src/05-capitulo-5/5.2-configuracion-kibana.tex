@@ -30,9 +30,9 @@ services:
 \end{lstlisting}
 
 Una vez que está corriendo el contenedor de Kibana, es posible acceder al
-cliente \gls{acro:web} de \gls{term:kibana} (\autoref{fig:kibana-default}) a
+cliente \eng{web} de \gls{term:kibana} (\autoref{fig:kibana-default}) a
 través del puerto 5601. Todo lo que uno necesita es apuntar el navegador
-\gls{acro:web} a la máquina en la cual \gls{term:kibana} está siendo ejecutado y especificar el número de puerto.
+\eng{web} a la máquina en la cual \gls{term:kibana} está siendo ejecutado y especificar el número de puerto.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{src/images/05-capitulo-5/kibanadefault.jpg}
@@ -147,7 +147,7 @@ puede ser:
 
 Además es posible agrupar los datos por fechas, rangos, términos o filtros. Por
 ejemplo, si se están indexando logs del servidor es posible construir un
-gráfico de barras que muestre la distribución de solicitudes \gls{acro:web}
+gráfico de barras que muestre la distribución de solicitudes \eng{web}
 entrantes por locación geográfica.
 
 \begin{figure}
@@ -165,3 +165,13 @@ realizar consultas.
 Ya tenemos \gls{term:kibana} configurado para poder comenzar a explorar los
 logs almacenados en \gls{term:elasticsearch}. En la próxima sección contaremos
 cómo configurar \gls{term:grafana}.
+
+
+En el caso de nuestra infraestructura web, Kibana podría ser extremadamente útil para detectar errores rápidamente. Ante un error de una aplicación Rails, se generaría un log que sería indexado rápidamente por nuestra instancia de ElasticSearch.
+
+Si realizamos una búsqueda en Kibana filtrando por tipo de error o por fecha y hora, rápidamente encontraríamos el error en nuestra aplicación y contaríamos con toda la información necesaria para reparar el error lo más pronto posible.
+
+En la Figura 11 se puede ver la forma en que se visualiza en Kibana una
+línea de logs tomada de nuestras aplicaciones Rails. En la misma es posible apreciar cómo hemos logrado separar la información contenida en una única línea de log en varios atributos para poder realizar consultas.
+
+En este capítulo hemos mostrado cómo configurar Kibana para generar tableros de control y cómo usarlo para explorar la información de logs almacenados en Elasticsearch para detectar errores de forma sencilla.En la próxima sección contaremos cómo configurar Grafana para visualizar información de nuestra base de datos InfluxDB.
