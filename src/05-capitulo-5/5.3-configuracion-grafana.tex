@@ -1,14 +1,14 @@
 \subsection{Configuración de \gls{term:grafana}}
 \label{configuracion-de-grafana}
 
-Hemos elegido \gls{term:grafana} para la creación de los tableros que mostraran
-la información que hemos recolectado en el \autoref{cap4}. Para elegir los
-gráficos incluidos en los tableros tendremos en cuenta las necesidades de cada
-tipo de usuario.
+Como hemos mencionado anteriormente, hemos elegido \gls{term:grafana} para la
+creación de los tableros que mostraran la información que hemos recolectado en
+el \autoref{cap4}. Para elegir los gráficos incluidos en los tableros es
+importante tener en cuenta las necesidades de cada tipo de usuario.
 
-Para instalar \gls{term:grafana} en Debian o Ubuntu
+Es posible instalar \gls{term:grafana} en Debian o Ubuntu
 \footnote{Sistemas operativos construidos sobre el kernel de \gls{term:linux}},
-podemos correr los siguientes comandos en una consola:
+ejecutando los siguientes comandos en una consola:
 
 \begin{lstlisting}
 $ wget https://grafanarel.s3.amazonaws.com/builds/grafana_4.1.2-1486989747_amd64.deb
@@ -29,19 +29,77 @@ Esta orden inicializa el proceso \texttt{grafana-sever} como el usuario
 
 Una vez que el proceso está en ejecución es posible acceder al servicio en el
 puerto 3000 del navegador e iniciar sesión.
-\footnote{\url{http://docs.grafana.org/}}
+\footnote{Más información sobre el proceso de instalación de Grafana en \url{http://docs.grafana.org/}}
 
 \gls{term:grafana} soporta varios \eng{backends} de almacenamiento diferentes,
-llamados \eng{DataSources}. Cada uno de ellos tiene un editor de consultas
+llamados \glspl{term:datasource}. Cada uno de ellos tiene un editor de consultas
 visual específico, para facilitar el armado de paneles de control a los
 usuarios.
 
-\gls{term:grafana} tiene soporte para tomar información de Graphite, \gls{term:influx},
-OpenTSDB, Prometheus, \gls{term:elasticsearch}, CloudWatch y KairosDB.
+\gls{term:grafana} tiene soporte para tomar información de las siguientes bases
+de datos, herramientas y servicios:
+
+\begin{itemize}
+  \item CloudWatch
+  \item \gls{term:elasticsearch}
+  \item Graphite
+  \item \gls{term:influx}
+  \item KairosDB
+  \item OpenTSDB
+  \item Prometheus
+\end{itemize}
 
 Para conectar \gls{term:grafana} con la instancia de \gls{term:influx}
-configurada en el capítulo anterior, se debe comenzar por crear un DataSource
+configurada en el capítulo anterior, se debe comenzar por crear un \gls{term:datasource}
 que consuma información de la base de datos.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/05-capitulo-5/datasource-grafana.jpg}
+  \caption{Cómo configurar un \gls{term:datasource} para tomar datos de \gls{term:influx}}
+  \label{fig:datasource-grafana}
+\end{figure}
+
+En la \autoref{fig:datasource-grafana} se pueden ver los pasos para crear un
+\gls{term:datasource} en el cliente \eng{web} de \gls{term:grafana}. Los pasos son los
+siguientes:
+
+\begin{enumerate}
+  \item Abrir el menú haciendo click en el ícono de \gls{term:grafana} en el
+  navegador ubicado en la parte superior de la página.
+
+  \item Una vez abierto el menú, hacer click en el enlace \texttt{DataSources}.
+  \item Hacer click en el botón \texttt{Add new link} en el navegador.
+  \item Llenar el formulario con los datos:
+    \begin{itemize}
+      \item \textbf{Name:}
+      El nombre del \gls{term:datasource}.
+
+      \item \textbf{Default:}
+      Si este campo es activado, el \gls{term:datasource} será preseleccionado
+      para nuevos paneles.
+
+      \item \textbf{Url:}
+      El protocolo \gls{acro:http}, \gls{acro:ip} y puerto de la \gls{term:api}
+      \gls{term:influx}
+
+      \item \textbf{Access:}
+      Si se selecciona \texttt{Proxy} , se accede a través del backend de \gls{term:grafana}.
+      Si se selecciona \texttt{Direct}, se accede directamente desde el navegador.
+
+      \item \textbf{Database:}
+      Nombre de la base de datos de \gls{term:influx}
+
+      \item \textbf{User:}
+      Nombre del usuario de la base de datos.
+
+      \item \textbf{Password:}
+      Contraseña del usuario de la base de datos.
+
+    \end{itemize}
+\end{enumerate}
+
+Una vez creado nuestro \gls{term:datasource} podemos comenzar a crear tableros
+en \gls{term:grafana}.
 
 Por ejemplo, a partir de los datos almacenados en \gls{term:influx}, podemos
 crear gráficos con la intención de que sean útiles a un responsable de IT de la

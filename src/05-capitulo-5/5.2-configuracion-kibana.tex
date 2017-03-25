@@ -11,7 +11,9 @@ Esta imagen provee varios métodos para configurar \gls{term:kibana}. El enfoque
 convencional es proveer un archivo \lstinline{kibana.yml}, pero también es
 posible utilizar variables de ambiente para definir las opciones.
 
-Agregamos las siguientes líneas al \lstinline{docker-compose.yml}:
+Para hacer esto, podemos agregar las siguientes líneas al archivo
+\texttt{docker-compose.yml}, definiendo la variable de ambiente
+\lstinline{ELASTICSEARCH_URL}:
 
 \begin{lstlisting}
 services:
@@ -27,10 +29,10 @@ services:
       - lognet
 \end{lstlisting}
 
-Podemos acceder a la aplicación \gls{acro:web} de \gls{term:kibana}
-(\autoref{fig:kibana-default}) a través del puerto 5601. Todo lo que uno
-necesita es apuntar el navegador \gls{acro:web} a la máquina en la cual
-\gls{term:kibana} está siendo ejecutada y especificar el número de puerto.
+Una vez que está corriendo el contenedor de Kibana, es posible acceder al
+cliente \eng{web} de \gls{term:kibana} (\autoref{fig:kibana-default}) a
+través del puerto 5601. Todo lo que uno necesita es apuntar el navegador
+\eng{web} a la máquina en la cual \gls{term:kibana} está siendo ejecutado y especificar el número de puerto.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{src/images/05-capitulo-5/kibanadefault.jpg}
@@ -38,10 +40,10 @@ necesita es apuntar el navegador \gls{acro:web} a la máquina en la cual
   \label{fig:kibana-default}
 \end{figure}
 
-Cuando se accede a \gls{term:kibana}, la página de descubrimiento se carga por
-defecto con el patrón del índice por defecto seleccionado. El filtro de tiempo
-es fijado a los últimos 15 minutos y la consulta de búsqueda es colocada para
-traer todos los resultados.
+Cuando se accede a \gls{term:kibana}, la página de descubrimiento se carga de
+forma automática con el patrón del índice por defecto seleccionado. El filtro
+de tiempo es fijado a los últimos 15 minutos y la consulta de búsqueda es
+colocada para traer todos los resultados.
 
 Es posible alcanzar el estado de página del servidor de \gls{term:kibana}
 navegando a la dirección \lstinline{localhost:5601/status}. La página de estado
@@ -54,19 +56,16 @@ del servidor y lista los plugins instalados.
   \label{fig:kibana-status}
 \end{figure}
 
-
-Para poder comenzar a usar \gls{term:kibana}, debemos indicarle los índices de
-\gls{term:elasticsearch} que queremos explorar. La primera vez que se accede a
-\gls{term:kibana}, se solicita al usuario definir un patrón que coincida con
-los nombres de uno o más índices. Una vez hecho esto ya podemos empezar a
+Para poder comenzar a usar \gls{term:kibana}, es necesario indicar los índices
+de \gls{term:elasticsearch} que se desean explorar. La primera vez que se accede
+a \gls{term:kibana}, le es solicitado al usuario definir un patrón que coincida
+con los nombres de uno o más índices. Una vez hecho esto ya es posible empezar a
 explorar datos.
 
-
-
-Con \gls{term:kibana} es posible explorar los datos de forma interactiva a
-través de la página de descubrimiento. Desde esta página se tiene acceso a cada
-documento en cada índice que coincida con un patrón de nombres de índices
-seleccionado.
+Usando \gls{term:kibana} se puede realizar la exploración de datos de forma
+interactiva a través de la página de descubrimiento. Desde esta página se tiene
+acceso a cada documento en cada índice que coincida con un patrón de nombres de
+índices seleccionado.
 
 De esta forma, es posible enviar consultas de búsquedas, filtrar los resultados
 de las búsquedas y visualizar datos de los documentos. Además se pueden ver los
@@ -86,13 +85,13 @@ en la parte de arriba de la página.
 
 \gls{term:kibana} permite crear visualizaciones de datos en los índices de
 \gls{term:elasticsearch}, y con ellas construir tableros que muestren
-visualizaciones relacionadas.
+gráficos relacionados entre sí.
 
 Las visualizaciones de \gls{term:kibana} están basadas en consultas de
 \gls{term:elasticsearch}. Al usar una serie de agregaciones de
 \gls{term:elasticsearch} para extraer y procesar datos, se pueden crear
-gráficos que muestren tendencias, picos y caídas que puede ser importante
-conocer.
+gráficos que muestren tendencias, picos y caídas cuyo conocimiento puede ser
+importante.
 
 Es posible crear visualizaciones de distintos tipos. Algunos de estos tipos son:
 
@@ -100,28 +99,28 @@ Es posible crear visualizaciones de distintos tipos. Algunos de estos tipos son:
 \begin{itemize}
 
   \item \textbf{Gráficos de área:}
-  Visualizar la contribución total de varias series distintas.
+  Para visualizar la contribución total de varias series distintas.
 
   \item \textbf{Tabla de datos:}
-  Mostrar datos crudos de una agregación compuesta.
+  Para mostrar datos crudos de una agregación compuesta.
 
   \item \textbf{Gráfico de líneas:}
-  Comparar diferentes series.
+  Para comparar diferentes series.
 
   \item \textbf{Métrica:}
-  Muestra un único número.
+  Para mostrar un único número.
 
   \item \textbf{Gráfico de torta:}
-  Comparar la contribución de cada fuente.
+  Para comparar la contribución de cada fuente.
 
   \item \textbf{Nube de etiquetas:}
-  Mostrar palabras de forma que el tamaño de la palabra corresponde con su importancia.
+  Para mostrar palabras de forma que el tamaño de la palabra corresponda con su importancia.
 
   \item \textbf{Serie de tiempo:}
-  Computar y combinar datos de múltiples conjuntos de datos de tipo serie de tiempo.
+  Para computar y combinar datos de múltiples conjuntos de datos de tipo serie de tiempo.
 
   \item \textbf{Gráfico de barras vertical:}
-  Graficar valores de forma de comparar varias dimensiones al mismo tiempo.
+  Para graficar valores y comparar varias dimensiones al mismo tiempo.
 
 \end{itemize}
 
@@ -148,7 +147,7 @@ puede ser:
 
 Además es posible agrupar los datos por fechas, rangos, términos o filtros. Por
 ejemplo, si se están indexando logs del servidor es posible construir un
-gráfico de barras que muestre la distribución de solicitudes \gls{acro:web}
+gráfico de barras que muestre la distribución de solicitudes \eng{web}
 entrantes por locación geográfica.
 
 \begin{figure}
@@ -157,11 +156,22 @@ entrantes por locación geográfica.
   \label{fig:kibana-logs}
 \end{figure}
 
-En la \autoref{fig:kibana-logs} vemos como se visualiza en \gls{term:kibana}
-una línea de logs tomada de nuestras aplicaciones \gls{term:ror}. En la misma
-se puede apreciar cómo logramos separar la información contenida en una única
-línea de log en varias para poder realizar consultas.
+En la \autoref{fig:kibana-logs} se puede ver la forma en que se visualiza en
+\gls{term:kibana} una línea de logs tomada de nuestras aplicaciones
+\gls{term:ror}. En la misma es posible apreciar cómo hemos logrado separar la
+información contenida en una única línea de log en varios atributos para poder
+realizar consultas.
 
 Ya tenemos \gls{term:kibana} configurado para poder comenzar a explorar los
 logs almacenados en \gls{term:elasticsearch}. En la próxima sección contaremos
 cómo configurar \gls{term:grafana}.
+
+
+En el caso de nuestra infraestructura web, Kibana podría ser extremadamente útil para detectar errores rápidamente. Ante un error de una aplicación Rails, se generaría un log que sería indexado rápidamente por nuestra instancia de ElasticSearch.
+
+Si realizamos una búsqueda en Kibana filtrando por tipo de error o por fecha y hora, rápidamente encontraríamos el error en nuestra aplicación y contaríamos con toda la información necesaria para reparar el error lo más pronto posible.
+
+En la Figura 11 se puede ver la forma en que se visualiza en Kibana una
+línea de logs tomada de nuestras aplicaciones Rails. En la misma es posible apreciar cómo hemos logrado separar la información contenida en una única línea de log en varios atributos para poder realizar consultas.
+
+En este capítulo hemos mostrado cómo configurar Kibana para generar tableros de control y cómo usarlo para explorar la información de logs almacenados en Elasticsearch para detectar errores de forma sencilla.En la próxima sección contaremos cómo configurar Grafana para visualizar información de nuestra base de datos InfluxDB.
