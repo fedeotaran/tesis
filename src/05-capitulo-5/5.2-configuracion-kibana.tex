@@ -11,7 +11,7 @@ Esta imagen provee varios métodos para configurar \gls{term:kibana}. El enfoque
 convencional es proveer un archivo \lstinline{kibana.yml}, pero también es
 posible utilizar variables de ambiente para definir las opciones.
 
-Agregamos las siguientes líneas al \lstinline{docker-compose.yml}:
+Para hacer esto, podemos agregar las siguientes líneas al archivo \texttt{docker-compose.yml}, definiendo la variable de ambiente \lstinline{ELASTICSEARCH_URL}:
 
 \begin{lstlisting}
 services:
