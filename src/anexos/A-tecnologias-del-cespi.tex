@@ -7,7 +7,6 @@ la tesis, han formado parte de nuestra investigación y creemos que es
 importante que las mencionemos.
 
 \subsection{Ruby}
-\url{https://www.ruby-lang.org/es/about/}
 
 Ruby es un lenguaje de programación interpretado y orientado a objetos, creado
 en 1995 por Yukihiro Matsumoto. Ruby combina una sintaxis inspirada en Python y
@@ -26,10 +25,9 @@ haciendo que una clase importe módulos como si fueran mixins.
 Ruby es un lenguaje multiparadigma, en el sentido en que permite programación
 procedural, con orientación a objetos y funcional. Todas las sentencias tienen
 valores, y las funciones devuelven la última evaluación. Ruby soporta
-introspección, reflexión y metaprogramación \cite{lenguage:ruby}.
+introspección, reflexión y metaprogramación~\cite{ruby}.
 
 \subsection{Ruby on Rails}
-\url{http://rubyonrails.org/}
 
 Ruby on Rails, también conocido como RoR o Rails, es un framework de
 aplicaciones web de código abierto escrito en el lenguaje de programación Ruby,
@@ -42,10 +40,10 @@ mínimo de configuración.
 El lenguaje de programación Ruby permite la metaprogramación, de la cual Rails
 hace uso, lo que resulta en una sintaxis que muchos de sus usuarios encuentran
 muy legible. Rails se distribuye a través de RubyGems, que es el formato
-oficial de paquete y canal de distribución de bibliotecas y aplicaciones Ruby.
+oficial de paquete y canal de distribución de bibliotecas y aplicaciones
+Ruby~\cite{ror}.
 
 \subsection{Docker}
-\url{https://www.docker.com/what-docker}
 
 Docker es un proyecto de código abierto que permite la automatización del
 despliegue de aplicaciones dentro de contenedores de software en Linux. Los
@@ -84,14 +82,10 @@ En la práctica, Docker puede ser utilizado para simplificar la creación de
 sistemas altamente distribuidos. El despliegue de nodos puede realizarse a
 medida que se disponga de recursos o cuando se necesiten más nodos, lo que
 permite la construcción de una plataforma como servicio. Docker también
-facilita el armado y funcionamiento de tareas de carga de trabajo.
-
-Información obtenida y luego adaptada de wikipedia:
-\url{https://es.wikipedia.org/wiki/Docker_(software)}
-
+facilita el armado y funcionamiento de tareas de carga de
+trabajo~\cite{docker}.
 
 \subsection{Docker Compose}
-\url{https://docs.docker.com/compose/}
 
 Docker Compose es una herramienta para definir y ejecutar aplicaciones Docker
 multicontenedor. Con Compose, es posible definir la configuración de los
@@ -99,21 +93,21 @@ servicios de una aplicación en un archivo, y luego crear e iniciar todos los
 servicios desde esa configuración con un único comando.
 
 Compose ha demostrado ser una excelente herramienta para desarrollar y probar
-ambientes de desarrollo, y para definir flujos de integración continua. Para
-usar Compose, se necesitan seguir los siguientes pasos:
+ambientes de desarrollo, y para definir flujos de integración
+continua~\cite{compose}. Para usar Compose, se necesitan seguir los siguientes
+pasos:
 
-Definir el ambiente de una aplicación con un Dockerfile Referencia:
-\url{https://docs.docker.com/engine/reference/builder/}, para poder
-reproducirlo en cualquier lugar.  Definir los servicios que constituyen la
-aplicación en un archivo llamado docker-compose.yml Referencia:
-\url{https://docs.docker.com/compose/compose-file/}, de forma que puedan ser
-ejecutados juntos en un ambiente aislado.  Finalmente, ejecutar el comando
-docker-compose up y Compose iniciara y correrá la aplicación en su totalidad.
-Referencia: \url{https://docs.docker.com/compose/reference/up/}
+Definir el ambiente de una aplicación con un Dockerfile
+\footnote{Cf. \url{https://docs.docker.com/engine/reference/builder/}}, para
+poder reproducirlo en cualquier lugar.  Definir los servicios que constituyen
+la aplicación en un archivo llamado docker-compose.yml
+\footnote{Cf.  \url{https://docs.docker.com/compose/compose-file/}}, de forma
+que puedan ser ejecutados juntos en un ambiente aislado.  Finalmente, ejecutar
+el comando docker-compose up y Compose iniciara y correrá la aplicación en su
+totalidad\footnote{Cf. \url{https://docs.docker.com/compose/reference/up/}}.
 
 
 \subsection{Rancher}
-\url{http://rancher.com/}
 
 Rancher es una plataforma de código abierto para manejar contenedores que
 facilita la tarea de correr cualquier aplicación basada en contenedores en
@@ -124,7 +118,7 @@ aplicaciones en contenedores. Rancher provee un conjunto completo de servicios
 de infraestructura para contenedores, incluyendo servicios de red, servicios de
 almacenamiento, manejo de hosts y balanceo de carga. Todos estos servicios
 funcionan sobre cualquier infraestructura y facilitan la tarea de desplegar y
-manejar aplicaciones de forma confiable.
+manejar aplicaciones de forma confiable~\cite{rancher}.
 
 Rancher consiste en cuatro componentes principales:
 
