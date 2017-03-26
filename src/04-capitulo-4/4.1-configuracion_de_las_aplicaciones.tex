@@ -1,15 +1,14 @@
 \subsection{Configuración de las aplicaciones}
 \label{configuracion_de_las_aplicaciones}
 
-Para poder hacer uso de los logs de nuestras aplicaciones, debimos tener en
+Para poder hacer uso de los \eng{logs} de nuestras aplicaciones, debimos tener en
 cuenta que la oficina se encuentra en un proceso de migración de
 infraestructura a contenedores de \gls{term:docker}.
 
 La manera recomendada en la documentación de \gls{term:docker} para realizar
-logging, es imprimiendo los logs de nuestras aplicaciones en el
-\gls{acro:stdout} \footnote{Cf.
-\url{https://docs.docker.com/engine/admin/logging/view_container_logs/}}.  Es
-por ello que debimos configurar los logs de nuestras aplicaciones para que sean
+logging, es imprimiendo los \eng{logs} de nuestras aplicaciones en \gls{acro:stdout}
+\footnote{Cf. \url{https://docs.docker.com/engine/admin/logging/view_container_logs/}}.
+Es por ello que debimos configurar los \eng{logs} de nuestras aplicaciones para que sean
 escritos en la salida estándar. Utilizar esta estrategia nos permite contar
 con información del contenedor en ejecución, como lo son su identificador y su
 nombre.
@@ -20,19 +19,19 @@ iniciar el daemon de \gls{term:docker} se puede usar la bandera
 que usará por defecto el contenedor.
 
 Para este trabajo utilizaremos otra forma de configurar el driver, que es a
-través de la opción \texttt{log-driver=VALUE} durante el comando
-\gls{term:docker}
-run\footnote{\url{https://docs.docker.com/engine/admin/logging/overview/}}.
+través de la especificación de la opción \texttt{log-driver=VALUE} durante el
+comando \lstinline{docker run}.
+\footnote{\url{https://docs.docker.com/engine/admin/logging/overview/}}.
 
 Una vez hecho esto, el siguiente paso es configurar nuestras aplicaciones para
-que envíen sus logs a la salida estándar.
+que envíen sus \eng{logs} a la salida estándar.
 
-Por defecto \gls{term:ror} mantiene un archivo separado para los logs por cada
-ambiente de ejecución, y para hacer uso de la información de los logs utiliza
-la clase \texttt{ActiveSupport::Logger}. Aunque \gls{term:ror} viene con una
-configuración para el manejo de log predeterminada, puede puede cambiarse la
-misma especificando un logger alternativo en un archivo de configuración de la
-siguiente forma:
+Por defecto \gls{term:ror} mantiene un archivo separado para los \eng{logs} por cada
+ambiente de ejecución, y para hacer uso de la información de los \eng{logs} utiliza
+de forma predeterminada la clase \texttt{ActiveSupport::Logger}.
+
+En \gls{term:ror} es posible cambiar la configuración de la clase que maneja los
+\eng{logs} especificando la alternativa en un archivo de configuración de la siguiente manera:
 
 \begin{lstlisting}
 
@@ -40,9 +39,9 @@ config.logger = SomeLogger
 
 \end{lstlisting}
 
-Podemos lograr que \gls{term:docker} capture correctamente los logs de
-\gls{term:ror} agregando la siguiente especificación al archivo
-config/application.rb de la aplicación:
+Para que \gls{term:docker} capture correctamente los \eng{logs} de \gls{term:ror}
+podemos agregar la siguiente especificación al archivo
+\texttt{config/application.rb} de la aplicación:
 
 \begin{lstlisting}
 
@@ -50,19 +49,20 @@ config.logger = ActiveSupport::Logger.new(STDOUT)
 
 \end{lstlisting}
 
-Los logs de \gls{term:ror} tienen algunas características que hacen que sea
+Los \eng{logs} de \gls{term:ror} tienen algunas características que hacen que sea
 difícil trabajar con ellos. En primer lugar, no siguen un formato estándar.
-Esto hace que para distintos tipos de logs sea necesario usar diferentes
-estrategias para recuperar la información valiosa. En segundo lugar, un solo
-log puede ocupar varias líneas, lo que hace complejo identificar dónde termina
-un log y dónde empieza el siguiente.
+Esto hace que para distintos tipos de \eng{logs} sea necesario usar diferentes
+estrategias para recuperar información valiosa. En segundo lugar, un solo
+\eng{log} puede ocupar varias líneas, lo que hace complejo identificar dónde termina
+un \eng{log} y dónde empieza el siguiente.
 
-Para resolver estos problemas utilizamos una gema llamada lograge\footnote{Cf.
-\url{https://github.com/roidrage/lograge}}. Esta gema se encarga de transformar
-complejos logs multilínea de \gls{term:ror} en simples logs con datos
-importantes bien identificados de una sola línea.
+Para resolver estos problemas utilizamos una gema llamada \gls{term:lograge}
+\footnote{Cf. \url{https://github.com/roidrage/lograge}}. Esta gema se encarga
+de transformar complejos \eng{logs} multilínea de \gls{term:ror} en simples \eng{logs} con
+datos importantes bien identificados de una sola línea.
 
-Por ejemplo, un log de \gls{term:ror} se ve de la siguiente manera:
+Por ejemplo, un \eng{log} de \gls{term:ror}, creado al acceder a la página \eng{home}
+de una de las aplicaciones del laboratorio se ve de la siguiente manera:
 
 \begin{lstlisting}
 
@@ -77,17 +77,17 @@ Completed 200 OK in 79ms (Views: 78.8ms | ActiveRecord: 0.0ms)
 
 \end{lstlisting}
 
-Usando lograge, el mismo log se transforma en:
+Usando \gls{term:lograge}, el mismo \eng{log} es transformado en:
 
 \begin{lstlisting}
 
-method=GET path=/jobs/833552.json format=json controller=JobsController  action=show status=200 duration=58.33 view=40.43 db=15.26
+method=GET path=/jobs/833552.json format=json controller=JobsController action=show status=200 duration=58.33 view=40.43 db=15.26
 
 \end{lstlisting}
 
-Para configurar lograge en la aplicación \gls{term:ror}, debe incluirse la gema
-con el mismo nombre a la lista de dependencias de la aplicación. Para hacerlo
-basta con agregar la siguiente línea de código al archivo \texttt{Gemfile}:
+Para configurar \gls{term:lograge} en \gls{term:ror}, debe incluirse la gema con
+el mismo nombre a la lista de dependencias de la aplicación. Para hacerlo basta
+con agregar la siguiente línea de código al archivo \texttt{Gemfile}:
 
 \begin{lstlisting}
 
@@ -117,5 +117,5 @@ end
 \end{lstlisting}
 
 Con estas configuraciones ya contamos con una aplicación \gls{term:ror} que
-envía la información de sus logs a la salida estándar en un formato más fácil
-de procesar posteriormente.
+envía la información de sus \eng{logs} a la salida estándar en un formato cuyo
+procesamiento se puede realizar de forma más sencilla.
