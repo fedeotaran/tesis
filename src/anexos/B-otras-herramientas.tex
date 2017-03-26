@@ -15,10 +15,11 @@ mencionado durante la tesis.
 
 \subsection{Prometheus}
 
-Prometheus es un sistema de monitoreo de servicios y sistemas creado por Cloud
-Native Computing Foundation. Prometheus recolecta métricas de objetivos
-configurados a intervalos dados, evalúa expresiones, muestra resultados y
-activa alertas si observa que alguna condición es verdadera~\cite{prometheus}.
+Prometheus es un sistema de monitoreo de servicios y sistemas creado por
+\eng{Cloud Native Computing Foundation}. Prometheus recolecta métricas de
+objetivos configurados a intervalos dados, evalúa expresiones, muestra
+resultados y activa alertas si observa que alguna condición es
+verdadera~\cite{prometheus}.
 
 Las prestaciones más distinguidas de Prometheus son:
 
@@ -142,16 +143,17 @@ Riemann permite la agregación de eventos provenientes de servidores y
 aplicaciones utilizando un poderoso lenguaje de procesamiento de streaming.
 Puede enviar un email por cada excepción ocurrida en las aplicaciones, mantener
 un seguimiento de la distribución de latencia en las aplicaciones web, y
-observar los procesos principales de cualquier host, por memoria y cpu.
+observar los procesos principales de cualquier \gls{term:host}, por memoria y
+\gls{acro:cpu}.
 
 Puede combinar estadísticas de todos los nodos Riak en un cluster y reenviar la
 información a Graphite, y mantener un seguimiento de la actividad de los
 usuarios, segundo a segundo.
 
 Los streams de Riemann son simplemente funciones que aceptan un evento. Los
-eventos son sólo estructuras con algunos campos comunes, como host y service.
-Es posible usar docenas de streams integrados en Riemann para filtros, alertas
-y combinación de eventos, y también escribir los propios.
+eventos son sólo estructuras con algunos campos comunes, como \gls{term:host} y
+service. Es posible usar docenas de streams integrados en Riemann para
+filtros, alertas y combinación de eventos, y también escribir los propios.
 
 La configuración de Riemann es un programa de Clojure, y por esto su sintaxis
 es concisa, regular y extensible. La configuración como código minimiza
