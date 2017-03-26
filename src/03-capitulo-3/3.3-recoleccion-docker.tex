@@ -1,38 +1,41 @@
 \subsection{Recolección de datos de contenedores Docker}
 \label{contenedores}
 
-Como hemos mencionado anteriormente, el laboratorio usa contenedores de Docker
-en su infraestructura. Mientras estos contenedores están en ejecución, es
-posible tomar información de su funcionamiento en tiempo real.
+Como hemos mencionado anteriormente, el laboratorio usa \glspl{term:contenedor}
+de \gls{term:docker} en su infraestructura. Mientras estos
+\glspl{term:contenedor} están en ejecución, es posible tomar información de su
+funcionamiento en tiempo real.
 
-Para realizar la recolección de datos de los contenedores, donde se mantienen
-en ejecución las aplicaciones, hemos investigado las herramientas cAdvisor y
-Telegraf. 
+Para realizar la recolección de datos de los \glspl{term:contenedor}, donde se
+mantienen en ejecución las aplicaciones, hemos investigado las herramientas
+\gls{term:cadvisor} y Telegraf.
 
-cAdvisor (Container Advisor) es un demonio que recolecta, agrega, procesa y
-exporta información de contenedores en ejecución. Específicamente, para cada
-contenedor guarda parámetros de aislamiento de recursos, uso de recursos
-históricos, histogramas de uso completo de recursos históricos y estadísticas
-de red. Estos datos se exportan para la máquina host donde está corriendo y
-para cada uno de los contenedores.
+\gls{term:cadvisor} es un demonio que recolecta, agrega,
+procesa y exporta información de \glspl{term:contenedor} en ejecución.
+Específicamente, para cada \gls{term:contenedor} guarda parámetros de
+aislamiento de recursos, uso de recursos históricos, histogramas de uso
+completo de recursos históricos y estadísticas de red. Estos datos se exportan
+para la máquina host donde está corriendo y para cada uno de los
+\glspl{term:contenedor}.
 
-cAdvisor facilita a los usuarios el entendimiento del uso de recursos y las
-características de rendimiento de los contenedores en ejecución. Tiene soporte
-nativo para contenedores Docker y puede utilizarse con casi cualquier otro tipo
-de contenedor. \footnote{\url{https://github.com/google/cadvisor}}
+\gls{term:cadvisor} facilita a los usuarios el entendimiento del uso de
+recursos y las características de rendimiento de los \glspl{term:contenedor} en
+ejecución.  Tiene soporte nativo para \glspl{term:contenedor} \gls{term:docker}
+y puede utilizarse con casi cualquier otro tipo de \gls{term:contenedor}.
+\footnote{\url{https://github.com/google/cadvisor}}
 
-Telegraf es un agente escrito en el lenguaje de programación Go para
+Telegraf es un agente escrito en el lenguaje de programación \gls{term:go} para
 recolectar, procesar, agregar y escribir métricas. Fue diseñado con el objetivo
-de requerir poca memoria, y de proveer un sistema de plugins de forma que los
-desarrolladores de la comunidad pudieran fácilmente agregar soporte para
-recolección de métricas de diferentes servicios y APIs.
+de requerir poca memoria, y de proveer un sistema de \eng{plugins} de forma que
+los desarrolladores de la comunidad pudieran fácilmente agregar soporte para
+recolección de métricas de diferentes servicios y \glspl{term:api}.
 
-Telegraf utiliza cuatro conceptos distintos de plugins:
+Telegraf utiliza cuatro conceptos distintos de \eng{plugins}:
 
 \begin{itemize}
 
   \item \textbf{Input Plugins:}
-  Recolectan métricas del sistema, servicios o APIs de terceros.
+  Recolectan métricas del sistema, servicios o \glspl{term:api} de terceros.
 
   \item \textbf{Processor Plugins:}
   Transforman, decoran y filtran métricas.
@@ -45,60 +48,75 @@ Telegraf utiliza cuatro conceptos distintos de plugins:
 
 \end{itemize}
 
-Finalmente hemos elegido la herramienta cAdvisor para nuestra implementación por sobre Telegraf porque la primera tenía soporte nativo para contenedores de Docker, lo cual consideramos una ventaja.
+Finalmente hemos elegido la herramienta \gls{term:cadvisor} para nuestra
+implementación por sobre Telegraf porque la primera tenía soporte nativo para
+\glspl{term:contenedor} de \gls{term:docker}, lo cual consideramos una ventaja.
 
-La recomendación oficial para utilizar cAdvisor es ejecutarlo desde un contenedor de Docker a partir de la imágen oficial \footnote{\url{https://hub.docker.com/r/google/cadvisor/}}. Con el siguiente comando se puede iniciar la ejecución de la imagen mencionada para monitorizar los recursos de una máquina y todos los contenedores corriendo en la misma:
+La recomendación oficial para utilizar \gls{term:cadvisor} es ejecutarlo desde
+un \gls{term:contenedor} de \gls{term:docker} a partir de la imágen oficial
+\footnote{\url{https://hub.docker.com/r/google/cadvisor/}}. Con el siguiente
+comando se puede iniciar la ejecución de la imagen mencionada para monitorizar
+los recursos de una máquina y todos los \glspl{term:contenedor} corriendo en la
+misma:
 
 \begin{lstlisting}
-sudo docker run \
-  --volume=/:/rootfs:ro \
-  --volume=/var/run:/var/run:rw \
-  --volume=/sys:/sys:ro \
-  --volume=/var/lib/docker/:/var/lib/docker:ro \
-  --publish=8080:8080 \
-  --detach=true \
-  --name=cadvisor \
-  google/cadvisor:latest
+  sudo docker run \
+    --volume=/:/rootfs:ro \
+    --volume=/var/run:/var/run:rw \
+    --volume=/sys:/sys:ro \
+    --volume=/var/lib/docker/:/var/lib/docker:ro \
+    --publish=8080:8080 \
+    --detach=true \
+    --name=cadvisor \
+    google/cadvisor:latest
 \end{lstlisting}
 
 
-Además cAdvisor permite exportar estadísticas a distintos tipos de herramientas de almacenamiento por medio de plugins. Las herramientas que tienen integración con cAdvisor son:
+Además \gls{term:cadvisor} permite exportar estadísticas a distintos tipos de
+herramientas de almacenamiento por medio de \eng{plugins}. Las herramientas que
+tienen integración con \gls{term:cadvisor} son:
 
 \begin{itemize}
   \item BigQuery
-  \item ElasticSearch
-  \item InfluxDB
+  \item \gls{term:elasticsearch}
+  \item \gls{term:influx}
   \item Kafka
   \item Prometheus
   \item Redis
   \item StatsD
 \end{itemize}
 
-Además de las herramientas permite la salida de información a la salida estandar (STDOUT).
+Además de las herramientas permite la salida de información a la
+\gls{acro:stdout}.
 
-Utilizaremos un plugin para permitir a cAdvisor enviar la información recolectada a InfluxDB. Para configurar la comunicación con la instancia de InfluxDB que se desea utilizar, se dispone de las siguiente opciones: \footnote{\url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
+Utilizaremos un plugin para permitir a \gls{term:cadvisor} enviar la
+información recolectada a \gls{term:influx}. Para configurar la comunicación
+con la instancia de \gls{term:influx} que se desea utilizar, se dispone de las
+siguiente opciones
+\footnote{\url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
 
 \begin{lstlisting}
-# Elección de manejador de almacenamiento
- -storage_driver=influxdb
+  # Elección de manejador de almacenamiento
+  -storage_driver=influxdb
 
-# IP y puerto de la base de datos. Por defecto es 'localhost:8086'
- -storage_driver_host=ip:port
+  # IP y puerto de la base de datos. Por defecto es 'localhost:8086'
+  -storage_driver_host=ip:port
 
-# Nombre de la base de datos. Por defecto es 'cadvisor'
- -storage_driver_db
+  # Nombre de la base de datos. Por defecto es 'cadvisor'
+  -storage_driver_db
 
-# Usuario de la base de datos. Por defecto es 'root'
- -storage_driver_user
+  # Usuario de la base de datos. Por defecto es 'root'
+  -storage_driver_user
 
-# Contraseña de la base de datos. Por defecto es 'root'
- -storage_driver_password
+  # Contraseña de la base de datos. Por defecto es 'root'
+  -storage_driver_password
 
-# Indicador de conexión segura con la base de datos. Falso por defecto.
- -storage_driver_secure
+  # Indicador de conexión segura con la base de datos. Falso por defecto.
+  -storage_driver_secure
 \end{lstlisting}
 
-Para configurar el servicio de cAdvisor agregamos las siguientes líneas al archivo \lstinline{docker-compose.yml}:
+Para configurar el servicio de \gls{term:cadvisor} agregamos las siguientes
+líneas al archivo \lstinline{docker-compose.yml}:
 
 \begin{lstlisting}
   cadvisor:
@@ -117,4 +135,6 @@ Para configurar el servicio de cAdvisor agregamos las siguientes líneas al arch
       - lognet
 \end{lstlisting}
 
-Con estas configuraciones logramos recolectar los datos de los contenedores Docker y configurar cAdvisor para enviarlos a nuestra base de datos de series de tiempo.
+Con estas configuraciones logramos recolectar los datos de los
+\glspl{term:contenedor} \gls{term:docker} y configurar \gls{term:cadvisor} para
+enviarlos a nuestra base de datos de series de tiempo.
