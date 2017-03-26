@@ -10,7 +10,9 @@ Para que la aplicación \gls{term:ror} pueda hacer uso de estos métodos, es
 necesario agregar la siguiente línea al archivo \texttt{Gemfile}:
 
 \begin{lstlisting}
+
 gem "influxdb-rails"
+
 \end{lstlisting}
 
 Una vez que tenemos instalada la \gls{term:gema}, podemos configurar el
@@ -27,9 +29,9 @@ InfluxDB::Rails.configure do |config|
 end
 \end{lstlisting}
 
-El código ruby anterior configura los datos necesarios para que la aplicación
+El código \gls{term:ruby} anterior configura los datos necesarios para que la aplicación
 pueda comunicarse con la base de datos. Estos datos son el nombre de la base de
-datos, el nombre de usuario, la contraseña del usuario y el nombre del
+datos, el nombre de usuario, la contraseña del usuario, el nombre del
 \gls{term:host} y el número de puerto por el cual comunicarse con la
 \gls{term:api} de \gls{term:influx}.
 
@@ -53,7 +55,7 @@ La \gls{acro:unlp} cuenta con un sistema de acceso único, también conocido com
 \gls{term:sso} que brinda el servicio de autenticación y autorización de todos
 sus empleados en los distintos sistemas.
 
-Este sistema consiste en una aplicación desarrollada en el framework
+Este sistema consiste en una aplicación desarrollada en el \eng{framework}
 \gls{term:ror}. Esta aplicación ha estado funcionando desde hace
 aproximadamente 2 años.
 
@@ -67,7 +69,7 @@ Creemos que puede ser importante mantener un seguimiento de los inicios de
 sesión de usuarios en las diferentes aplicaciones. Podemos utilizar la librería
 \texttt{influxdb-rails} para cumplir este objetivo, escribiendo el siguiente
 código \gls{term:ruby} para que sea ejecutado cada vez que un usuario inicia
-sesión exitosamente:
+sesión de forma exitosa:
 
 \begin{lstlisting}
 InfluxDB::Rails.client.write_point(
@@ -83,7 +85,7 @@ InfluxDB::Rails.client.write_point(
 
 Las expresiones \lstinline{request.remote_ip} y \lstinline{current_user.id}
 contienen respectivamente la dirección \gls{acro:ip} y el identificador único
-del usuario que está iniciando sesión en alguno de los sistemas de la
+del usuario que se encuentra iniciando sesión en alguno de los sistemas de la
 \gls{acro:unlp}. La aplicación a la cual se quiere conectar el usuario es
 obtenida a través de \lstinline{access.application}. El tiempo que demoró la
 petición \eng{web} en resolverse lo encontramos en la variable
@@ -91,7 +93,7 @@ petición \eng{web} en resolverse lo encontramos en la variable
 
 A partir de esta información que estamos enviando a \gls{term:influx}, es
 posible obtener varias métricas que pueden ser útiles para los desarrolladores,
-profesionales de IT y otros. Algunos ejemplos de estas métricas son:
+profesionales de \gls{acro:it} y otros. Algunos ejemplos de estas métricas son:
 
 \begin{itemize}
   \item Tiempo de respuesta promedio para la operación de inicio de sesión
@@ -109,7 +111,8 @@ Este tipo de información puede ayudar a guiar decisiones dentro de las
 distintas áreas del \gls{acro:cespi}.
 
 \gls{term:ror} incluye una \gls{term:api} de instrumentación
-\footnote{\url{http://guides.rubyonrails.org/active_support_instrumentation.html}}
+\footnote{Guía oficial de instrumentación:
+\url{http://guides.rubyonrails.org/active_support_instrumentation.html}}
 que sirve para medir eventos. Con esta \gls{term:api}, los desarrolladores
 pueden elegir ser notificados cuando ciertas acciones ocurren dentro de las
 aplicaciones.
@@ -123,8 +126,9 @@ cuales subscribirse.
 
 Por ejemplo, existe un \eng{hook} provisto por la librería de \gls{term:ror},
 \eng{Active Record},
-\footnote{\url{http://guides.rubyonrails.org/active_record_basics.html}} que es
-llamado cada vez que se lleva a cabo una consulta SQL en una base de datos. Es
+\footnote{Guía oficial de Active Record:
+\url{http://guides.rubyonrails.org/active_record_basics.html}} que es
+llamado cada vez que se lleva a cabo una consulta \gls{acro:sql} en una base de datos. Es
 posible subscribirse a este \eng{hook}, y utilizarlo para tener un seguimiento
 del número de consultas realizadas.
 
@@ -144,16 +148,14 @@ end
 \end{lstlisting}
 
 La \gls{term:gema} \texttt{influxdb-rails} viene configurada por defecto para
-apoyarse en el hook \lstinline{"process_action.action_controller"} y enviar a
+apoyarse en el \eng{hook} \lstinline{"process_action.action_controller"} y enviar a
 \gls{term:influx} información sobre los tiempos de respuesta de cada petición
-\eng{web}, distinguiendo el tiempo que demora en el renderizado de las vistas,
+\eng{web}, distinguiendo el tiempo que demora en el \eng{renderizado} de las vistas,
 el procesamiento de los controladores y las consultas a las bases de datos.
 
-Para ejecutar la aplicación \gls{term:ror} usando contenedores de
-\gls{term:docker}, agregaremos el archivo Dockerfile en el directorio raíz de
+Para ejecutar la aplicación \gls{term:ror} usando \glspl{term:contenedor} de
+\gls{term:docker}, agregaremos el archivo \gls{term:dockerfile} en el directorio raíz de
 la aplicación:
-
-[ACA PODRÍAMOS USAR BIBLIOGRAFÍA]
 
 \begin{lstlisting}
 FROM ruby:2.3.1
@@ -178,7 +180,7 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
 \end{lstlisting}
 
-La línea \lstinline{FROM ruby:2.3.1} declara que el contenedor se basa en la
+La línea \lstinline{FROM ruby:2.3.1} declara que el \gls{term:contenedor} se basa en la
 imagen de \gls{term:docker} de nombre \lstinline{ruby:2.3.1}. La siguiente
 lìnea se ocupa de instalar las librerías necesarias para usar la aplicación
 \gls{term:ror}.
@@ -188,7 +190,7 @@ Luego se crea la carpeta de la aplicación, se copian los archivos
 dependencias de la aplicación, y se instalan las \glspl{term:gema} de esos
 archivos con el comando \lstinline{bundle install}.
 
-Finalmente, se copia el contenido de la aplicación al contenedor
+Finalmente, se copia el contenido de la aplicación al \gls{term:contenedor}
 \gls{term:docker}, se expone el puerto 3000, y se corre la aplicación con el
 comando \lstinline{rails server -b 0.0.0.0}.
 
@@ -198,7 +200,7 @@ de \gls{term:docker}. Compose permite definir una configuración de los
 servicios de una aplicación en un archivo, e iniciar todos estos servicios con
 un sólo comando.
 
-Hemos escrito una explicación un poco más detallada de Docker Compose en
+Hemos escrito una explicación un poco más detallada de \eng{Compose} en el
 \autoref{anexo_compose}.
 
 El siguiente archivo \gls{term:docker} Compose es un ejemplo de cómo configurar
@@ -238,11 +240,11 @@ servicio de nombre \lstinline{app}, y la base de datos \gls{term:influx} es el
 servicio de nombre \lstinline{influx}. Ambos utilizan la red \lstinline{lognet}
 para comunicarse entre sí.
 
-\lstinline{app} usa el dockerfile que definimos anteriormente para inicializar
-el servicio de la aplicación, y define los puertos externo e interno
+\lstinline{app} usa el \gls{term:dockerfile} que definimos anteriormente para
+inicializar el servicio de la aplicación, y define los puertos externo e interno
 \lstinline{3000:3000}.
 
-\lstinline{influx} utiliza la imágen \lstinline{influxdb:1.0.0-rc1} y configura
+\lstinline{influx} utiliza la imagen \lstinline{influxdb:1.0.0-rc1} y configura
 algunas variables de ambiente, como lo son el nombre del usuario administrador,
 la contraseña del usuario y el nombre de la base de datos a crear por defecto.
 Finalmente define los puertos por donde estará la \gls{term:api} y el cliente
