@@ -135,6 +135,19 @@ de 1 hora, con el objetivo de contemplar la variación del valor apdex en las
 anteriores 24 horas. De esta forma podemos analizar si influyen de algún modo
 las franjas horarias en la experiencia final del usuario.
 
+[FALTARÍA GRAFICO DE APPDEX]
+
+Además podemos utilizar las carecterísticas de \gls{term:grafana} para mostrar
+los datos recolectados por \gls{term:cadvisor} de nuestros contenedores en
+ejecución. En la \autoref{fig:grafana_metricas} se puede visualizar como se
+vería un tablero con la información mensionada.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/05-capitulo-5/grafana_metricas.png}
+  \caption{Gráficos generados en Grafana con información de nuestros contenedores}
+  \label{fig:grafana_metricas}
+\end{figure}
+
 En este capítulo hemos mostrado cómo se pueden configurar algunas herramientas
 de visualización para reflejar los datos que hemos almacenado hasta ahora en
 \gls{term:influx} y en \gls{term:elasticsearch}. En el capítulo siguiente
