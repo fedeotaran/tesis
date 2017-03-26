@@ -60,44 +60,54 @@ una aplicación pueden usarse además \eng{info} y \eng{debug}.
 Para hacer esto se debe realizar la siguiente configuración:
 
 \begin{lstlisting}
-    [alerta]
-      enabled = true
-      url = "https://alerta.yourdomain"
-      token = "9hiWoDOZ9IbmHsOTeST123ABciWTIqXQVFDo63h9"
-      environment = "Production"
-      origin = "Kapacitor"
+[alerta]
+    enabled = true
+    url = "https://alerta.yourdomain"
+    token = "9hiWoDOZ9IbmHsOTeST123ABciWTIqXQVFDo63h9"
+    environment = "Production"
+    origin = "Kapacitor"
 \end{lstlisting}
 
 Finalmente, en \gls{term:tick_script} se puede enviar un mensaje a
 \gls{term:alerta} de la siguiente forma:
 
 \begin{lstlisting}
-    stream
-         |alert()
-             .alerta()
-                 .resource('Hostname or service')
-                 .event('Something went wrong')
+stream
+    |alert()
+        .alerta()
+            .resource('Hostname or service')
+            .event('Something went wrong')
 \end{lstlisting}
 
-Las propiedades resource y event son requeridas. Además de éstas, se puede
+Las propiedades \lstinline{resource} y \lstinline{event} son requeridas. Además de éstas, se puede
 enviar algunas propiedades opcionales:
 
 \begin{lstlisting}
-    stream
-         |alert()
-             .alerta()
-                 .resource('Hostname or service')
-                 .event('Something went wrong')
-                 .environment('Development')
-                 .group('Dev. Servers')
+stream
+    |alert()
+        .alerta()
+            .resource('Hostname or service')
+            .event('Something went wrong')
+            .environment('Development')
+            .group('Dev. Servers')
 \end{lstlisting}
 
-[ Agregar ejemplo de uso de un caso real y ventajas ]
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/06-capitulo-6/alerta.png}
+  \caption{Cliente de \gls{term:alerta} agrupando alertas por prioridades}
+  \label{fig:alerta}
+\end{figure}
+
+En la \autoref{fig:alerta} se puede ver cómo se ven las alertas listadas en el
+cliente de \gls{term:alerta}. La herramientas de encarga de ordenarlas por grado
+de severidad, y agruparlas, de forma que no aparezcan las alertas repetidas,
+sino que aparezcan una única vez, especificando la cantidad de repeticiones con
+un contador.
 
 En este capítulo hemos mostrado cómo instalar y configurar \gls{term:kapacitor}
 para generar alertas. Cómo definir alertas utilizando el lenguaje
 \gls{term:tick_script} y cómo resolver el problema de visualización y manejo de
 alertas agregando \gls{term:alerta} a la lista de herramientas.
 
-Con ésto hemos completado la parte práctica de nuestro trabajo. En el próximo
-capítulo daremos nuestras conclusiones finales de la tesis.
+Con ésto hemos completado la parte práctica de nuestro trabajo. A continuación daremos nuestras conclusiones finales de la tesis.
