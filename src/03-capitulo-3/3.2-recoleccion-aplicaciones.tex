@@ -1,17 +1,20 @@
 \subsection{Recolección de datos de aplicaciones}
 \label{aplicaciones}
 
-En  esta sección explicaremos cómo enviar datos de las aplicaciones web a InfluxDB.
-Para enviar datos hemos usado la gema influxdb-rails.
-Esta gema proporciona métodos para vincular Ruby on Rails con InfluxDB.
+En  esta sección explicaremos cómo enviar datos de las aplicaciones web a
+InfluxDB.  Para enviar datos hemos usado la gema influxdb-rails.  Esta gema
+proporciona métodos para vincular Ruby on Rails con InfluxDB.
 
-Para que la aplicación Rails pueda hacer uso de estos métodos, es necesario agregar la siguiente línea al archivo GEMFILE:
+Para que la aplicación Rails pueda hacer uso de estos métodos, es necesario
+agregar la siguiente línea al archivo GEMFILE:
 
 \begin{lstlisting}
 gem "influxdb-rails"
 \end{lstlisting}
 
-Una vez que tenemos instalada la gema, podemos configurar el adaptador InfluxDB::Rails en un archivo de configuración de la aplicación. La configuración por defecto debería verse de la siguiente manera:
+Una vez que tenemos instalada la gema, podemos configurar el adaptador
+InfluxDB::Rails en un archivo de configuración de la aplicación. La
+configuración por defecto debería verse de la siguiente manera:
 
 \begin{lstlisting}
 InfluxDB::Rails.configure do |config|
