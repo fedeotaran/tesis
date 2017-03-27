@@ -2,9 +2,9 @@
 \label{consultas}
 
 Una vez que tenemos todo configurado, podemos comenzar a realizar consultas
-sobre la base de datos \gls{term:elasticsearch} donde están los logs. A través
-del comando curl podemos solicitar los datos de los índices creados en la base
-de datos por nuestras herramientas:
+sobre \gls{term:elasticsearch}. A través del comando \texttt{curl} podemos
+solicitar los datos de los índices creados en la base de datos por nuestras
+herramientas:
 
 \begin{lstlisting}
 
@@ -161,7 +161,8 @@ curl localhost:9200/rails-logs-2017.02.21
 \end{lstlisting}
 
 En el resultado de la consulta se puede ver la estructura de los registros y la
-composición del índice que almacena los logs de las aplicaciones rails.
+composición del índice que almacena los \eng{logs} de las aplicaciones
+\gls{term:ror}.
 
 Para visualizar todos los documentos dentro de un índice, se puede ejecutar la
 siguiente instrucción:
@@ -217,21 +218,19 @@ curl localhost:9200/nginx-logs-2017.02.21/_search
 
 \end{lstlisting}
 
-Esta consulta nos retorna información sobre todos los documentos en el índice
+Esta consulta retorna información sobre todos los documentos en el índice
 de requerimientos \eng{web} que han pasado por \gls{term:nginx}. Entre
 otros datos, se pueden ver el identificador y nombre del contenedor, el código
 de estado \gls{acro:http}, el cliente \eng{web} utilizado y la marca de
 tiempo.
 
 \gls{term:fluentd} nos ha permitido analizar el contenido del mensaje de los
-logs y separar aquellos campos importantes. Esto nos permitirá realizar
-búsquedas fácilmente.
+\eng{logs} y separar aquellos campos importantes. Esto facilitará la realización de
+búsquedas.
 
 A lo largo de este capítulo hemos conseguido configurar varias herramientas
-para unificar los logs de diferentes fuentes en una base de datos centralizada,
-y utilizar un motor de búsquedas para obtener información importante de ellos.
+para unificar los \eng{logs} de diferentes fuentes en una base de datos
+centralizada, y utilizar un motor de búsquedas para obtener información
+importante de ellos.
 
-Los logs pueden ser muy útiles, pero no son la única fuente de datos de la que
-se puede obtener información valiosa. En el capítulo siguiente analizaremos
-cómo recolectar datos de diversas fuentes generados en tiempo real.
-
+En el siguiente capítulo abordaremos el tema de la visualización de datos.
