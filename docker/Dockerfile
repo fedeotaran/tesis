@@ -1,6 +1,7 @@
 FROM ubuntu:wily
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER Federico Otaran
+MAINTAINER Nicanor Perera
 
 RUN apt-get update -q && \
     apt-get install -y gnuplot \
