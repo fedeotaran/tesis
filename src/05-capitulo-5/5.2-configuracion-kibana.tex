@@ -1,14 +1,14 @@
 \subsection{Configuración de \gls{term:kibana}}
 \label{configuracion-de-kibana}
 
-En el \autoref{cap4} hemos hablado de cómo usamos \gls{term:elasticsearch} para
-almacenar los datos obtenidos de Logs. El siguiente paso es usar
+En el \autoref{cap4} hemos explicado la forma en que usamos \gls{term:elasticsearch} para
+almacenar los datos obtenidos de \eng{logs}. El siguiente paso es usar
 \gls{term:kibana} para poder visualizar los datos almacenados en
 \gls{term:elasticsearch}.
 
 Usaremos \gls{term:kibana} a través de la imagen de \gls{term:docker} oficial.
 Esta imagen provee varios métodos para configurar \gls{term:kibana}. El enfoque
-convencional es proveer un archivo \lstinline{kibana.yml}, pero también es
+convencional es proveer un archivo \texttt{kibana.yml}, pero también es
 posible utilizar variables de ambiente para definir las opciones.
 
 Para hacer esto, podemos agregar las siguientes líneas al archivo
@@ -29,8 +29,8 @@ services:
       - lognet
 \end{lstlisting}
 
-Una vez que está corriendo el contenedor de Kibana, es posible acceder al
-cliente \eng{web} de \gls{term:kibana} (\autoref{fig:kibana-default}) a través
+Una vez que está corriendo el \gls{term:contenedor} de \gls{term:kibana}, es posible acceder al
+cliente \eng{web} (\autoref{fig:kibana-default}) a través
 del puerto 5601. Todo lo que uno necesita es apuntar el navegador \eng{web} a la
 máquina en la cual \gls{term:kibana} está siendo ejecutado y especificar el
 número de puerto.
@@ -44,9 +44,9 @@ número de puerto.
 Cuando se accede a \gls{term:kibana}, la página de descubrimiento se carga de
 forma automática con el patrón del índice por defecto seleccionado. El filtro
 de tiempo es fijado a los últimos 15 minutos y la consulta de búsqueda es
-colocada para traer todos los resultados.
+configurada para traer todos los resultados.
 
-Es posible alcanzar el estado de página del servidor de \gls{term:kibana}
+Es posible ver el estado de página del servidor de \gls{term:kibana}
 navegando a la dirección \lstinline{localhost:5601/status}. La página de estado
 (\autoref{fig:kibana-status}) muestra información acerca del uso de recursos
 del servidor y lista los \eng{plugins} instalados.
@@ -61,17 +61,18 @@ Para poder comenzar a usar \gls{term:kibana}, es necesario indicar los índices
 de \gls{term:elasticsearch} que se desean explorar. La primera vez que se accede
 a \gls{term:kibana}, le es solicitado al usuario definir un patrón que coincida
 con los nombres de uno o más índices. Una vez hecho esto ya es posible empezar a
-explorar datos.
+explorar datos. En la \autoref{fig:kibana-ux} detallamos las partes de la
+interfaz de \gls{term:kibana}.
 
 Usando \gls{term:kibana} se puede realizar la exploración de datos de forma
 interactiva a través de la página de descubrimiento. Desde esta página se tiene
 acceso a cada documento en cada índice que coincida con un patrón de nombres de
 índices seleccionado.
 
-De esta forma, es posible enviar consultas de búsquedas, filtrar los resultados
+De esta forma, es posible enviar consultas, filtrar los resultados
 de las búsquedas y visualizar datos de los documentos. Además se pueden ver los
 números de documentos que coinciden con la consulta de búsqueda y obtener
-estadísticas de valores de campos.
+estadísticas de valores de los campos.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{src/images/05-capitulo-5/kibana-ux.png}
@@ -145,13 +146,13 @@ puede ser:
 \end{itemize}
 
 Además es posible agrupar los datos por fechas, rangos, términos o filtros. Por
-ejemplo, si se están indexando logs del servidor es posible construir un
+ejemplo, si se están indexando \eng{logs} del servidor es posible construir un
 gráfico de barras que muestre la distribución de solicitudes \eng{web}
 entrantes por locación geográfica.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{src/images/05-capitulo-5/kibana-logs.png}
-  \caption{Vista de logs de \gls{term:ror} en \gls{term:kibana}}
+  \caption{Vista de \eng{logs} de \gls{term:ror} en \gls{term:kibana}}
   \label{fig:kibana-logs}
 \end{figure}
 
@@ -166,13 +167,14 @@ y contaríamos con toda la información necesaria para reparar el error lo más
 pronto posible.
 
 En la \autoref{fig:kibana-logs} se puede ver la forma en que se visualiza en
-\gls{term:kibana} una línea de logs tomada de nuestras aplicaciones
+\gls{term:kibana} una línea de \eng{logs} tomada de nuestras aplicaciones
 \gls{term:ror}. En la misma es posible apreciar cómo hemos logrado separar la
 información contenida en una única línea de \eng{log} en varios atributos para
 poder realizar consultas.
 
 En este capítulo hemos mostrado cómo configurar \gls{term:kibana} para generar
-tableros de control y cómo usarlo para explorar la información de logs
+tableros de control y cómo usarlo para explorar la información de \eng{logs}
 almacenados en \gls{term:elasticsearch} para detectar errores de forma sencilla.
+
 En la próxima sección contaremos cómo configurar \gls{term:grafana} para
 visualizar información de nuestra base de datos \gls{term:influx}.
