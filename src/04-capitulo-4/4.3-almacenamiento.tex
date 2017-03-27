@@ -1,62 +1,73 @@
 \subsection{Almacenamiento}
 \label{almacenamiento}
 
-Para poder almacenar los logs de una forma centralizada, y hacer consultas
-sobre las mismas de una forma sencilla, hemos elegido utilizar Elasticsearch.
+Para poder almacenar los \eng{logs} de una forma centralizada, y hacer consultas
+sobre los mismos de una forma sencilla, hemos elegido utilizar
+\gls{term:elasticsearch}.
 
-Elasticsearch es un servidor de búsqueda que provee un motor de búsqueda de
+\gls{term:elasticsearch} es un servidor que provee un motor de búsqueda de
 texto completo, distribuido y con capacidad de multi-tenencia con una interfaz
-\eng{web} RESTful y con documentos JSON. Elasticsearch está desarrollado en
-Java y está publicado como código abierto bajo las condiciones de la licencia
-Apache.
+\eng{web} RESTful y con documentos \gls{acro:json}. \gls{term:elasticsearch}
+fue desarrollado en Java y se encuentra publicado como código abierto bajo las
+condiciones de la licencia Apache.
 
-Elasticsearch permite almacenar, buscar y analizar datos estructurados y no
-estructurados, incluyendo texto, logs del sistema, registros de base de datos y
-más. Además puede ser usado para guardar métricas de series de tiempos
-proporcionadas por otras herramientas.
+\gls{term:elasticsearch} permite almacenar, buscar y analizar datos
+estructurados y no estructurados, incluyendo texto, \eng{logs} del sistema,
+registros de base de datos y más. Además puede ser usado para guardar métricas
+de series de tiempo proporcionadas por otras herramientas.
 
-Elasticsearch permite escalabilidad y posibilidad de agregar nuevas métricas en
-tiempo de ejecución, tiene facilidades para la integración con APIs y
-herramientas como Logstash, y consigue un buen rendimiento incluso al procesar
-grandes volúmenes de datos.
+\gls{term:elasticsearch} permite escalabilidad y posibilidad de agregar nuevas
+métricas en tiempo de ejecución, tiene facilidades para la integración con
+\glspl{term:api} y herramientas como \gls{term:logstash}, y consigue un buen
+rendimiento incluso al procesar grandes volúmenes de datos.
 
 Además tiene excelente integración con la herramienta de visualización de datos
 Kibana, que permite analizar datos de múltiples fuentes y correlacionar
 métricas almacenadas en ElasticSearch.
 
-Elasticsearch no es una base de datos relacional. Es orientada a documentos, y
+\gls{term:elasticsearch} no es una base de datos relacional. Es orientada a documentos, y
 tiene su propia terminología. Para facilitar la comprensión de su
 funcionamiento, es importante que mencionemos los conceptos de documento e
-índice en elasticsearch:
+índice en \gls{term:elasticsearch}:
 
-Un documento es una unidad básica de información que puede ser indexada. Por
+\begin{itemize}
+   
+\item
+Un \textbf{documento} es una unidad básica de información que puede ser indexada. Por
 ejemplo, se puede tener un documento por un único cliente, otro documento por
 un producto específico y otro documento por una orden de compras. Estos
-documentos son expresados en formato JSON.  Un índice es una colección de
-documentos que tienen características similares. Por ejemplo, es posible tener
-un índice para datos de clientes, otro índice para un catálogo de productos y
-otro índice para datos de órdenes de compras. Un índice es identificado por un
-nombre escrito en minúsculas. Este nombre es usado para referirse al índice al
-realizar operaciones de indexado, búsqueda, actualización y eliminación sobre
-los documentos en el mismo.  Un tipo en Elasticserach representa una clase de
-documentos similares. Un tipo consiste en un nombre y un mapeo que, como el
-esquema de una base de datos, describe los campos o propiedades que los
-documentos de ese tipo pueden tener.
+documentos son expresados en formato \gls{acro:json}.
 
+\item
+Un \textbf{índice} es una colección de documentos que tienen características similares.
+Por ejemplo, es posible tener un índice para datos de clientes, otro índice para
+un catálogo de productos y otro índice para datos de órdenes de compras. Un
+índice es identificado por un nombre escrito en minúsculas. Este nombre es usado
+para referirse al índice al realizar operaciones de indexado, búsqueda,
+actualización y eliminación sobre los documentos en el mismo.
 
-Elasticsearch provee una API RESTful JSON sobre HTTP para realizar todas las
-operaciones importantes. Por defecto, Elasticsearch corre sobre el puerto 9200.
-Es posible comunicarse con esta API mediante clientes \eng{web}, y también
-usando el comando curl desde una terminal.
+\item
+Un \textbf{tipo} en \gls{term:elasticsearch} representa una clase de documentos
+similares. Un tipo consiste en un nombre y un mapeo que, como el esquema de una
+base de datos, describe los campos o propiedades que los documentos de ese tipo
+pueden tener.
 
-Elasticsearch provee clientes oficiales para muchos lenguajes, como Groovy,
-JavaScript, .NET, PHP, Perl, Python y Ruby, y hay numerosos clientes e
-integraciones provistos por la comunidad, que pueden ser encontrados en el
-sitio \eng{web} de Elasticsearch.
+\end{itemize}
+
+\gls{term:elasticsearch} provee una \gls{term:api} RESTful \gls{acro:json} sobre
+\gls{acro:http} para realizar todas las operaciones importantes. Por defecto,
+\gls{term:elasticsearch} corre sobre el puerto 9200. Es posible comunicarse con
+esta \gls{term:api} mediante clientes \eng{web}, o también usando el comando
+\texttt{curl} desde una terminal.
+
+\gls{term:elasticsearch} provee clientes oficiales para muchos lenguajes, como
+Groovy, JavaScript, .NET, PHP, Perl, Python y \gls{term:ruby}, y hay numerosos
+clientes e integraciones provistos por la comunidad, que pueden ser encontrados
+en el sitio \eng{web} de \gls{term:elasticsearch}.
 
 Por ejemplo, si quisiera indexar un documento por cada empleado, de tal forma
 que cada documento sea de tipo empleado y ese tipo exista en el índice de la
-biblioteca, basta con llamar a la API de la siguiente manera:
+biblioteca, basta con llamar a la \gls{term:api} de la siguiente manera:
 
 \begin{lstlisting}
 
@@ -71,10 +82,10 @@ PUT /biblioteca/empleado/1
 \end{lstlisting}
 
 
-Para instalar Elasticsearch es necesario contar con Java instalado en el
-equipo.  Una vez configurado Java, simplemente es necesario descargar y
-ejecutar Elasticsearch.  Para descargar y ejecutar Elasticsearch 5.1, podemos
-correr los siguientes comandos:
+Para instalar \gls{term:elasticsearch} es necesario contar con Java en el
+equipo. Una vez configurado Java, simplemente es necesario descargar y
+ejecutar \gls{term:elasticsearch}. Para descargar y ejecutar
+\gls{term:elasticsearch} 5.1, podemos correr los siguientes comandos:
 
 \begin{lstlisting}
 
@@ -85,12 +96,16 @@ cd elasticsearch-5.1.1/bin
 
 \end{lstlisting}
 
-Para nuestra solución, hemos elegido instalar elasticsearch en un servidor
-aparte. Esto nos da varias ventajas. En primer lugar, con esto apartamos los
-datos de los logs del entorno donde corren las aplicaciones, lo que nos permite
-tener disponibilidad de los datos en caso de que ocurra un que afecte a la
-infraestructura completa. Además, al tener una sola instancia separada lo que
-estamos haciendo es centralizar los datos de los logs para tener sólo una
-fuente que consultar. Para el segundo caso tenemos que tener en cuenta poder
-identificar la fuente de cada uno de los logs.
+Para nuestra solución, hemos elegido instalar \gls{term:elasticsearch} en un
+servidor aparte. Esto nos da por lo menos dos ventajas:
 
+En primer lugar, guardar los datos de los \eng{logs} en un entorno diferente al
+que corren las aplicaciones, nos permite tener disponibilidad de los datos en
+caso de que ocurra un error que afecte a la infraestructura completa.
+
+Además, al tener una sola instancia separada, se logra centralizar los datos de
+los \eng{logs} y se tiene una única fuente que consultar.
+
+Antes de continuar con la siguiente sección, creemos importante comentar que en
+una solución centralizada es importante poder identificar la fuente de cada uno
+de los \eng{logs}.
