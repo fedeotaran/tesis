@@ -56,7 +56,7 @@ independientes se ejecuten dentro de una sola instancia de Linux, evitando la
 sobrecarga de iniciar y mantener máquinas virtuales.
 
 Docker es una herramienta que puede empaquetar una aplicación y sus
-dependencias en un contenedor virtual que se puede ejecutar en cualquier
+dependencias en un \gls{term:contenedor} virtual que se puede ejecutar en cualquier
 servidor Linux. Esto ayuda a permitir la flexibilidad y portabilidad en donde
 la aplicación se puede ejecutar, por ejemplo en instalaciones físicas, la nube
 pública o nubes privadas.
@@ -64,7 +64,7 @@ pública o nubes privadas.
 Docker implementa una interfaz para proporcionar \glspl{term:contenedor} livianos que
 ejecutan procesos de forma aislada.
 
-A diferencia de una máquina virtual, un contenedor Docker no requiere incluir
+A diferencia de una máquina virtual, un \gls{term:contenedor} \gls{term:docker} no requiere incluir
 un sistema operativo independiente. En su lugar se basa en las funcionalidades
 del kernel y utiliza el aislamiento de recursos (CPU, memoria, bloque de
 entrada y salida y la red, entre otros) y espacios de nombres separados para
@@ -75,13 +75,13 @@ servicios restringidos. Se otorga a los procesos la capacidad de tener una
 visión casi completamente privada del sistema operativo, con su propio
 identificador de espacio de proceso, la estructura del sistema de archivos y
 las interfaces de red. Múltiples \glspl{term:contenedor} comparten el mismo núcleo, pero
-cada contenedor puede ser restringido a usar sólo una cantidad definida de
+cada \gls{term:contenedor} puede ser restringido a usar sólo una cantidad definida de
 recursos.
 
-En la práctica, Docker puede ser utilizado para simplificar la creación de
+En la práctica, \gls{term:docker} puede ser utilizado para simplificar la creación de
 sistemas altamente distribuidos. El despliegue de nodos puede realizarse a
 medida que se disponga de recursos o cuando se necesiten más nodos, lo que
-permite la construcción de una plataforma como servicio. Docker también
+permite la construcción de una plataforma como servicio. \gls{term:docker} también
 facilita el armado y funcionamiento de tareas de carga de
 trabajo~\cite{docker}.
 
