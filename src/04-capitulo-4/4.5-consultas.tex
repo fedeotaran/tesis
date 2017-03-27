@@ -72,15 +72,6 @@ curl localhost:9200/rails-logs-2017.02.21
               },
               "type": "text"
             },
-            "container_name": {
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              },
-              "type": "text"
-            },
             "controller": {
               "fields": {
                 "keyword": {
@@ -92,18 +83,6 @@ curl localhost:9200/rails-logs-2017.02.21
             },
             "db": {
               "type": "float"
-            },
-            "duration": {
-              "type": "float"
-            },
-            "format": {
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              },
-              "type": "text"
             },
             "log": {
               "fields": {
@@ -132,29 +111,17 @@ curl localhost:9200/rails-logs-2017.02.21
               },
               "type": "text"
             },
-            "source": {
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              },
-              "type": "text"
-            },
             "status": {
               "type": "long"
             },
             "view": {
               "type": "float"
-            }
+            },
+            ... # más atributos
           }
         }
       },
-
-      .
-      .
-      .
-
+      ... # más atributos
   }
 }
 
