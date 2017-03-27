@@ -46,7 +46,7 @@ Ruby~\cite{ror}.
 \subsection{Docker}
 
 Docker es un proyecto de código abierto que permite la automatización del
-despliegue de aplicaciones dentro de contenedores de software en Linux. Los
+despliegue de aplicaciones dentro de \glspl{term:contenedor} de software en Linux. Los
 contenedores proporcionan una capa adicional de abstracción y automatización de
 virtualización a nivel de sistema operativo.
 
@@ -61,7 +61,7 @@ servidor Linux. Esto ayuda a permitir la flexibilidad y portabilidad en donde
 la aplicación se puede ejecutar, por ejemplo en instalaciones físicas, la nube
 pública o nubes privadas.
 
-Docker implementa una interfaz para proporcionar contenedores livianos que
+Docker implementa una interfaz para proporcionar \glspl{term:contenedor} livianos que
 ejecutan procesos de forma aislada.
 
 A diferencia de una máquina virtual, un contenedor Docker no requiere incluir
@@ -74,7 +74,7 @@ A partir del uso de contenedores, los recursos pueden ser aislados y los
 servicios restringidos. Se otorga a los procesos la capacidad de tener una
 visión casi completamente privada del sistema operativo, con su propio
 identificador de espacio de proceso, la estructura del sistema de archivos y
-las interfaces de red. Múltiples contenedores comparten el mismo núcleo, pero
+las interfaces de red. Múltiples \glspl{term:contenedor} comparten el mismo núcleo, pero
 cada contenedor puede ser restringido a usar sólo una cantidad definida de
 recursos.
 
@@ -110,8 +110,8 @@ totalidad\footnote{Cf. \url{https://docs.docker.com/compose/reference/up/}}.
 
 \subsection{Rancher}
 
-Rancher es una plataforma de código abierto para manejar contenedores que
-facilita la tarea de correr cualquier aplicación basada en contenedores en
+Rancher es una plataforma de código abierto para manejar \glspl{term:contenedor} que
+facilita la tarea de correr cualquier aplicación basada en \glspl{term:contenedor} en
 cualquier infraestructura. Soporta Kubernetes, Mesos y Docker Swarn.
 
 Fue diseñado para resolver todos los desafíos críticos necesarios para correr
@@ -140,7 +140,7 @@ Rancher consiste en cuatro componentes principales:
     en cualquier host de linux de cualquier nube.
 
   \item \textbf{Orquestación y programación de contenedores:}
-    Muchos usuarios eligen correr aplicaciones en contenedores usando un
+    Muchos usuarios eligen correr aplicaciones en \glspl{term:contenedor} usando un
     framework de orquestación y programación de contenedores. Rancher incluye
     una distribución de todos los frameworks populares hoy en día, incluyendo
     Docker Swarm, Kubernetes y Mesos. Un mismo usuario puede crear múltiples
