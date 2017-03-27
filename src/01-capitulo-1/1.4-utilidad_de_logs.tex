@@ -110,8 +110,8 @@ por el nombre en un log, y la identificación de un servicio por el número de
 puerto en otro.
 
 Otro obstáculo en la gestión de logs es la inconsistencia de las marcas
-temporales. Cada host que genera logs suele hacer referencia a su reloj
-interno. Si el reloj de un host es inexacto, el timestamp que genera en los
+temporales. Cada \gls{term:host} que genera logs suele hacer referencia a su reloj
+interno. Si el reloj de un \gls{term:host} es inexacto, el timestamp que genera en los
 logs también lo es.
 
 Esto puede dificultar el análisis de los logs, particularmente cuando se
@@ -164,4 +164,3 @@ importante para generar alertas. En concreto, si los logs de un servidor
 \eng{web} retorna un error \gls{acro:http} con código 500, es porque una
 aplicación no está funcionando correctamente
 \cite[p.~30-31]{monitoreo:logging_and_log_management}.
-
