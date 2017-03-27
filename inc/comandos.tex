@@ -48,5 +48,18 @@
   \end{center}
 }
 
+\addto\captionsspanish{%
+  \renewcommand\appendixname{Anexo}
+  \renewcommand\appendixpagename{Anexos}
+  \renewcommand\appendixtocname{Anexos}
+}
+
+\addto\extrasspanish{%
+  \def\sectionautorefname{capítulo}%
+  \def\subsectionautorefname{sección}%
+  \def\subsubsectionautorefname{sección}%
+  \renewcommand{\appendixautorefname}{anexo}%
+}
+
 % {\checkmark} :: para imprimir un check (tilde)
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
