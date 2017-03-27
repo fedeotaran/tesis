@@ -1,15 +1,19 @@
 FROM ubuntu:wily
 ENV DEBIAN_FRONTEND noninteractive
-MAINTAINER Nahuel Cuesta Luengo
+MAINTAINER Federico Otaran
 
 RUN apt-get update -q && \
     apt-get install -y gnuplot \
-                       python-pygments \
                        texlive-binaries \
                        texlive-lang-spanish \
                        texlive-latex-base \
                        texlive-latex-extra \
-                       xindy 
+                       xindy
+                       texlive-full \
+                       texlive-latex-extra \
+                       python \
+                       python-pip \
+                       python-pygments
 RUN apt-get install -y make
 RUN apt-get install -y luatex \
                        texlive-luatex \
