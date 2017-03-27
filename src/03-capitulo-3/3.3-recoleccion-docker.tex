@@ -1,4 +1,4 @@
-\subsection{Recolección de datos de contenedores Docker}
+\subsection{Recolección de datos de \glspl{term:contenedor} de \gls{term:docker}}
 \label{contenedores}
 
 Como hemos mencionado anteriormente, el laboratorio usa \glspl{term:contenedor}
@@ -8,7 +8,7 @@ funcionamiento en tiempo real.
 
 Para realizar la recolección de datos de los \glspl{term:contenedor}, donde se
 mantienen en ejecución las aplicaciones, hemos investigado las herramientas
-\gls{term:cadvisor} y Telegraf.
+\gls{term:cadvisor} y \gls{term:telegraf}.
 
 \gls{term:cadvisor} es un demonio que recolecta, agrega,
 procesa y exporta información de \glspl{term:contenedor} en ejecución.
@@ -22,15 +22,15 @@ para la máquina host donde está corriendo y para cada uno de los
 recursos y las características de rendimiento de los \glspl{term:contenedor} en
 ejecución.  Tiene soporte nativo para \glspl{term:contenedor} \gls{term:docker}
 y puede utilizarse con casi cualquier otro tipo de \gls{term:contenedor}.
-\footnote{\url{https://github.com/google/cadvisor}}
+\footnote{Repositorio oficial de \gls{term:cadvisor}: \url{https://github.com/google/cadvisor}}
 
-Telegraf es un agente escrito en el lenguaje de programación \gls{term:go} para
+\gls{term:telegraf} es un agente escrito en el lenguaje de programación \gls{term:go} para
 recolectar, procesar, agregar y escribir métricas. Fue diseñado con el objetivo
 de requerir poca memoria, y de proveer un sistema de \eng{plugins} de forma que
 los desarrolladores de la comunidad pudieran fácilmente agregar soporte para
 recolección de métricas de diferentes servicios y \glspl{term:api}.
 
-Telegraf utiliza cuatro conceptos distintos de \eng{plugins}:
+\gls{term:telegraf} utiliza cuatro conceptos distintos de \eng{plugins}:
 
 \begin{itemize}
 
@@ -49,7 +49,7 @@ Telegraf utiliza cuatro conceptos distintos de \eng{plugins}:
 \end{itemize}
 
 Finalmente hemos elegido la herramienta \gls{term:cadvisor} para nuestra
-implementación por sobre Telegraf porque la primera tenía soporte nativo para
+implementación por sobre \gls{term:telegraf} porque la primera tenía soporte nativo para
 \glspl{term:contenedor} de \gls{term:docker}, lo cual consideramos una ventaja.
 
 La recomendación oficial para utilizar \gls{term:cadvisor} es ejecutarlo desde
@@ -74,7 +74,7 @@ misma:
 
 Además \gls{term:cadvisor} permite exportar estadísticas a distintos tipos de
 herramientas de almacenamiento por medio de \eng{plugins}. Las herramientas que
-tienen integración con \gls{term:cadvisor} son:
+tienen integración oficial con \gls{term:cadvisor} son:
 
 \begin{itemize}
   \item \gls{term:bigquery}
@@ -86,14 +86,14 @@ tienen integración con \gls{term:cadvisor} son:
   \item \gls{term:statsd}
 \end{itemize}
 
-Además de las herramientas permite la salida de información a la
-\gls{acro:stdout}.
+Además de las herramientas mencionadas, \gls{term:cadvisor} permite la salida
+de información a \gls{acro:stdout}.
 
-Utilizaremos un plugin para permitir a \gls{term:cadvisor} enviar la
+Utilizaremos un \eng{plugin} para permitir a \gls{term:cadvisor} enviar la
 información recolectada a \gls{term:influx}. Para configurar la comunicación
 con la instancia de \gls{term:influx} que se desea utilizar, se dispone de las
 siguiente opciones
-\footnote{\url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
+\footnote{Guía oficial: \url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
 
 \begin{lstlisting}
   # Elección de manejador de almacenamiento
