@@ -9,37 +9,35 @@ rápida. Además, el hecho de que haya sido desarrollado por la misma empresa
 que creó \gls{term:influx} le ha otorgado una integración excelente con el
 mismo.
 
-\gls{term:kapacitor} es un framework de procesamiento de datos de código
-abierto, que permite crear alertas, correr procesos ETL (de extracción,
-transformación y carga) y detectar anomalías. \gls{term:kapacitor} es parte del
-\eng{stack} TICK, junto con Telegraf, \gls{term:influx} y Chronograf.
+\gls{term:kapacitor} es un \eng{framework} de procesamiento de datos de código
+abierto, que permite crear alertas, correr procesos de extracción,
+transformación y carga, y detectar anomalías. \gls{term:kapacitor} es parte del
+\eng{stack} TICK, junto con \gls{term:telegraf}, \gls{term:influx} y Chronograf.
 
-\gls{term:kapacitor} permite procesar datos por streaming y por lotes. También
+\gls{term:kapacitor} permite procesar datos por \eng{streaming} y por lotes. También
 consultar los datos de \gls{term:influx} en un programa y recibir datos a
 través del protocolo de línea y cualquier otro método que \gls{term:influx}
 admita.
 
-Adicionalmente, admite realizar cualquier transformación actualmente posible en
+Adicionalmente, permite realizar cualquier transformación actualmente posible en
 el lenguaje de consulta InfluxQL y almacenar los datos transformados en
 \gls{term:influx}. Además permite añadir funciones personalizadas definidas por
 el usuario para detectar anomalías.
 
 \gls{term:kapacitor} puede ser configurado para notificar alertas a distintos
-destinos.  Por ejemplo se pueden enviar a un archivo de logs, una URL con
+destinos.  Por ejemplo se pueden enviar a un archivo de \eng{logs}, una \gls{acro:url} con
 método \gls{acro:http} POST, a través de correo electrónico y servicios como
 HipChat, \gls{term:alerta}, Sensu, Slack y PagerDuty, entre otros. Incluso es
 posible ejecutar un comando dirigiendo los datos de la alerta por
 \gls{acro:stdin}\footnote{\url{https://docs.influxdata.com/kapacitor/v1.2/}}.
 
-\gls{term:kapacitor} cuenta con una \gls{acro:dsl} llamada TICKscript para
-generar alertas. Esta \gls{acro:dsl} es usada para definir canales de
-procesamiento de datos en \gls{term:kapacitor}.
+\gls{term:kapacitor} cuenta con una \gls{acro:dsl} llamada \gls{term:tick_script} para
+generar alertas y definir canales de procesamiento de datos, o pipelines.
 
-\gls{term:kapacitor} usa este lenguaje para definir canales de procesamiento de
-datos, o pipelines. Un pipeline es un conjunto de nodos que procesa datos y
+Un pipeline es un conjunto de nodos que procesa datos y
 aristas que conectan nodos. Los pipelines en \gls{term:kapacitor} son grafos
 acíclicos dirigidos, lo que significa que cada arista tiene una dirección en la
-que fluyen los datos y no puede haber ningún ciclo en el pipeline.
+que fluyen los datos y no puede haber ningún ciclo.
 
 \gls{term:kapacitor} puede ser descargado e instalado en Debian o Ubuntu con
 los siguientes comandos:
@@ -52,7 +50,7 @@ sudo dpkg -i kapacitor_1.2.0_amd64.deb
 \end{lstlisting}
 
 Para correr el servicio de \gls{term:kapacitor} simplemente es necesario
-ejecutar el siguiente comando en la terminar:
+ejecutar el siguiente comando en la terminal:
 
 \begin{lstlisting}
 
@@ -60,8 +58,8 @@ sudo service kapacitor start
 
 \end{lstlisting}
 
-Además, es posible usarlo como \gls{term:contenedor} de \gls{term:docker}, a través de la
-imágen oficial de \gls{term:kapacitor}
+Además, es posible usarlo como \gls{term:contenedor} de \gls{term:docker},
+a través de la imagen oficial de \gls{term:kapacitor}
 \footnote{\url{https://hub.docker.com/_/kapacitor/}}, con el comando:
 
 \begin{lstlisting}
