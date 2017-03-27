@@ -9,7 +9,7 @@ RUN apt-get update -q && \
                        texlive-lang-spanish \
                        texlive-latex-base \
                        texlive-latex-extra \
-                       xindy
+                       xindy \
                        texlive-full \
                        texlive-latex-extra \
                        python \
