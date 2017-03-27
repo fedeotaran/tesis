@@ -15,13 +15,13 @@ las veces que se realice el llamado.
 
 Si la frecuencia con la que se hace el llamado es alta, es posible que se
 generen un gran número de alertas. Sin embargo, para ser notificado, con una
-sóla alerta que lea el usuario, ya debería ser suficiente.
+sola alerta que lea el usuario, ya debería ser suficiente.
 
 Esto no significa que no sea deseable que la alerta se genere, ya que la
 cantidad de veces que la invocación al servicio falló también podría ser un
 dato que querríamos obtener.
 
-Es en situaciones como ésta que el envío de correo electrónico de las
+Es en situaciones como ésta que el envío por correo electrónico de las
 notificaciones generadas por las alertas puede no ser una buena decisión.
 
 El sistema de monitoreo \gls{term:alerta} es una herramienta usada para
@@ -44,8 +44,8 @@ restringida usando claves de \gls{term:api} y la consola usando Basic Auth o
 proveedores de OAuth2 como Google, GitHub y Gitlab.
 
 \gls{term:alerta} acepta alertas de fuentes estándar como lo son Syslog,
-\gls{acro:snmp}, Nagios, Zabbix y Sensu. Cualquier herramienta de monitores que
-pueda disparar una petición URL puede ser integrada de forma sencilla. Además,
+\gls{acro:snmp}, Nagios, Zabbix y Sensu. Cualquier herramienta de monitoreo que
+pueda disparar una petición \gls{acro:http} puede ser integrada de forma sencilla. Además,
 se pueden mandar alertas a través de \eng{scripts} que usen la herramienta de línea
 de comandos.
 
@@ -79,8 +79,8 @@ stream
             .event('Something went wrong')
 \end{lstlisting}
 
-Las propiedades \lstinline{resource} y \lstinline{event} son requeridas. Además de éstas, se puede
-enviar algunas propiedades opcionales:
+Las propiedades \lstinline{resource} y \lstinline{event} son requeridas. Además
+de éstas, se puede enviar algunas propiedades opcionales:
 
 \begin{lstlisting}
 stream
@@ -100,7 +100,7 @@ stream
 \end{figure}
 
 En la \autoref{fig:alerta} se puede ver cómo se ven las alertas listadas en el
-cliente de \gls{term:alerta}. La herramientas de encarga de ordenarlas por grado
+cliente de \gls{term:alerta}. La herramienta se encarga de ordenarlas por grado
 de severidad, y agruparlas, de forma que no aparezcan las alertas repetidas,
 sino que aparezcan una única vez, especificando la cantidad de repeticiones con
 un contador.
@@ -110,4 +110,5 @@ para generar alertas. Cómo definir alertas utilizando el lenguaje
 \gls{term:tick_script} y cómo resolver el problema de visualización y manejo de
 alertas agregando \gls{term:alerta} a la lista de herramientas.
 
-Con ésto hemos completado la parte práctica de nuestro trabajo. A continuación daremos nuestras conclusiones finales de la tesis.
+Con ésto hemos completado la parte práctica de nuestro trabajo. A continuación
+daremos nuestras conclusiones finales de la tesis.
