@@ -24,7 +24,7 @@ Además de \gls{term:fluentd} hemos analizado las herramientas
 \item
 \textbf{\gls{term:logstash}} es un motor de recolección de datos de código abierto.
 \gls{term:logstash} puede unificar dinámicamente datos de fuentes dispares y
-normalizar los datos en destinos de su elección. 
+normalizar los datos en destinos de su elección.
 
 \gls{term:logstash} funciona como un canal de procesamiento de datos del lado
 de servidor, que toma datos de una multitud de fuentes de forma simultánea, los
@@ -71,7 +71,7 @@ Una vez que se tiene \gls{term:fluentd} instalado, debemos configurarlo para
 que pueda leer los datos de los \eng{logs} desde la salida estándar de
 \gls{term:docker}, y enviarlos a nuestra instancia de \gls{term:elasticsearch}.
 
-Para lograr este objetivo agregaremos dos gemas a la configuración de
+Para lograr este objetivo agregaremos dos \glspl{term:gema} a la configuración de
 \gls{term:fluentd} que nos permitirán enviar los datos a
 \gls{term:elasticsearch} y \eng{parsear} los datos de distintas fuentes para tomar la
 información que creamos importante. Esto lo haremos en un archivo llamado
