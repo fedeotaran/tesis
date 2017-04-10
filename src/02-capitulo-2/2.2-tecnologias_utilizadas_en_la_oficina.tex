@@ -2,10 +2,10 @@
 \label{tecnologias_utilizadas}
 
 La oficina del \gls{acro:cespi} utiliza el \eng{framework} \eng{web}
-\gls{term:ror}\footnote{Cf.  \url{http://rubyonrails.org/}} como principal herramienta
-de desarrollo. Este framework fue elegido por su excelente documentación,
-activa comunidad, facilidad para desarrollar e implementado en el lenguaje
-Ruby.
+\gls{term:ror}\footnote{Cf.  \url{http://rubyonrails.org/}} como principal
+herramienta de desarrollo. Este framework fue elegido por su excelente
+documentación, activa comunidad, facilidad para desarrollar e implementado en
+el lenguaje Ruby.
 
 Ruby, como se menciona en su sitio oficial, es un lenguaje creado con el
 objetivo de ser “el mejor amigo del desarrollador”. Es orientado a objetos y su
@@ -14,29 +14,31 @@ expresividad del lenguaje permite escribir código conciso, expresivo y fácil d
 mantener.
 
 \gls{term:ror} cuenta con soporte para las distintas bases de datos que se
-utilizan en la oficina. Entre ellas se encuentran Mysql[*], MongoDB[*],
-Elasticsearch[*] y Redis[*].
+utilizan en la oficina. Entre ellas se encuentran \gls{term:mysql},
+\gls{term:mongo}, \gls{term:elasticsearch} y \gls{term:redis}.
 
 La oficina se encuentra en transición a una arquitectura basada en contenedores
-de Docker[*].
+de \gls{term:docker}.
 
 Docker es un proyecto de código abierto para la automatización del despliegue
-de aplicaciones dentro de \glspl{term:contenedor} de \eng{software} en Linux. Los contenedores
-proporcionan una capa adicional de abstracción y automatización de
-virtualización a nivel de sistema operativo.
+de aplicaciones dentro de \glspl{term:contenedor} de \eng{software} en Linux.
+Los contenedores proporcionan una capa adicional de abstracción y
+automatización de virtualización a nivel de sistema operativo.
 
-En el marco de la cultura de trabajo \gls{term:devops} del \gls{acro:cespi} se decidió utilizar
-Docker para facilitar la construcción de una infraestructura dinámica,
-escalable y tolerante a fallos que permitiera el despliegue seguro y automático
-de aplicaciones, al mismo tiempo que redujera la brecha entre desarrolladores
-de \eng{software} y profesionales de operaciones en tecnologías de información.
+En el marco de la cultura de trabajo \gls{term:devops} del \gls{acro:cespi} se
+decidió utilizar Docker para facilitar la construcción de una infraestructura
+dinámica, escalable y tolerante a fallos que permitiera el despliegue seguro y
+automático de aplicaciones, al mismo tiempo que redujera la brecha entre
+desarrolladores de \eng{software} y profesionales de operaciones en tecnologías
+de información.
 
-El manejo de múltiples \glspl{term:contenedor} de \gls{term:docker} en producción se convirtió en una
-tarea compleja para la oficina, por lo que se decidió utilizar Rancher[*].
-Rancher es una plataforma de código abierto que facilita la orquestación,
-disponibilidad, configuración y enlace de \glspl{term:contenedor} de Docker. Esta
-herramienta permite resolver gran parte de los desafíos críticos presentes al
-ejecutar aplicaciones en \glspl{term:contenedor} de Docker.
+El manejo de múltiples \glspl{term:contenedor} de \gls{term:docker} en
+producción se convirtió en una tarea compleja para la oficina, por lo que se
+decidió utilizar \gls{term:rancher}. \gls{term:rancher} es una plataforma de.
+código abierto que facilita la orquestación, disponibilidad, configuración y
+enlace de \glspl{term:contenedor} de \gls{term:docker}. Esta herramienta
+permite resolver gran parte de los desafíos críticos presentes al ejecutar
+aplicaciones en \glspl{term:contenedor} de \gls{term:docker}.
 
 Rancher provee un conjunto completo de servicios de infraestructura para
 contenedores, incluyendo herramientas de red, servicios de almacenamiento de
