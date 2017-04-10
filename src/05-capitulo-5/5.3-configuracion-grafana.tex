@@ -5,16 +5,6 @@ Como hemos mencionado anteriormente, hemos elegido \gls{term:grafana} para la
 creación de los tableros que mostraran la información que hemos recolectado en
 el \autoref{cap3}.
 
-Es posible instalar \gls{term:grafana} en Debian o Ubuntu
-\footnote{Sistemas operativos construidos sobre el \eng{kernel} de \gls{term:linux}},
-ejecutando los siguientes comandos en una consola:
-
-\begin{lstlisting}
-$ wget https://grafanarel.s3.amazonaws.com/builds/grafana_4.1.2-1486989747_amd64.deb
-$ sudo apt-get install -y adduser libfontconfig
-$ sudo dpkg -i grafana_4.1.2-1486989747_amd64.deb
-\end{lstlisting}
-
 Para iniciar el servicio de \gls{term:grafana} en \gls{term:linux}, basta con
 ejecutar el siguiente comando en la terminal:
 
@@ -22,14 +12,14 @@ ejecutar el siguiente comando en la terminal:
 $ sudo service grafana-server start
 \end{lstlisting}
 
-
 Esta orden inicializa el proceso \texttt{grafana-sever} como el usuario
-\gls{term:grafana}, que fue creado durante la instalación.
+\gls{term:grafana}, que fue creado durante la instalación.\footnote{
+Información sobre el proceso de instalación de \gls{term:grafana} en
+\url{http://docs.grafana.org/}}
 
 Una vez que el proceso está en ejecución es posible acceder al servicio en el
 puerto 3000 del navegador e iniciar sesión.
-\footnote{Más información sobre el proceso de instalación de \gls{term:grafana} en
-\url{http://docs.grafana.org/}}
+
 
 \gls{term:grafana} soporta varios \eng{backends} de almacenamiento diferentes,
 llamados \glspl{term:datasource}. Cada uno de ellos tiene un editor de consultas

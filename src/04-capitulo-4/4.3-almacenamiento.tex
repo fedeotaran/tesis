@@ -31,7 +31,7 @@ funcionamiento, es importante que mencionemos los conceptos de documento e
 índice en \gls{term:elasticsearch}:
 
 \begin{itemize}
-   
+
 \item
 Un \textbf{documento} es una unidad básica de información que puede ser indexada. Por
 ejemplo, se puede tener un documento por un único cliente, otro documento por
@@ -78,21 +78,6 @@ PUT /biblioteca/empleado/1
     "edad" :      25,
     "areas" :     [ "encargado" ]
 }
-
-\end{lstlisting}
-
-
-Para instalar \gls{term:elasticsearch} es necesario contar con Java en el
-equipo. Una vez configurado Java, simplemente es necesario descargar y
-ejecutar \gls{term:elasticsearch}. Para descargar y ejecutar
-\gls{term:elasticsearch} 5.1, podemos correr los siguientes comandos:
-
-\begin{lstlisting}
-
-curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.1.1.tar.gz
-tar -xvf elasticsearch-5.1.1.tar.gz
-cd elasticsearch-5.1.1/bin
-./elasticsearch
 
 \end{lstlisting}
 
