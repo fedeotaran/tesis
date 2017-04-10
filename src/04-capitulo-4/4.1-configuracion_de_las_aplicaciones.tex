@@ -20,8 +20,8 @@ que usará por defecto el contenedor.
 
 Para este trabajo utilizaremos otra forma de configurar el driver, que es a
 través de la especificación de la opción \texttt{log-driver=VALUE} durante el
-comando \lstinline{docker run}.
-\footnote{\url{https://docs.docker.com/engine/admin/logging/overview/}}.
+comando \lstinline{docker run}\footnote{
+\url{https://docs.docker.com/engine/admin/logging/overview/}}.
 
 Una vez hecho esto, el siguiente paso es configurar nuestras aplicaciones para
 que envíen sus \eng{logs} a la salida estándar.
@@ -49,20 +49,21 @@ config.logger = ActiveSupport::Logger.new(STDOUT)
 
 \end{lstlisting}
 
-Los \eng{logs} de \gls{term:ror} tienen algunas características que hacen que sea
-difícil trabajar con ellos. En primer lugar, no siguen un formato estándar.
+Los \eng{logs} de \gls{term:ror} tienen algunas características que hacen que
+sea difícil trabajar con ellos. En primer lugar, no siguen un formato estándar.
 Esto hace que para distintos tipos de \eng{logs} sea necesario usar diferentes
 estrategias para recuperar información valiosa. En segundo lugar, un solo
-\eng{log} puede ocupar varias líneas, lo que hace complejo identificar dónde termina
-un \eng{log} y dónde empieza el siguiente.
+\eng{log} puede ocupar varias líneas, lo que hace complejo identificar dónde
+termina un \eng{log} y dónde empieza el siguiente.
 
-Para resolver estos problemas utilizamos una \gls{term:gema} llamada \gls{term:lograge}
-\footnote{Cf. \url{https://github.com/roidrage/lograge}}. Esta \gls{term:gema} se encarga
-de transformar complejos \eng{logs} multilínea de \gls{term:ror} en simples \eng{logs} con
-datos importantes bien identificados de una sola línea.
+Para resolver estos problemas utilizamos una \gls{term:gema} llamada
+\gls{term:lograge}\footnote{Cf.\url{https://github.com/roidrage/lograge}}.
+Esta \gls{term:gema} se encarga de transformar complejos \eng{logs} multilínea
+de \gls{term:ror} en simples \eng{logs} con datos importantes bien identificados
+de una sola línea.
 
 Por ejemplo, un \eng{log} de \gls{term:ror}, creado al acceder a la página \eng{home}
-de una de las aplicaciones del laboratorio se ve de la siguiente manera:
+de una de las aplicaciones del \gls{acro:cespi} se ve de la siguiente manera:
 
 \begin{lstlisting}
 
