@@ -76,27 +76,26 @@ pueda adaptarse a una arquitectura de \glspl{term:contenedor} y sea dinámica y
 escalable.
 
 Nuestro primer paso para implementar la nueva infraestructura de monitoreo será
-utilizar la información que brindan los logs de forma más intensiva. Unificar
-el formato de los logs y centralizar los logs que provengan de diversas fuentes
-en un único lugar.
+recolectar métricas en tiempo real que provengan del uso de las aplicaciones y
+los \glspl{term:contenedor}, y obtener de ellos valiosa información que nos
+permita prevenir errores y tomar mejores decisiones de diseño.
 
-Luego buscaremos recolectar métricas en tiempo real que provengan del uso de
-las aplicaciones y los \glspl{term:contenedor}, y obtener de ellos valiosa
-información que nos permita prevenir errores y tomar mejores decisiones de
-diseño.
+Luego buscaremos utilizar la información que brindan los logs de forma más
+intensiva. Unificar el formato de los logs y centralizar los logs que provengan
+de diversas fuentes en un único lugar.
 
 La infraestructura de aplicaciones y servicios que queremos monitorear es
 dinámica, escalable, construida de forma automatizada y creada a partir de
 código reutilizable. Intentaremos lograr una forma de monitoreo que pueda
 adaptarse a las características de esta infraestructura, por lo que
 investigaremos cómo utilizar \glspl{term:contenedor} de \gls{term:docker} para
-implementar algunos componentes del sistema de monitoreo, y también bases de
-datos que permitan crecimiento horizontal.
+implementar algunos componentes del sistema de monitoreo.
 
 Con el objetivo de impulsar un sistema que brinde información útil a los
 usuarios, trataremos de aplicar algunas de las técnicas de visualización
-efectiva mencionadas en el capítulo anterior (\autoref{visualizacion_efectiva})
-durante la creación de tableros con gráficos.
+efectiva mencionadas en el capítulo anterior
+(\autoref{visualizacion-efectiva}) durante la creación de tableros con
+gráficos.
 
 Finalmente, nos ocuparemos de implementar una solución de alertas de mayor
 utilidad que evite, en la medida de lo posible, falsos positivos y negativos y
