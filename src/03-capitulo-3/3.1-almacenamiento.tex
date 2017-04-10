@@ -83,29 +83,12 @@ miles de millones de valores estadísticos.
 LGPLv2.1 + GPLv3. \cite{opentsdb}
 
 Finalmente hemos elegido \gls{term:influx} para nuestra implementación por
-sobre las demás herramientas. La decisión no fue fácil, ya que todas las
-herramientas nos parecieron muy prometedoras. La razón por la que elegimos
-\gls{term:influx} es que nos pareció que esta herramienta tenía mejor soporte
-para el lenguaje \gls{term:ruby} que las alternativas. Además, creímos que el hecho de que
-\gls{term:influx} tenga un lenguaje de consulta similar a SQL facilitaría el
-desarrollo de consultas al personal de la oficina.
+sobre las demás herramientas ya que cuenta con mejor soporte para el lenguaje
+\gls{term:ruby}. Además, \gls{term:influx} tiene un lenguaje de consulta similar
+a SQL, lo que podría facilitar el desarrollo de consultas al personal de la
+oficina.
 
-\gls{term:influx} es fácil de instalar y administrar.
-
-Puede ser instalado usando uno de sus paquetes pre armados para diferentes
-sistemas operativos. \footnote{\url{https://portal.influxdata.com/downloads}}.
-Para instalar \gls{term:influx} versión 1.2 en una distribución
-\gls{term:linux} basada en Debian, basta con correr los siguientes comandos en
-una terminal:
-
-\begin{lstlisting}
-
-wget https://dl.influxdata.com/influxdb/releases/influxdb_1.2.0_amd64.deb
-sudo dpkg -i influxdb_1.2.0_amd64.deb
-
-\end{lstlisting}
-
-Luego, para ejecutar el programa basta con correr el comando
+Para ejecutar \gls{term:influx} una vez instalado, basta con correr el comando
 \lstinline{service influxdb start}.
 
 Una vez que \gls{term:influx} está instalado, es posible crear una base de
