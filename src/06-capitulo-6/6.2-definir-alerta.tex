@@ -5,7 +5,7 @@ Una vez que se tiene instalado y configurado \gls{term:kapacitor}, ya es
 posible definir alertas.
 
 Para esto, es necesario crear un archivo utilizando el lenguage
-\gls{term:tick_script}. A modo de ejemplo, crearemos un archivo de nombre
+\gls{term:tick_script}. A modo de ejemplo, se creará un archivo de nombre
 \texttt{cpu\_alert.tick} con la siguiente configuración:
 
 \begin{lstlisting}
@@ -42,7 +42,7 @@ datos que estén siendo procesados, se puede ejecutar el siguiente comando:
 kapacitor show cpu_alert
 \end{lstlisting}
 
-En nuestro caso, este comando nos retornará un mensaje similar al siguiente:
+En este caso, este comando retornará un mensaje similar al siguiente:
 
 \begin{lstlisting}
 ID: cpu_alert
@@ -82,7 +82,7 @@ Para definir alertas útiles es importante analizar las situaciones ante las
 cuáles podría ser importante ser avisado, y también cuál será el medio de 
 comunicación a través del cual llegarán las mismas.
 
-A continuación mostraremos un ejemplo sobre cómo puede ser usado
+A continuación se mostrará un ejemplo sobre cómo puede ser usado
 \gls{term:tick_script} para definir alertas más complejas.
 
 \begin{lstlisting}
@@ -126,8 +126,8 @@ encuentra ociosa, las agrupa por servicio y centro de datos en ventanas de 1
 minuto. Luego calcula el \gls{term:percentil} 95 y genera alertas en caso de
 que se pasen determinados umbrales.
 
-Finalmente se guardan los datos en un \eng{log}, se envían a un \eng{endpoint}
-determinado, se ejecuta un script que maneje las alertas y se envía a Slack, a
+Finalmente los datos son guardados en un \eng{log}, son enviados a un \eng{endpoint}
+determinado, se ejecuta un script que maneje las alertas y se envían las alertas a Slack, a
 PagerDuty y a VictorOps.
 
 \gls{term:kapacitor} además, permite enviar datos a \gls{term:influx} de la
@@ -146,12 +146,12 @@ siguiente manera:
 \end{lstlisting}
 
 
-Esto puede resultar muy útil en caso de que queramos alimentar a nuestra
+Esto puede resultar muy útil en caso de que se quiera alimentar a la
 instancia de \gls{term:influx} con datos procesados por \gls{term:kapacitor}.
 Incluso, se podría almacenar información de las alertas en \gls{term:influx}
 para tener un seguimiento de las mismas (ver \autoref{del-sistema-de-alertas}).
 
-En esta sección hemos mostrado cómo usar \gls{term:tick_script} para definir
+En esta sección se ha mostrado cómo usar \gls{term:tick_script} para definir
 alertas para que sean lanzadas por \gls{term:kapacitor}. A continuación
-explicaremos algunos problemas que suelen estar presentes en los sistemas de
-alertas y una forma en que los podemos solucionar.
+se explicarán algunos problemas que suelen estar presentes en los sistemas de
+alertas y una forma en que se los puede solucionar.
