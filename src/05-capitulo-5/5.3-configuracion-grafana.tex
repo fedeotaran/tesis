@@ -1,8 +1,8 @@
 \subsection{Configuración de \gls{term:grafana}}
 \label{configuracion-de-grafana}
 
-Como hemos mencionado anteriormente, hemos elegido \gls{term:grafana} para la
-creación de los tableros que mostraran la información que hemos recolectado en
+Como se ha mencionado anteriormente, se ha elegido \gls{term:grafana} para la
+creación de los tableros que mostraran la información que se ha recolectado en
 el \autoref{cap3}.
 
 Para iniciar el servicio de \gls{term:grafana} en \gls{term:linux}, basta con
@@ -19,7 +19,6 @@ Información sobre el proceso de instalación de \gls{term:grafana} en
 
 Una vez que el proceso está en ejecución es posible acceder al servicio en el
 puerto 3000 del navegador e iniciar sesión.
-
 
 \gls{term:grafana} soporta varios \eng{backends} de almacenamiento diferentes,
 llamados \glspl{term:datasource}. Cada uno de ellos tiene un editor de consultas
@@ -90,15 +89,15 @@ continuación la explicación:
     \end{itemize}
 \end{enumerate}
 
-Una vez creado nuestro \gls{term:datasource} podemos comenzar a crear tableros
+Una vez creado el \gls{term:datasource} se puede comenzar a crear tableros
 en \gls{term:grafana}.
 
-Por ejemplo, a partir de los datos almacenados en \gls{term:influx}, podemos
+Por ejemplo, a partir de los datos almacenados en \gls{term:influx}, es posible
 crear gráficos con la intención de que sean útiles a un responsable de
 \gls{acro:it} de la aplicación.
 
-Si quisiéramos medir el tiempo de respuesta de la aplicación \gls{term:ror},
-podríamos optar por un gráfico de líneas donde el eje horizontal sea la hora, y
+Si se quisiera medir el tiempo de respuesta de la aplicación \gls{term:ror},
+se podría optar por un gráfico de líneas donde el eje horizontal sea la hora, y
 el eje vertical sea el tiempo de respuesta. Dicho gráfico podría desglosarse en
 tiempo de \eng{renderizado} de las vistas, tiempo de acceso a las bases de
 datos, y otros tiempos.
@@ -107,8 +106,8 @@ Para poder recrear el gráfico, se podría aprovechar la información enviada de
 la aplicación \gls{term:ror} en la \autoref{configuracion_de_las_aplicaciones},
 y realizar varias consultas a la base de datos \gls{term:influx}.
 
-También podríamos crear un tablero donde se visualice la información generada
-por \gls{term:cadvisor} que tenga gráficos que nos muestren el uso de
+También se podría crear un tablero donde se visualice la información generada
+por \gls{term:cadvisor} que tenga gráficos que muestren el uso de
 cpu, memoria, red y sistema de archivos por cada \gls{term:contenedor}.
 
 Usando la herramienta visual provista por \gls{term:grafana} es sencillo crear
@@ -117,12 +116,12 @@ se puede visualizar dicho tablero.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{src/images/05-capitulo-5/grafana_metricas.png}
-  \caption{Gráficos generados en \gls{term:grafana} con información de nuestros contenedores}
+  \caption{Gráficos generados en \gls{term:grafana} con información de los contenedores}
   \label{fig:grafana_metricas}
 \end{figure}
 
-En este capítulo hemos mostrado cómo se pueden configurar algunas herramientas
-de visualización para reflejar los datos que hemos almacenado hasta ahora en
+En este capítulo se ha mostrado cómo se pueden configurar algunas herramientas
+de visualización para reflejar los datos que se han almacenado hasta ahora en
 \gls{term:influx} y en \gls{term:elasticsearch}. En el capítulo siguiente
-mostraremos cómo crear alertas que permitan a los usuarios descubrir de forma
+se mostrará cómo crear alertas que permitan a los usuarios descubrir de forma
 rápida eventos a los que deberían prestar atención.
