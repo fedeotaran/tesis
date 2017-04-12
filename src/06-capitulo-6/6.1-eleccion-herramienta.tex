@@ -1,10 +1,10 @@
 \subsection{Elección de la herramienta y funcionamiento}
 \label{eleccion-herramienta}
 
-Hemos elegido la herramienta \gls{term:kapacitor} para implementar las alertas
-en nuestra solución. Las razón detrás de nuestra decisión es que
+La herramienta \gls{term:kapacitor} ha sido elegida para implementar las alertas
+en la solución. Las razón detrás de esta decisión es que
 \gls{term:kapacitor} cuenta con una \gls{acro:dsl} realmente simple, la cual
-nos ha permitido implementar algunas alertas complejas de forma verdaderamente
+ha permitido implementar algunas alertas complejas de forma verdaderamente
 rápida. Además, el hecho de que haya sido desarrollado por la misma empresa
 que creó \gls{term:influx} le ha otorgado una integración excelente con el
 mismo.
@@ -25,17 +25,17 @@ el lenguaje de consulta InfluxQL y almacenar los datos transformados en
 el usuario para detectar anomalías.
 
 \gls{term:kapacitor} puede ser configurado para notificar alertas a distintos
-destinos.  Por ejemplo se pueden enviar a un archivo de \eng{logs}, una \gls{acro:url} con
+destinos. Por ejemplo se pueden enviar a un archivo de \eng{logs}, una \gls{acro:url} con
 método \gls{acro:http} POST, a través de correo electrónico y servicios como
 HipChat, \gls{term:alerta}, Sensu, Slack y PagerDuty, entre otros. Incluso es
 posible ejecutar un comando dirigiendo los datos de la alerta por
 \gls{acro:stdin}\footnote{\url{https://docs.influxdata.com/kapacitor/v1.2/}}.
 
 \gls{term:kapacitor} cuenta con una \gls{acro:dsl} llamada \gls{term:tick_script} para
-generar alertas y definir canales de procesamiento de datos, o pipelines.
+generar alertas y definir canales de procesamiento de datos, o \eng{pipelines}.
 
-Un pipeline es un conjunto de nodos que procesa datos y
-aristas que conectan nodos. Los pipelines en \gls{term:kapacitor} son grafos
+Un \eng{pipeline} es un conjunto de nodos que procesa datos y
+aristas que conectan nodos. Los \eng{pipelines} en \gls{term:kapacitor} son grafos
 acíclicos dirigidos, lo que significa que cada arista tiene una dirección en la
 que fluyen los datos y no puede haber ningún ciclo.
 
