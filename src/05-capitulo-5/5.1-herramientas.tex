@@ -1,20 +1,22 @@
 \subsection{Herramientas}
 \label{herramientas-de-visualizacion}
 
-Las herramientas de \eng{software} de visualización de datos son aquellas que ocupan
-de mostrar datos de distintas fuentes en forma de gráficos, de forma que los
-usuarios puedan descubrir patrones y entender la información de forma sencilla.
+Las herramientas de \eng{software} de visualización de datos son aquellas que se
+ocupan de mostrar datos de distintas fuentes en forma de gráficos, de forma que
+los usuarios puedan descubrir patrones y entender la información de forma
+sencilla.
 
 Existen varias herramientas informáticas para visualizar datos. En esta sección
-describiremos brevemente a las herramientas \gls{term:kibana} y
+se describirán brevemente las herramientas \gls{term:kibana} y
 \gls{term:grafana}.
 
 \begin{itemize}
 
 \item
-\textbf{\gls{term:kibana}} es una plataforma de análisis y visualización de código
-abierto diseñada para trabajar con \gls{term:elasticsearch}. Se lo puede usar
-para buscar, observar e interactuar con datos almacenados en índices de esta herramienta.
+\textbf{\gls{term:kibana}} es una plataforma de análisis y visualización de
+código abierto diseñada para trabajar con \gls{term:elasticsearch}. Se lo puede
+usar para buscar, observar e interactuar con datos almacenados en índices de
+esta herramienta.
 
 Con \gls{term:kibana} es posible realizar análisis de datos complejos y
 visualizar datos en una variedad de gráficos, tablas y mapas.
@@ -27,14 +29,14 @@ visualizar datos en una variedad de gráficos, tablas y mapas.
 \end{figure}
 
 \gls{term:kibana} cuenta con una interfaz basada en el navegador, que permite
-crear y compartir tableros de control dinámicos que muestran cambios en tiempo real
-a partir de consultas a \gls{term:elasticsearch}.
+crear y compartir tableros de control dinámicos que muestran cambios en tiempo
+real a partir de consultas a \gls{term:elasticsearch}.
 
 \item
-\textbf{\gls{term:grafana}} es un tablero y componedor de gráficos de propósito general
-y de código abierto que corre como una aplicación \eng{web}. Es comúnmente
-usado para visualizar datos de series de tiempo para infraestructuras en la
-\eng{web} y analíticas de aplicación, pero también es usado en sensores
+\textbf{\gls{term:grafana}} es un tablero y componedor de gráficos de propósito
+general y de código abierto que corre como una aplicación \eng{web}. Es
+comúnmente usado para visualizar datos de series de tiempo para infraestructuras
+en la \eng{web} y analíticas de aplicación, pero también es usado en sensores
 industriales, automatización de viviendas, medición del clima y control de
 procesos. \autoref{fig:grafana}
 
@@ -51,20 +53,19 @@ de series de tiempo más populares, incluyendo \gls{term:influx} y
 
 \end{itemize}
 
-Luego de analizar estas opciones, nos pareció que la herramienta de
+Luego de analizar estas opciones, se consensuó que la herramienta de
 visualización más completa entre ambas era \gls{term:grafana}.
 
-Pero \gls{term:kibana} es un \eng{frontend} de \gls{term:elasticsearch} y está preparado
-especialmente para realizar consultas sobre esta base de datos de forma simple.
-Con \gls{term:kibana} es posible hacer consultas directas sobre los registros
-de \eng{logs} tal cual fueron recuperados e indexados.
+Pero \gls{term:kibana} es un \eng{frontend} de \gls{term:elasticsearch} y está
+preparado especialmente para realizar consultas sobre esta base de datos de
+forma simple. Con \gls{term:kibana} es posible hacer consultas directas sobre
+los registros de \eng{logs} tal cual fueron recuperados e indexados.
 
-Es por esto que decidimos usar ambas herramientas: \gls{term:kibana} para
+Es por esto que se decidió usar ambas herramientas: \gls{term:kibana} para
 consultar las base de datos de \gls{term:elasticsearch}, y hacer consultas
-acerca de los \eng{logs}, y \gls{term:grafana} para comunicarse con nuestra instancia
+acerca de los \eng{logs}, y \gls{term:grafana} para comunicarse con la instancia
 de \gls{term:influx} y visualizar datos generados en tiempo real.
 
-Creemos importante destacar que estas herramientas están en constante
-crecimiento, por lo que no descartamos que en un futuro \gls{term:grafana}
-incorpore funcionalidades que se encuentren presentes en \gls{term:kibana}, y
-viceversa.
+Estas herramientas están en constante crecimiento, por lo que no se descarta que
+en un futuro \gls{term:grafana} incorpore funcionalidades que se encuentran
+presentes en \gls{term:kibana}, y viceversa.
