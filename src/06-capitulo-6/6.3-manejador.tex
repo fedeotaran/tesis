@@ -1,7 +1,7 @@
 \subsection{Manejador de alertas}
 \label{manejador-alertas}
 
-Ahora que hemos configurado \gls{term:kapacitor}, contamos con una
+Ahora que se ha configurado \gls{term:kapacitor}, se cuenta con una
 infraestructura de monitoreo que permite generar alertas ante anomalías
 identificadas por condiciones previamente definidas.
 
@@ -19,7 +19,7 @@ sola alerta que lea el usuario, ya debería ser suficiente.
 
 Esto no significa que no sea deseable que la alerta se genere, ya que la
 cantidad de veces que la invocación al servicio falló también podría ser un
-dato que querríamos obtener.
+dato que se querría obtener.
 
 Es en situaciones como ésta que el envío por correo electrónico de las
 notificaciones generadas por las alertas puede no ser una buena decisión.
@@ -29,8 +29,8 @@ consolidar alertas de múltiples fuentes y evitar su duplicación, para una
 visualización rápida. Con sólo un sistema es posible monitorear alertas que
 provengan de otras herramientas de monitoreo en una única pantalla.
 
-La herramienta \gls{term:alerta} nos parece la más indicada para resolver
-nuestro problema:
+Se coincidió que la herramienta \gls{term:alerta} es la más indicada para
+resolver el problema:
 
 \gls{term:alerta} es una plataforma que combina un servidor de una
 \gls{term:api} \gls{acro:json} para recibir, procesar y renderizar alertas con
@@ -45,9 +45,9 @@ proveedores de OAuth2 como Google, GitHub y Gitlab.
 
 \gls{term:alerta} acepta alertas de fuentes estándar como lo son Syslog,
 \gls{acro:snmp}, Nagios, Zabbix y Sensu. Cualquier herramienta de monitoreo que
-pueda disparar una petición \gls{acro:http} puede ser integrada de forma sencilla. Además,
-se pueden mandar alertas a través de \eng{scripts} que usen la herramienta de línea
-de comandos.
+pueda disparar una petición \gls{acro:http} puede ser integrada de forma
+sencilla. Además, se pueden mandar alertas a través de \eng{scripts} que usen la
+herramienta de línea de comandos.
 
 Con \gls{term:alerta} es posible usar la cantidad de etiquetas que se prefieran
 para medir la importancia de las alertas. Para herramientas simples pueden
@@ -105,10 +105,10 @@ de severidad, y agruparlas, de forma que no aparezcan las alertas repetidas,
 sino que aparezcan una única vez, especificando la cantidad de repeticiones con
 un contador.
 
-En este capítulo hemos mostrado cómo instalar y configurar \gls{term:kapacitor}
+En este capítulo se ha mostrado cómo instalar y configurar \gls{term:kapacitor}
 para generar alertas. Cómo definir alertas utilizando el lenguaje
 \gls{term:tick_script} y cómo resolver el problema de visualización y manejo de
 alertas agregando \gls{term:alerta} a la lista de herramientas.
 
-Con ésto hemos completado la parte práctica de nuestro trabajo. A continuación
-daremos nuestras conclusiones finales de la tesis.
+Con ésto se ha completado la parte práctica del trabajo. A continuación
+se darán las conclusiones finales de la tesis.
