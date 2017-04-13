@@ -1,34 +1,35 @@
 \subsection{Utilidad de los logs}
 \label{utilidad-de-los-logs}
 
-Se denomina log al registro de una operación en una computadora. Los logs son
-normalmente guardados en un archivo. Los logs se utilizan para describir un
-conjunto de acontecimientos, tales como: accesos de usuarios a un sistema,
-manipulación de datos, auditoría, diagnóstico de dispositivos y medidas de
-seguridad.
+Se denomina \eng{log} al registro de una operación en una computadora. Los
+\eng{logs} son normalmente guardados en un archivo. Los \eng{logs} se utilizan
+para describir un conjunto de acontecimientos, tales como: accesos de usuarios
+a un sistema, manipulación de datos, auditoría, diagnóstico de dispositivos y
+medidas de seguridad.
 
-Un registro de log contiene normalmente una marca temporal, la fuente de la
-información y el mensaje o contenido. La marca temporal, también conocida como
-timestamp, es una secuencia de caracteres que indica la hora y fecha en la que
-ocurrió un evento. La fuente es la aplicación, programa o sistema que generó el
-mensaje. Muchas veces la fuente es representada por la \gls{acro:ip} o el
-nombre de un \gls{term:host} y el nombre de la aplicación.
+Un registro de \eng{log} contiene normalmente una marca temporal, la fuente de
+la información y el mensaje o contenido. La marca temporal, también conocida
+como \eng{timestamp}, es una secuencia de caracteres que indica la hora y fecha
+en la que ocurrió un evento. La fuente es la aplicación, programa o sistema que
+generó el mensaje. Muchas veces la fuente es representada por la \gls{acro:ip}
+o el nombre de un \gls{term:host} y el nombre de la aplicación.
 
-Los logs pueden ser de gran utilidad para visualizar información de recursos
-del sistema, de usuarios de las aplicaciones y del funcionamiento de las mismas
-aplicaciones. Sin embargo, los logs como fuente de información suelen ser
-subestimados por desarrolladores y los profecionesles de \gls{acro:it}.
+Los \eng{logs} pueden ser de gran utilidad para visualizar información de
+recursos del sistema, de usuarios de las aplicaciones y del funcionamiento de
+las mismas aplicaciones. Sin embargo, los \eng{logs} como fuente de información
+suelen ser subestimados por desarrolladores y los profecionesles de
+\gls{acro:it}.
 
-A menudo los logs son completamente ignorados y solamente tomados en cuenta en
-situaciones de problemas en las aplicaciones o el sistema, y normalmente se los
-elimina sin haber sido revisados antes
+A menudo los \eng{logs} son completamente ignorados y solamente tomados en
+cuenta en situaciones de problemas en las aplicaciones o el sistema, y
+normalmente se los elimina sin haber sido revisados antes
 \cite[p.~16]{monitoreo:logging_and_log_management}.
 
-Los logs pueden ser catalogados según su utilidad de varias maneras. Cada
-aplicación define como clasificar los logs según su relevancia. Por ejemplo,
-Syslog, el estandar de más popular para el envío de mensajes de registro en
-redes, define los siguientes niveles de gravedad para sus logs
-\footnote{\url{https://tools.ietf.org/html/rfc3164}}:
+Los \eng{logs} pueden ser catalogados según su utilidad de varias maneras. Cada
+aplicación define como clasificar los \eng{logs} según su relevancia. Por
+ejemplo, \gls{term:syslog}, el estándar de más popular para el envío de
+mensajes de registro en redes, define los siguientes niveles de gravedad para
+sus \eng{logs}\footnote{\url{https://tools.ietf.org/html/rfc3164}}:
 
 \begin{table}[h!]
   \begin{tabular*}{\textwidth}{ @{\extracolsep{\fill}} | c | l | l | }
@@ -47,18 +48,18 @@ redes, define los siguientes niveles de gravedad para sus logs
   \label{logs_syslogs:tabla}
 \end{table}
 
-Si bien no todas las herramientas que implementan logs utilizan todos lo
+Si bien no todas las herramientas que implementan \eng{logs} utilizan todos lo
 niveles de severidad anteriormente mencionados, la mayor parte de ellos toman
 esta tabla como referencia.
 
-A continuación explicaremos algunos de estos niveles de relevancia:
+A continuación se explicará algunos de estos niveles de relevancia:
 
 \begin{itemize}
-  \item Los logs de información proveen evidencia documentada de una secuencia
-    de actividades que afectan en algún momento a una operación específica,
-    procedimiento o evento. Permiten a los desarrolladores y administradores
-    advertir la ocurrencia de un evento benigno, como por ejemplo el inicio de
-    sesión de un usuario en un sistema.
+  \item Los \eng{logs} de información proveen evidencia documentada de una
+    secuencia de actividades que afectan en algún momento a una operación
+    específica, procedimiento o evento. Permiten a los desarrolladores y
+    administradores advertir la ocurrencia de un evento benigno, como por
+    ejemplo el inicio de sesión de un usuario en un sistema.
 
   \item Los registros de depuración son generados por los desarrolladores con
     la finalidad de entender la actividad de un sistema, identificar problemas
@@ -74,12 +75,12 @@ A continuación explicaremos algunos de estos niveles de relevancia:
   \item La etiqueta de error se usa para transmitir fallos que se producen en
     un sistema informático, y que requieren la atención inmediata de un
     programador o persona especializada. Indican que existe la posibilidad de
-    que parte de la aplicación no esté funcionando
-    \cite[p.~3]{monitoreo:logging_and_log_management}.
+    que parte de la aplicación no esté 
+    funcionando\cite[p.~3]{monitoreo:logging_and_log_management}.
 \end{itemize}
 
 Es conveniente que los desarrolladores hagan buen uso de los niveles de
-severidad de los logs para beneficiarse de la información que estos puedan
+severidad de los \eng{logs} para beneficiarse de la información que estos puedan
 brindar acerca de las aplicaciones o sistemas. Si las etiquetas de relevancia
 son utilizadas correctamente, se logran datos de mejor calidad que facilitan el
 análisis posterior de los registros.
@@ -88,61 +89,62 @@ análisis posterior de los registros.
 \label{retos_del_manejo_de_logs}
 
 Existen varios desafíos que la mayoría de las organizaciones deben enfrentar a
-la hora de gestionar los logs.
+la hora de gestionar los \eng{logs}.
 
 Uno de estos desafíos es la existencia de numerosas fuentes de \eng{software}
-generadores de registros de log. Muchas veces estas fuentes se encuentran
+generadores de registros de \eng{log}. Muchas veces estas fuentes se encuentran
 ubicadas en diferentes \glspl{term:host}, y una fuente puede generar diferentes
 tipos de registros, por ejemplo almacenar los intentos de autenticación en una
-aplicación en un archivo de logs y la información relacionada con la ocupación
-de la red en otro archivo distinto.
+aplicación en un archivo de \eng{logs} y la información relacionada con la
+ocupación de la red en otro archivo distinto.
 
-Otro reto que presenta el manejo de logs es el hecho de que los logs registran
-a menudo sólo las piezas de información que se consideran más importantes para
-un evento particular. Esto puede dificultar analizar la correlación de
-eventos registrados por diferentes fuentes de logs, ya que pueden no tener
-valores comunes registrados.
+Otro reto que presenta el manejo de \eng{logs} es el hecho de que los mismos
+registran a menudo sólo las piezas de información que se consideran
+más importantes para un evento particular. Esto puede dificultar analizar la
+correlación de eventos registrados por diferentes fuentes de \eng{logs}, ya que
+pueden no tener valores comunes registrados.
 
 Estas diferencias pueden ser leves, como la utilización de formato de fechas
-\texttt{MMDDYYYY} en un archivo de logs y el uso de \texttt{MM-DD-YYYY} en
-otro. Pero también pueden ser complejas, como la identificación de un servicio
-por el nombre en un log, y la identificación de un servicio por el número de
-puerto en otro.
+\texttt{MMDDYYYY} en un archivo de \eng{logs} y el uso de \texttt{MM-DD-YYYY}
+en otro. Pero también pueden ser complejas, como la identificación de un
+servicio por el nombre en un \eng{log}, y la identificación de un servicio por
+el número de puerto en otro.
 
-Otro obstáculo en la gestión de logs es la inconsistencia de las marcas
-temporales. Cada \gls{term:host} que genera logs suele hacer referencia a su reloj
-interno. Si el reloj de un \gls{term:host} es inexacto, el timestamp que genera en los
-logs también lo es.
+Otro obstáculo en la gestión de \eng{logs} es la inconsistencia de las marcas
+temporales. Cada \gls{term:host} que genera \eng{logs} suele hacer referencia a
+su reloj interno. Si el reloj de un \gls{term:host} es inexacto, el
+\eng{timestamp} que genera en los \eng{logs} también lo es.
 
-Esto puede dificultar el análisis de los logs, particularmente cuando se
-analizan logs de varias computadoras. Por ejemplo podría suceder que la marca
-temporal de un evento A indique que dicho evento haya ocurrido 45 segundos
-antes que un evento B, cuando en realidad el evento B haya ocurrido varios
-minutos antes que el evento A.
+Esto puede dificultar el análisis de los \eng{logs}, particularmente cuando se
+analizan \eng{logs} de varias computadoras. Por ejemplo podría suceder que la
+marca temporal de un evento A indique que dicho evento haya ocurrido 45
+segundos antes que un evento B, cuando en realidad el evento B haya ocurrido
+varios minutos antes que el evento A.
 
-Otra complicación en la administración de logs es que distintas fuentes
-utilicen diferentes formatos para almacenar sus logs. Por ejemplo, algunas
-herramientas pueden guardar sus logs como archivos de texto separados por comas
-o por tabs, utilizando el formato Syslog o a través de \gls{acro:snmp}. También
-pueden existir sistemas que almacenen logs con formato \gls{acro:xml},
-\gls{acro:json} o como archivos binarios.
+Otra complicación en la administración de \eng{logs} es que distintas fuentes
+utilicen diferentes formatos para almacenar sus \eng{logs}. Por ejemplo,
+algunas herramientas pueden guardar sus \eng{logs} como archivos de texto
+separados por comas o por \eng{tabs}, utilizando el formato \gls{term:syslog} o
+a través de \gls{acro:snmp}. También pueden existir sistemas que almacenen
+\eng{logs} con formato \gls{acro:xml}, \gls{acro:json} o como archivos
+binarios.
 
-Algunos registros de logs han sido diseñados para ser fácilmente leídos por
-seres humanos, y otros para ser fácilmente analizados por computadoras. Existen
-programas que usan formatos estándares para almacenar logs, y también existen
-otros que usan configuraciones propietarias. Además hay logs que no han sido
-diseñados para su almacenamiento local en un archivo, sino para ser
-transmitidos a un sistema de procesamiento, como por ejemplo los \eng{routers}
-y \eng{switches} que implementan el protocolo
+Algunos registros de \eng{logs} han sido diseñados para ser fácilmente leídos
+por seres humanos, y otros para ser fácilmente analizados por computadoras.
+Existen programas que usan formatos estándares para almacenar \eng{logs}, y
+también existen otros que usan configuraciones propietarias. Además hay
+\eng{logs} que no han sido diseñados para su almacenamiento local en un
+archivo, sino para ser transmitidos a un sistema de procesamiento, como por
+ejemplo los \eng{routers} y \eng{switches} que implementan el protocolo
 \gls{acro:snmp}\cite[p.~23]{monitoreo:log_management_guide} anteriormente
 mensionado.
 
-La naturaleza distribuida de los logs, el uso de formatos inconsistentes y el
-considerable volumen de información almacenado en los mismos consiguen que la
-gestión de la creación y almacenamiento de logs sea un desafío.
+La naturaleza distribuida de los \eng{logs}, el uso de formatos inconsistentes
+y el considerable volumen de información almacenado en los mismos consiguen que
+la gestión de la creación y almacenamiento sea un desafío.
 
 Los administradores de las redes y sistemas son en la mayoría de las
-organizaciones los responsables de realizar el análisis de logs.
+organizaciones los responsables de realizar el análisis de \eng{logs}.
 
 Este análisis es tratado a menudo como una tarea de baja prioridad por parte de
 los administradores, y la razón de esto es que otras funciones como la solución
@@ -151,16 +153,16 @@ requerir respuestas rápidas. Además, los administradores generalmente no
 cuentan con herramientas eficaces que permitan automatizar el proceso de
 análisis.
 
-Los logs pueden ser realmente muy útiles si se los gestiona de manera correcta.
-Por ejemplo, pueden describir excepcionalidades que ocurran en nuestras
-infraestructuras, permitir el análisis del rendimiento de las aplicaciones y
-detectar errores en el sistema. También pueden ser una buena fuente de
-información para determinar las causas de un incidente.
+Los \eng{logs} pueden ser realmente muy útiles si se los gestiona de manera
+correcta. Por ejemplo, pueden describir excepcionalidades que ocurran en
+nuestras infraestructuras, permitir el análisis del rendimiento de las
+aplicaciones y detectar errores en el sistema. También pueden ser una buena
+fuente de información para determinar las causas de un incidente.
 
-Además de describir un problema, los logs pueden ser beneficiosos para
+Además de describir un problema, los \eng{logs} pueden ser beneficiosos para
 descubrir si se han tomado buenas decisiones de diseño de las aplicaciones y
-prevenir problemas futuros. Asimismo, un log puede contener información
-importante para generar alertas. En concreto, si los logs de un servidor
+prevenir problemas futuros. Asimismo, un \eng{log} puede contener información
+importante para generar alertas. En concreto, si los \eng{logs} de un servidor
 \eng{web} retorna un error \gls{acro:http} con código 500, es porque una
 aplicación no está funcionando correctamente
 \cite[p.~30-31]{monitoreo:logging_and_log_management}.

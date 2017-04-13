@@ -1,7 +1,7 @@
 \subsection{Alertas}
 \label{alertas}
 
-En las secciones anteriores hemos mencionado conceptos importantes en cuanto a
+En las secciones anteriores se analizaron conceptos importantes en cuanto a
 la obtención, manipulación, procesamiento, almacenamiento, resumen y
 visualización de información de sistemas que proveen información valiosa.
 
@@ -57,54 +57,55 @@ permiten organizar un calendario de llamadas \cite[p. ~
 Las alertas son registradas a menudo en la forma de una petición o \eng{ticket}
 en un sistema de \gls{term:its} (\eng{Issue Tracking System}).
 
-Un \gls{term:its} es un paquete de \eng{software} que administra y mantiene listas de
-incidentes conforme son requeridos por una institución. Estos sistemas suelen
-ser usados por personal de servicio al cliente para crear, actualizar y
-resolver incidentes reportados por usuarios, empleados de la organización o
-sistemas de alertas automatizados.
+Un \gls{term:its} es un paquete de \eng{software} que administra y mantiene
+listas de incidentes conforme son requeridos por una institución. Estos
+sistemas suelen ser usados por personal de servicio al cliente para crear,
+actualizar y resolver incidentes reportados por usuarios, empleados de la
+organización o sistemas de alertas automatizados.
 
 Stawek Ligus aconseja operar de acuerdo al principio de monitoreo extensivo y
 de alerta selectiva. Esto significa identificar qué métricas son útiles para el
-negocio y configurar alarmas para las series de tiempo a partir de indicadores
+negocio y configurar alarmas para las series temporales a partir de indicadores
 clave. El autor sugiere una lista de métricas a considerar como candidatas para
 alertar:
 
 \begin{itemize}
   \item Recursos:
-    \subitem Retardo de red y pérdida de paquetes: para obtener la métrica de
-    latencia se puede utilizar el comando \texttt{\gls{term:ping}} tanto a una
-    dirección externa como a una dirección interna y registrar el tiempo de ida
-    y vuelta de cada una. Además se puede utilizar la información de
-    \texttt{\gls{term:ping}} para calcular la pérdida de paquetes.  Si el
+    \subitem \textbf{Retardo de red y pérdida de paquetes}: para obtener la
+    métrica de latencia se puede utilizar el comando \texttt{\gls{term:ping}}
+    tanto a una dirección externa como a una dirección interna y registrar el
+    tiempo de ida y vuelta de cada una. Además se puede utilizar la información
+    de \texttt{\gls{term:ping}} para calcular la pérdida de paquetes.  Si el
     paquete llega con éxito se anota 0, y si no llega se anota 1. Calculando el
     promedio de estos valores se obtiene la pérdida de paquetes en términos
     porcentuales.
-    \subitem Utilización de \gls{acro:cpu}: este valor sirve como indicador
-    para el esfuerzo computacional de las operaciones. En un sistema
+    \subitem \textbf{Utilización de \gls{acro:cpu}}: este valor sirve como
+    indicador para el esfuerzo computacional de las operaciones. En un sistema
     \gls{term:linux} puede obtenerse analizando el directorio
     \texttt{/proc/stat}.
-    \subitem Espacio disponible de disco y memoria: es importante evitar que el
-    almacenamiento local se llene y que la cantidad de espacio libre en disco
-    se aproxime a los límites. El uso excesivo del almacenamiento local puede
-    inducir a un comportamiento impredecible para las aplicaciones.
+    \subitem \textbf{Espacio disponible de disco y memoria}: es importante
+    evitar que el almacenamiento local se llene y que la cantidad de espacio
+    libre en disco se aproxime a los límites. El uso excesivo del
+    almacenamiento local puede inducir a un comportamiento impredecible para
+    las aplicaciones.
 
   \item Plataforma:
-    \subitem Tiempo de respuesta: puede ser útil extraer y registrar las
-    estadísticas de tiempo de respuesta de los logs de las aplicaciones.
+    \subitem \textbf{Tiempo de respuesta}: puede ser útil extraer y registrar
+    las estadísticas de tiempo de respuesta de los logs de las aplicaciones.
     Particularmente puede ser importante prestarle atención a los cambios en el
     promedio y a los \glspl{term:percentil}.
-    \subitem Códigos de respuesta: registrar los códigos de errores
+    \subitem \textbf{Códigos de respuesta}: registrar los códigos de errores
     \gls{acro:http} en aplicaciones \eng{web} es una buena idea si se
     quiere alertar sobre una proporción inusual de códigos \gls{acro:http}
     referidos a requerimientos erróneos o problemas del servidor.
 
   \item Aplicación:
-    \subitem Disponibilidad: si se quiere lanzar una alerta cuando el
+    \subitem \textbf{Disponibilidad}: si se quiere lanzar una alerta cuando el
     porcentaje de solicitudes exitosas se encuentre debajo de un determinado
     umbral, es buena idea configurar controles de disponibilidad desde
     distintas ubicaciones, emitir solicitudes de prueba a cada minuto y
     registrar casos de éxito y de falla.
-    \subitem Tasa de error: si se define de forma correcta aquello que
+    \subitem \textbf{Tasa de error}: si se define de forma correcta aquello que
     constituye un error en las aplicaciones y se lo monitoriza muy de cerca, se
     puede decidir lanzar una alerta cuando estos errores suceden en una
     proporción relativamente alta.
@@ -134,7 +135,7 @@ Los falsos negativos suelen ser identificados demasiado tarde, resultando por
 ejemplo en la caída de un sistema o en la discontinuidad de la disponibilidad
 de un servicio \cite[p.~16]{monitoreo:monitoring_with_grapfite}.
 
-Es muy importante, a la hora de armar nuestra solución de alertas, tener muy
+Es muy importante, a la hora de armar una solución de alertas, tener muy
 presenta estas situaciones y reducir al máximo el número tanto de falsos
 positivos como negativos. Esto puede ser determinante para conseguir el éxito o
-el fracaso de una solución propuesta.
+el fracaso de la solución propuesta.
