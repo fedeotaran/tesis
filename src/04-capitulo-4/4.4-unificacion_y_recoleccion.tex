@@ -2,12 +2,12 @@
 \label{unificacion_y_recoleccion}
 
 El siguiente paso es tomar los datos de ambas fuentes, unificarlos y enviarlos
-a nuestra instancia en ejecución de \gls{term:elasticsearch}. Para cumplir con
-esta tarea utilizaremos la herramienta \gls{term:fluentd}.
+a la instancia en ejecución de \gls{term:elasticsearch}. Para cumplir con
+esta tarea se utilizará la herramienta \gls{term:fluentd}.
 
 \gls{term:fluentd} es un recolector de datos multiplataforma y de código abierto
-escrito en \gls{term:ruby} y desarrollado por la compañía TreasureData. Esta
-herramienta permite unificar el consumo y recolección de datos.
+escrito en \gls{term:ruby} y desarrollado por la compañía \eng{TreasureData}.
+Esta herramienta permite unificar el consumo y recolección de datos.
 
 \gls{term:fluentd} cuenta con un sistema flexible de \eng{plugins} que permite
 a la comunidad extender su funcionalidad. Hoy en día cuenta con más de 300
@@ -16,66 +16,66 @@ a la comunidad extender su funcionalidad. Hoy en día cuenta con más de 300
 \gls{term:fluentd} es muy utilizado debido a su mínimo consumo de memoria, su
 gran poder de procesamiento de datos, su robustez y su alta disponibilidad.
 
-Además de \gls{term:fluentd} hemos analizado las herramientas
+Además de \gls{term:fluentd} se han analizado las herramientas
 \gls{term:logstash}, \gls{term:heka} y \gls{term:splunk}:
 
 \begin{itemize}
 
 \item
-\textbf{\gls{term:logstash}} es un motor de recolección de datos de código abierto.
-\gls{term:logstash} puede unificar dinámicamente datos de fuentes dispares y
-normalizar los datos en destinos de su elección.
+\textbf{\gls{term:logstash}} es un motor de recolección de datos de código
+abierto. \gls{term:logstash} puede unificar dinámicamente datos de fuentes
+dispares y normalizar los datos en destinos de su elección.
 
 \gls{term:logstash} funciona como un canal de procesamiento de datos del lado
-de servidor, que toma datos de una multitud de fuentes de forma simultánea, los
+del servidor, que toma datos de una multitud de fuentes de forma simultánea, los
 transforma y envía para que sirvan como entrada de otra herramienta.
 
-Con \gls{term:logstash} es posible recolectar \eng{logs} y cualquier tipo de evento.
-Estos eventos pueden ser transformados a partir de una amplia gama de entradas,
-filtros y \eng{plugins} de salida.
+Con \gls{term:logstash} es posible recolectar \eng{logs} y cualquier tipo de
+evento. Estos eventos pueden ser transformados a partir de una amplia gama de
+entradas, filtros y \eng{plugins} de salida.
 
 \item
-\textbf{\gls{term:heka}} es una solución de manejo de \eng{logs} de código abierto. Fue
-diseñada por el equipo de Mozilla y está escrita en el lenguaje de programación
-\gls{term:go}. Al igual que \gls{term:logstash}, provee un sistema basado en
-\eng{plugins} para recolectar y procesar \eng{logs}. Además permite dirigir las
-salidas a una variedad de destinos, incluyendo \gls{term:elasticsearch}.
-Lamentablemente, \gls{term:heka} no se encuentra actualmente en mantenimiento.
+\textbf{\gls{term:heka}} es una solución de manejo de \eng{logs} de código
+abierto. Fue diseñada por el equipo de Mozilla y está escrita en el lenguaje de
+programación \gls{term:go}. Al igual que \gls{term:logstash}, provee un sistema
+basado en \eng{plugins} para recolectar y procesar \eng{logs}. Además permite
+dirigir las salidas a una variedad de destinos, incluyendo
+\gls{term:elasticsearch}. Lamentablemente, \gls{term:heka} no se encuentra
+actualmente en mantenimiento.
 
 \item
-\textbf{\gls{term:splunk}} es una herramienta comercial para buscar, monitorizar y
-analizar datos de aplicaciones y sistemas a través de una interfaz
-\eng{web}. Cuenta con soluciones basadas en la nube. \gls{term:splunk}
-captura, indexa y correlaciona datos en tiempo real y los almacena en un
-repositorio, desde donde se pueden recuperar para generar gráficos, alertas y
-tableros de control definibles por un usuario.
+\textbf{\gls{term:splunk}} es una herramienta comercial para buscar, monitorizar
+y analizar datos de aplicaciones y sistemas a través de una interfaz \eng{web}.
+Cuenta con soluciones basadas en la nube. \gls{term:splunk} captura, indexa y
+correlaciona datos en tiempo real y los almacena en un repositorio, desde donde
+se pueden recuperar para generar gráficos, alertas y tableros de control
+definibles por un usuario.
 
 \end{itemize}
 
-Hemos descartado el uso de \gls{term:heka}, por no ser mantenida de forma
+Se ha descartado el uso de \gls{term:heka}, por no ser mantenida de forma
 activa, y de \gls{term:splunk}, por ser \eng{software} privativo.
 
 \gls{term:fluentd} y \gls{term:logstash} resuelven problemas similares y tienen
-una fácil integración con \gls{term:docker}. Finalmente hemos elegido
-\gls{term:fluentd} para nuestra solución en lugar de \gls{term:logstash},
-porque \gls{term:fluentd} se configura usando \gls{term:ruby}, lo que es una
-gran ventaja para el \gls{acro:cespi}, ya que sus programadores cuentan con
+una fácil integración con \gls{term:docker}. Finalmente se ha elegido
+\gls{term:fluentd} para esta solución en lugar de \gls{term:logstash}, porque
+\gls{term:fluentd} se configura usando \gls{term:ruby}, lo que es una gran
+ventaja para el \gls{acro:cespi}, ya que sus programadores cuentan con
 experiencia en ese lenguaje.
 
 \gls{term:fluentd} usa el formato \gls{acro:json} para estructurar los datos,
-lo que permite unificar todas las facetas del procesamiento de datos de \eng{logs}:
-recolección, filtrado, \eng{buffering} y envío de \eng{logs} a través de múltiples
-fuentes y destinos.
+lo que permite unificar todas las facetas del procesamiento de datos de
+\eng{logs}: recolección, filtrado, \eng{buffering} y envío de \eng{logs} a
+través de múltiples fuentes y destinos.
 
-Una vez que se tiene \gls{term:fluentd} instalado, debemos configurarlo para
+Una vez que se tiene \gls{term:fluentd} instalado, de debe configurarlo para
 que pueda leer los datos de los \eng{logs} desde la salida estándar de
-\gls{term:docker}, y enviarlos a nuestra instancia de \gls{term:elasticsearch}.
+\gls{term:docker}, y enviarlos a la instancia de \gls{term:elasticsearch}.
 
-Para lograr este objetivo agregaremos dos \glspl{term:gema} a la configuración de
-\gls{term:fluentd} que nos permitirán enviar los datos a
-\gls{term:elasticsearch} y \eng{parsear} los datos de distintas fuentes para tomar la
-información que creamos importante. Esto lo haremos en un archivo llamado
-\texttt{start.sh}:
+Para lograr este objetivo se agregarán dos \glspl{term:gema} a la configuración
+de \gls{term:fluentd} que permitirán enviar los datos a \gls{term:elasticsearch}
+y \eng{parsear} los datos de distintas fuentes para tomar la información que
+se crea importante. Esto se hará en un archivo llamado \texttt{start.sh}:
 
 \begin{lstlisting}
 
@@ -91,10 +91,10 @@ Este archivo instala las \glspl{term:gema} necesarias, y luego inicia el
 servicio de \gls{term:fluentd}, definiendo la ruta del archivo de configuración
 y la carpeta en la que se encuentran los \eng{plugins}.
 
-La \gls{term:gema} \texttt{fluent-plugin-elasticsearch} permite que \gls{term:fluentd}
-envíe sus datos a \gls{term:elasticsearch}. Este plugin crea índices de
-\gls{term:elasticsearch} de forma automática. Basta con agregar a la
-configuración de \gls{term:fluentd}, el atributo \lstinline{type} con valor
+La \gls{term:gema} \texttt{fluent-plugin-elasticsearch} permite que
+\gls{term:fluentd} envíe sus datos a \gls{term:elasticsearch}. Este \eng{plugin}
+crea índices de \gls{term:elasticsearch} de forma automática. Basta con agregar
+a la configuración de \gls{term:fluentd}, el atributo \lstinline{type} con valor
 \gls{term:elasticsearch} y de forma opcional, parámetros adicionales. Por
 ejemplo:
 
@@ -172,7 +172,7 @@ archivo \texttt{fluentd.conf}:
 
 \end{lstlisting}
 
-A continuación explicaremos el funcionamiento del código, bloque por bloque.
+A continuación se explicará el funcionamiento del código, bloque por bloque.
 
 \begin{lstlisting}
 
@@ -183,7 +183,7 @@ A continuación explicaremos el funcionamiento del código, bloque por bloque.
 
 \end{lstlisting}
 
-Las fuentes de entrada de \gls{term:fluentd} se habilitan seleccionando y
+Las fuentes de entrada de \gls{term:fluentd} son habilitadas seleccionando y
 configurando los \eng{plugins} de entrada deseados usando la directiva
 \lstinline{source}. La instrucción \lstinline{type forward} convierte a
 \gls{term:fluentd} en un \eng{endpoint} \gls{acro:tcp}. La línea
@@ -207,12 +207,12 @@ La directiva \lstinline{match} busca eventos con etiquetas que coincidan con un
 patrón y los procesa. En este caso, sólo tomará las entradas con etiquetas
 que comiencen con \lstinline{'rails.docker.'}. Las instrucciones
 \lstinline{type parser}, \lstinline{key_name log} y \lstinline{format json}
-nos indican que la clave de nombre \lstinline{log} en la entrada será analizada
+indican que la clave de nombre \lstinline{log} en la entrada será analizada
 sintácticamente y transformada a formato \gls{acro:json}.
 
 La línea \lstinline{reserve_data yes} es usada para mantener los datos
-originales. Por ejemplo, si la entrada fue la cadena de texto
-\texttt{'log': \{"user":1,"num":2\}}, la salida será:
+originales. Por ejemplo, si la entrada es la cadena de texto
+\texttt{'log': \{"user":1,"num":2\}}, la salida es:
 
 \begin{lstlisting}
 
@@ -222,7 +222,7 @@ originales. Por ejemplo, si la entrada fue la cadena de texto
 
 Finalmente, la instrucción \lstinline{add_prefix logs} es utilizada para
 agregar la subcadena \lstinline{logs.} al comienzo del nombre de la etiqueta.
-Por ejemplo, si la etiqueta se llamaba \lstinline{rails.docker.app1}, la nueva
+Por ejemplo, si la etiqueta se llama \lstinline{rails.docker.app1}, la nueva
 etiqueta será \lstinline{logs.rails.docker.app1}.
 
 De esta forma, la salida de este bloque se podrá convertir en la entrada de
@@ -283,14 +283,14 @@ anteriores, y las envían a \gls{term:elasticsearch} con un formato adecuado,
 haciendo uso del \eng{plugin} \texttt{fluentd-plugin-elasticsearch}. Este
 \eng{plugin} además, crea índices en \gls{term:elasticsearch}.
 
-Teniendo en consideración la arquitectura general de la infraestructura, hemos
-decidido, para nuestra solución, que \gls{term:fluentd} sea ejecutado sobre su
+Teniendo en consideración la arquitectura general de la infraestructura, se ha
+decidido, para esta solución, que \gls{term:fluentd} sea ejecutado sobre su
 propio \gls{term:contenedor} de \gls{term:docker}. Para lograr que este
 \gls{term:contenedor} se comunique con el \gls{term:contenedor} de la aplicación
-y con la base de datos, usaremos la herramienta Compose de \gls{term:docker}.
+y con la base de datos, se usará la herramienta Compose de \gls{term:docker}.
 
-Creamos el archivo \texttt{docker-compose.yml} y agregamos la siguiente
-configuración:
+Para esto, se crea el archivo \texttt{docker-compose.yml} y se agrega la
+siguiente configuración:
 
 \begin{lstlisting}
 
@@ -307,28 +307,29 @@ fluentd:
 \end{lstlisting}
 
 La línea \lstinline{image: fluent/fluentd:latest} indica la imagen de
-\gls{term:docker} que se va a utilizar. En este caso, se utiliza la imagen
+\gls{term:docker} que se utilizará. En este caso, se utiliza la imagen
 oficial de \gls{term:fluentd}\footnote{Cf.
 \url{https://hub.docker.com/r/fluent/fluentd/l}}.
 
-La clave \lstinline{ports} se utiliza para exponer puertos. Gracias a esta capacidad es
-posible conectar el \gls{term:contenedor} con el sistema externo, para intercambiar
-información por \eng{sockets}, y de la misma forma, se permite conectar varios
-\glspl{term:contenedor} entre sí.
+La clave \lstinline{ports} se utiliza para exponer puertos. Gracias a esta
+capacidad es posible conectar el \gls{term:contenedor} con el sistema externo,
+para intercambiar información por \eng{sockets}, y de la misma forma, se permite
+conectar varios \glspl{term:contenedor} entre sí.
 
 Para usar esta configuración se requiere indicar puerto origen y puerto
-destino. El puerto origen es interno al \gls{term:contenedor}, y el puerto destino existe
-sólo en el entorno no virtualizado. En el ejemplo, un \gls{term:contenedor} abre el puerto
-interno 24224 y lo mapea con el puerto del entorno externo 24224.
+destino. El puerto origen es interno al \gls{term:contenedor}, y el puerto
+destino existe sólo en el entorno no virtualizado. En el ejemplo, un
+\gls{term:contenedor} abre el puerto interno 24224 y lo mapea con el puerto del
+entorno externo 24224.
 
-La configuración volumes es usada para compartir el directorio
+La configuración \texttt{volumes} es usada para compartir el directorio
 \lstinline{fluentd/etc} con el \gls{term:contenedor}. La instrucción command:
 \texttt{/fluentd/etc/start.sh} sirve para que el script que corre
 \gls{term:fluentd} sea ejecutado al poner en marcha el \gls{term:contenedor}.
 
-Finalmente, para que los \glspl{term:contenedor} con \gls{term:nginx} y con las aplicaciones rails
-pueda enviar los datos a \gls{term:fluentd}, se agrega en el archivo
-\lstinline{docker-compose.yml} las siguientes líneas:
+Finalmente, para que los \glspl{term:contenedor} con \gls{term:nginx} y con las
+aplicaciones \gls{term:ror} puedan enviar los datos a \gls{term:fluentd}, se
+agregan al archivo \lstinline{docker-compose.yml} las siguientes líneas:
 
 \begin{lstlisting}
 
@@ -344,8 +345,8 @@ app:
 
 Se puede encontrar la configuración completa de ejemplo en el \autoref{anexo:C}.
 
-Tenemos configurada la salida de los \eng{logs} de la
-aplicación \gls{term:ror}, la recolección y \eng{parseo} de los mismos con
+Ya se tiene configurada la salida de los \eng{logs} de una aplicación
+\gls{term:ror}, la recolección y \eng{parseo} de los mismos con
 \gls{term:fluentd} y el envío de los mismos a la base de datos destinada a este
-fin con \gls{term:elasticsearch}. Ya es posible consultar a nuestra base
-de datos información sobre los \eng{logs}.
+fin con \gls{term:elasticsearch}. Ya es posible consultar a la base de datos
+información sobre los \eng{logs}.
