@@ -1,15 +1,16 @@
 \subsection{Objetivo de nuestra implementación}
 \label{objetivos_de_nuestra_implementacion}
 
-Creemos importante construir una infraestructura de monitoreo que nos permita
-obtener valiosa información sobre las reglas de negocio de las aplicaciones que
-se desarrollan en la oficina, de forma que permita al equipo de trabajo contar
-con datos duros para tomar decisiones de negocio más confiables.
+En este contexto es importante construir una infraestructura de monitoreo que
+permita obtener valiosa información sobre las reglas de negocio de las
+aplicaciones que se desarrollan en la oficina, de forma que permita al equipo
+de trabajo contar con datos duros para tomar decisiones de negocio más
+confiables.
 
-Además, los desarrolladores del \gls{acro:cespi} creen que sería útil contar con
-una herramienta de recolección y análisis de información sobre el rendimiento de
-las aplicaciones. Esta herramienta podría ayudar a encontrar puntos débiles y
-cuellos de botella en las aplicaciones.
+Además, los desarrolladores del \gls{acro:cespi} creen que sería útil contar
+con una herramienta de recolección y análisis de información sobre el
+rendimiento de las aplicaciones. Esta herramienta podría ayudar a encontrar
+puntos débiles y cuellos de botella en las aplicaciones.
 
 A las personas encargadas de mantener la infraestructura de la oficina les
 interesa tener un seguimiento de datos de uso del sistema operativo y las
@@ -22,9 +23,9 @@ monitoreo, sino que recurrían a diversas técnicas para llevar a cabo el
 seguimiento de las aplicaciones, detectar errores y prevenir su aparición.
 
 Una de las técnicas utilizadas por el grupo de desarrollo era la búsqueda y
-lectura de registros de logs de forma manual. El programador se conectaba a
-través de \gls{term:ssh} al servidor de la aplicación y visualizaba los logs
-directamente mediante la consola.
+lectura de registros de \eng{logs} de forma manual. El programador se conectaba
+a través de \gls{term:ssh} al servidor de la aplicación y visualizaba los
+\eng{logs} directamente mediante la consola.
 
 Si el desarrollador requería conocer información en tiempo real de los recursos
 del servidor donde estaban corriendo las aplicaciones, éste debía conectarse al
@@ -38,8 +39,8 @@ guarda información de consultas que toman mucho tiempo en llevarse a cabo. Este
 tiempo es por defecto de 10 segundos, pero puede ser definido por un usuario.
 
 Para ser notificados de errores en producción de las aplicaciones
-\gls{term:ror}, los programadores hacían uso de la \gls{term:gema} Exception
-Notifier\footnote{Cf.
+\gls{term:ror}, los programadores hacían uso de la \gls{term:gema}
+\eng{Exception Notifier}\footnote{Cf.
 \url{https://github.com/smartinez87/exception_notification}}. Esta librería
 permite configurar en el código de la aplicación, una dirección de correo para
 recibir las notificaciones de errores en la aplicación, y se acciona cuando la
@@ -51,56 +52,57 @@ los parámetros de la petición y también el \gls{term:stack_trace}, que contie
 información de las llamadas a los métodos que dieron origen al error.
 
 Para realizar recolección, análisis de datos y generación de alertas, en la
-oficina se utiliza las herramientas de monitoreo \gls{term:graphite} y Nagios.
+oficina se utiliza las herramientas de monitoreo \gls{term:graphite} y
+\gls{term:nagios}.
 
-Graphite es una herramienta libre y de código abierto que sirve para monitorear
-y graficar la performance de sistemas de computadoras. \gls{term:graphite} recolecta,
-almacena y muestra datos de tipo time-series en tiempo real.
+\gls{term:graphite} es una herramienta libre y de código abierto que sirve para
+monitorear y graficar el rendimiento de sistemas de computadoras.
+\gls{term:graphite} recolecta, almacena y muestra datos de tipo series de
+tiempo en tiempo real.
 
-Nagios es una aplicación libre y de código abierto que monitoreo sistemas,
-redes e infraestructura. Nagios ofrece monitoreo y servicios de alertas para
-servidores, \eng{switches}, aplicaciones y servicios.
+\gls{term:nagios} es una aplicación libre y de código abierto que monitoreo
+sistemas, redes e infraestructura. \gls{term:nagios} ofrece monitoreo y
+servicios de alertas para servidores, \eng{switches}, aplicaciones y servicios.
 
-Uno de los problemas que identificamos como consecuencia del uso de estas
-técnicas es que estos mecanismos generan una notificación cada vez que ocurría
-un error. Por lo que si un error ocurría cientos de veces en un día, el usuario
-recibiría cientos de mensajes idénticos.
+Una desventaja del uso de estos mecanismos es que generan una notificación cada
+vez que ocurre un error. Por lo que si un error ocurre cientos de veces en un
+día, el usuario recibiría cientos de mensajes idénticos, cuando con avisar una
+vez del error seguramente era suficiente.
 
-Partiendo del conocimiento que obtuvimos con nuestra primera investigación,
-creímos importante ayudar a mejorar la forma en que se implementaba el
-monitoreo en el \gls{acro:cespi}.
+Partiendo del conocimiento que se obtuvo con la investigación, puede ver la
+importancia de mejorar la forma en que se implementaba el monitoreo en el
+\gls{acro:cespi}.
 
 La oficina podría beneficiarse con una infraestructura de monitoreo que brinde
 información útil a los usuarios, sea fácil de utilizar, pueda adaptarse a una
 arquitectura de \glspl{term:contenedor} y sea dinámica y escalable.
 
-Nuestro primer paso para implementar la nueva infraestructura de monitoreo será
+El primer paso para implementar la nueva infraestructura de monitoreo será
 recolectar métricas en tiempo real que provengan del uso de las aplicaciones y
 los \glspl{term:contenedor}, y obtener de ellos valiosa información que nos
 permita prevenir errores y tomar mejores decisiones de diseño.
 
-Luego buscaremos utilizar la información que brindan los logs de forma más
-intensiva. Unificar el formato de los logs y centralizar los logs que provengan
-de diversas fuentes en un único lugar.
+Luego hacer uso de la información que brindan los \eng{logs} de forma más
+intensiva. Unificar el formato de los \eng{logs} y centralizar los mismo que
+provengan de diversas fuentes en un único lugar.
 
-La infraestructura de aplicaciones y servicios que queremos monitorear es
+La infraestructura de aplicaciones y servicios que se quiere monitorear es
 dinámica, escalable, construida de forma automatizada y creada a partir de
-código reutilizable. Intentaremos lograr una forma de monitoreo que pueda
-adaptarse a las características de esta infraestructura, por lo que
-investigaremos cómo utilizar \glspl{term:contenedor} de \gls{term:docker} para
+código reutilizable. Lograr una forma de monitoreo que pueda adaptarse a las
+características de esta infraestructura es lo que se busca, por lo que habrá
+que investigar cómo utilizar \glspl{term:contenedor} de \gls{term:docker} para
 implementar algunos componentes del sistema de monitoreo.
 
 Con el objetivo de impulsar un sistema que brinde información útil a los
-usuarios, trataremos de aplicar algunas de las técnicas de visualización
-efectiva mencionadas en el capítulo anterior
-(\autoref{visualizacion-efectiva}) durante la creación de tableros con
-gráficos.
+usuarios, se va a aplicar algunas de las técnicas de visualización efectiva
+mencionadas en el capítulo anterior (\autoref{visualizacion-efectiva}) durante
+la creación de tableros con gráficos.
 
-Finalmente, nos ocuparemos de implementar una solución de alertas de mayor
-utilidad que evite, en la medida de lo posible, falsos positivos y negativos y
-brinde notificaciones útiles a los usuarios indicando concretamente el problema
-y/o ayudándolos a prevenirlos.
+Finalmente, mostrar la propuesta de una implementación que de una solución de
+alertas de mayor utilidad que evite, en la medida de lo posible, falsos
+positivos y negativos y brinde notificaciones útiles a los usuarios indicando
+concretamente el problema y/o ayudándolos a prevenirlos.
 
-En los próximos capítulos explicaremos la forma en que desarrollamos una
+En los próximos capítulos se expone la forma en que desarrolló una
 infraestructura de monitoreo que intente cumplir con las características
 mencionadas.

@@ -3,15 +3,15 @@
 
 La oficina del \gls{acro:cespi} utiliza el \eng{framework} \eng{web}
 \gls{term:ror}\footnote{Cf.  \url{http://rubyonrails.org/}} como principal
-herramienta de desarrollo. Este framework fue elegido por su excelente
+herramienta de desarrollo. Este \eng{framework} fue elegido por su excelente
 documentación, activa comunidad, facilidad para desarrollar e implementado en
-el lenguaje Ruby.
+el lenguaje \gls{term:ruby}.
 
-Ruby, como se menciona en su sitio oficial, es un lenguaje creado con el
-objetivo de ser “el mejor amigo del desarrollador”. Es orientado a objetos y su
-sintaxis es muy amigable en comparación a otros lenguajes de programación. La
-expresividad del lenguaje permite escribir código conciso, expresivo y fácil de
-mantener.
+\gls{term:ruby}, como se menciona en su sitio oficial, es un lenguaje creado
+con el objetivo de ser “el mejor amigo del desarrollador”. Es orientado a
+objetos y su sintaxis es muy amigable en comparación a otros lenguajes de
+programación. La expresividad del lenguaje permite escribir código conciso,
+expresivo y fácil de mantener.
 
 \gls{term:ror} cuenta con soporte para las distintas bases de datos que se
 utilizan en la oficina. Entre ellas se encuentran \gls{term:mysql},
@@ -20,28 +20,27 @@ utilizan en la oficina. Entre ellas se encuentran \gls{term:mysql},
 La oficina se encuentra en transición a una arquitectura basada en contenedores
 de \gls{term:docker}.
 
-Docker es un proyecto de código abierto para la automatización del despliegue
-de aplicaciones dentro de \glspl{term:contenedor} de \eng{software} en Linux.
-Los contenedores proporcionan una capa adicional de abstracción y
-automatización de virtualización a nivel de sistema operativo.
+\gls{term:docker} es un proyecto de código abierto para la automatización del
+despliegue de aplicaciones dentro de \glspl{term:contenedor} de \eng{software}
+en \gls{term:linux}. Los contenedores proporcionan una capa adicional de
+abstracción y automatización de virtualización a nivel de sistema operativo.
 
 En el marco de la cultura de trabajo \gls{term:devops} del \gls{acro:cespi} se
-decidió utilizar Docker para facilitar la construcción de una infraestructura
-dinámica, escalable y tolerante a fallos que permitiera el despliegue seguro y
-automático de aplicaciones, al mismo tiempo que redujera la brecha entre
-desarrolladores de \eng{software} y profesionales de operaciones en tecnologías
-de información.
+decidió utilizar \gls{term:docker} para facilitar la construcción de una
+infraestructura dinámica, escalable y tolerante a fallos que permitiera el
+despliegue seguro y automático de aplicaciones, al mismo tiempo que redujera la
+brecha entre desarrolladores de \eng{software} y profesionales de operaciones
+en tecnologías de información.
 
 El manejo de múltiples \glspl{term:contenedor} de \gls{term:docker} en
-producción se convirtió en una tarea compleja para la oficina, por lo que se
-decidió utilizar \gls{term:rancher}. \gls{term:rancher} es una plataforma de.
-código abierto que facilita la orquestación, disponibilidad, configuración y
-enlace de \glspl{term:contenedor} de \gls{term:docker}. Esta herramienta
-permite resolver gran parte de los desafíos críticos presentes al ejecutar
-aplicaciones en \glspl{term:contenedor} de \gls{term:docker}.
+producción no es una tarea sencilla, por lo que se va a utilizar
+\gls{term:rancher}. \gls{term:rancher} es una plataforma de código abierto que
+facilita la orquestación, disponibilidad, configuración y enlace de
+\glspl{term:contenedor}. Esta herramienta permite resolver gran parte de los
+desafíos críticos presentes al ejecutar aplicaciones en \glspl{term:contenedor}
+de \gls{term:docker}.
 
-Rancher provee un conjunto completo de servicios de infraestructura para
-contenedores, incluyendo herramientas de red, servicios de almacenamiento de
-imágenes de \glspl{term:contenedor} privadas, administración de los hosts que forman parte
-de la infraestructura, facilidades para el despliegue, balanceo de carga y
-sencillas herramientas de monitoreo.
+\gls{term:rancher} provee un conjunto completo de servicios de infraestructura
+para contenedores, incluyendo herramientas de red, administración de los
+\glspl{term:host} que forman parte de la infraestructura, facilidades para el
+despliegue, \eng{scheduling} y sencillas herramientas de monitoreo.
