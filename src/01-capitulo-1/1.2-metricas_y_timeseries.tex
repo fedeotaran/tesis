@@ -8,9 +8,9 @@ tiempo en la que tuvo lugar la medición y un conjunto de propiedades que la
 describen.
 
 Cuando las entradas de datos de una métrica son segmentadas en intervalos de
-tiempo fijos y convertidas en un \gls{term:estadistico} mediante una transformación
-matemática, pueden ser presentadas como series de tiempo e interpretadas en
-gráficos bidimensionales.
+tiempo fijos y convertidas en un \gls{term:estadistico} mediante una
+transformación matemática, pueden ser presentadas como series de tiempo e
+interpretadas en gráficos bidimensionales.
 
 El largo de los intervalos entre valores, también llamado granularidad, depende
 de los tipos de mediciones y el tipo de información que se quiere extraer.
@@ -148,8 +148,8 @@ Algunos sistemas de monitoreo usan intervalos constantes predefinidos y no
 permiten al usuario modificar su granularidad, mientras que otros sistemas
 permiten especificar períodos arbitrarios.
 
-Sin embargo, siempre se requiere un intervalo mínimo. Incluso si fuéramos
-capaces de presentar eventos en una escala de tiempo continuo (con una
+Sin embargo, siempre se requiere un intervalo mínimo. Incluso si uno fuera
+capaz de presentar eventos en una escala de tiempo continuo (con una
 granularidad infinitesimalmente fina), probablemente no sería muy útil.
 
 En el mundo real no pueden ocurrir dos eventos exactamente al mismo tiempo, por
@@ -158,7 +158,7 @@ número de eventos se acumulara en el gráfico.
 
 Pasando al otro extremo, si el intervalo de datos es extremadamente largo, como
 un año, la salida será un pequeño número de enormes colecciones de eventos. Eso
-puede ser algo útil para los propósitos de análisis de datos pero no para
+puede ser algo útil para los propósitos de análisis de datos pero no para el
 monitoreo.
 
 \subsection*{Agregación de métricas}
@@ -185,4 +185,3 @@ pequeñas depresiones en el número de peticiones en lugar de su desaparición
 completa. En estos casos, es también deseable agregar valores de todas las
 fuentes y presentarlos como una única métrica para mostrar el efecto
 acumulativo \cite[p.~21-25]{monitoreo:efective_monitoring_and_alerting}.
-
