@@ -11,24 +11,27 @@ mantienen en ejecución las aplicaciones, se han investigado las herramientas
 \gls{term:cadvisor} y \gls{term:telegraf}.
 
 \gls{term:cadvisor} es un demonio que recolecta, agrega, procesa y exporta
-información de \glspl{term:contenedor} en ejecución.
-Específicamente, para cada \gls{term:contenedor} guarda parámetros de
-aislamiento de recursos, uso de recursos históricos, histogramas de uso
-completo de recursos históricos y estadísticas de red. Estos datos son
-exportados para la máquina \gls{term:host} donde está corriendo y para cada uno
-de los \glspl{term:contenedor}.
+información de \glspl{term:contenedor} en ejecución. Específicamente, para cada
+\gls{term:contenedor} guarda parámetros de aislamiento de recursos, uso de
+recursos históricos, histogramas de uso completo de recursos históricos y
+estadísticas de red. Son exportados estos datos tanto para la máquina
+\gls{term:host} donde está corriendo el demonio como para cada uno de los
+\glspl{term:contenedor} en la misma.
 
 \gls{term:cadvisor} facilita a los usuarios el entendimiento del uso de
 recursos y las características de rendimiento de los \glspl{term:contenedor} en
 ejecución.  Tiene soporte nativo para \glspl{term:contenedor} \gls{term:docker}
-y puede utilizarse con casi cualquier otro tipo de \gls{term:contenedor}.
-\footnote{Repositorio oficial de \gls{term:cadvisor}: \url{https://github.com/google/cadvisor}}
+y puede utilizarse con casi cualquier otro tipo de
+\gls{term:contenedor}\footnote{
+Repositorio oficial de \gls{term:cadvisor}:
+\url{https://github.com/google/cadvisor}}.
 
-\gls{term:telegraf} es un agente escrito en el lenguaje de programación \gls{term:go} para
-recolectar, procesar, agregar y escribir métricas. Fue diseñado con el objetivo
-de requerir poca memoria, y de proveer un sistema de \eng{plugins} de forma que
-los desarrolladores de la comunidad pudieran fácilmente agregar soporte para
-recolección de métricas de diferentes servicios y \glspl{term:api}.
+\gls{term:telegraf} es un agente escrito en el lenguaje de programación
+\gls{term:go} para recolectar, procesar, agregar y escribir métricas. Fue
+diseñado con el objetivo de requerir poca memoria, y de proveer un sistema de
+\eng{plugins} de forma que los desarrolladores de la comunidad pudieran
+fácilmente agregar soporte para recolección de métricas de diferentes servicios
+y \glspl{term:api}.
 
 \gls{term:telegraf} utiliza cuatro conceptos distintos de \eng{plugins}:
 

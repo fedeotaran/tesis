@@ -7,12 +7,12 @@ todas las series de tiempo comparten entre sí una dimensión: la dimensión de
 tiempo, y por eso son útiles para correlacionar datos de varias fuentes.
 
 Las bases de datos relacionales tradicionales pueden no ser prácticas para
-manejar almacenar estos tipos de datos. Una base de datos de series de tiempo
+manejar y almacenar estos tipos de datos. Una base de datos de series de tiempo
 es un sistema de \eng{software} que está optimizado para manejarlos de forma
 correcta, confiable y eficiente.
 
-Se han analizado las herramientas \gls{term:influx} y \gls{term:graphite} para
-almacenar datos de este tipo.
+Se han analizado las herramientas \gls{term:opentsdb}, \gls{term:influx} y
+\gls{term:graphite} para almacenar datos de este tipo.
 
 \gls{term:influx} es una base de datos de código abierto implementada en el
 lenguaje \gls{term:go} con el propósito de manejar datos de series de tiempo
@@ -21,11 +21,11 @@ no tiene dependencias externas.
 
 \gls{term:influx} viene con una \gls{term:api} \gls{acro:http} integrada, lo
 que permite que no sea necesario escribir ningún código del lado de servidor
-para comenzar a trabajar. \cite{influxdb}
+para comenzar a trabajar~\cite{influxdb}.
 
 Es posible etiquetar los datos, lo que permite una consulta muy flexible. Esta
-consulta se escribe en un lenguaje similar a SQL, llamado InfluxQL
-\footnote{Documentación oficial:
+consulta se escribe en un lenguaje similar a SQL, llamado
+InfluxQL\footnote{Documentación oficial:
 \url{https://docs.influxdata.com/influxdb/v0.9/query_language/query_syntax/}}.
 
 \gls{term:influx} permite contestar consultas en tiempo real, lo que significa
@@ -68,7 +68,7 @@ requeridos.
 
 
 La plataforma \eng{web} de \gls{term:graphite} ofrece una variedad de estilos y
-formatos de salidas \footnote{Más información:
+formatos de salidas\footnote{Más información:
 \url{http://graphite.readthedocs.io/en/latest/overview.html}},
 incluyendo imágenes, archivos separados por comas, \gls{acro:xml} y
 \gls{acro:json}.
@@ -85,13 +85,14 @@ métricas de decenas de miles de \glspl{term:host} y aplicaciones, y almacenar
 miles de millones de valores estadísticos.
 
 \gls{term:opentsdb} es \eng{software} libre y está disponible en ambas licencias
-LGPLv2.1 + GPLv3. \cite{opentsdb}
+LGPLv2.1 + GPLv3~\cite{opentsdb}.
 
 Finalmente se ha elegido \gls{term:influx} para la implementación por sobre las
-demás herramientas ya que cuenta con mejor soporte para el lenguaje
-\gls{term:ruby}. Además, \gls{term:influx} tiene un lenguaje de consulta similar
-a SQL, lo que podría facilitar el desarrollo de consultas al personal de la
-oficina.
+demás herramientas ya que es \eng{open source}, tiene un buen rendimientos
+para lo que se lo va a utilizar y existen librerías para realizar la conexión
+con las aplicaciones de la oficina de forma simple. Además, \gls{term:influx}
+tiene un lenguaje de consulta similar a SQL, lo que podría facilitar el
+desarrollo de consultas al personal de la oficina.
 
 Para ejecutar \gls{term:influx} una vez instalado, basta con correr el comando
 \lstinline{service influxdb start}.

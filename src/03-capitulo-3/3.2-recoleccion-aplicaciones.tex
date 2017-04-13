@@ -96,10 +96,10 @@ posible obtener varias métricas que pueden ser útiles para los desarrolladores
 profesionales de \gls{acro:it} y otros. Algunos ejemplos de estas métricas son:
 
 \begin{itemize}
-  \item Tiempo de respuesta promedio para la operación de inicio de sesión
-  \item Cantidad de accesos por unidad de tiempo al servicio de autentificación
-  \item Promedio de accesos a cada aplicación
-  \item Accesos a cada aplicación agrupados por aplicación y franja horaria
+  \item tiempo de respuesta promedio para la operación de inicio de sesión
+  \item cantidad de accesos por unidad de tiempo al servicio de autentificación
+  \item promedio de accesos a cada aplicación
+  \item accesos a cada aplicación agrupados por aplicación y franja horaria
 \end{itemize}
 
 Un usuario con un perfil gerencial podría verse beneficiado al hacer uso de
@@ -125,9 +125,8 @@ herramientas para que un programador pueda crear sus propios \eng{hooks} a los
 cuales subscribirse.
 
 Por ejemplo, existe un \eng{hook} provisto por la librería de \gls{term:ror},
-\eng{Active Record},
-\footnote{Guía oficial de Active Record:
-\url{http://guides.rubyonrails.org/active_record_basics.html}} que es
+\eng{Active Record}\footnote{Guía oficial de Active Record:
+\url{http://guides.rubyonrails.org/active_record_basics.html}}, que es
 llamado cada vez que se lleva a cabo una consulta \gls{acro:sql} en una base de datos. Es
 posible subscribirse a este \eng{hook}, y utilizarlo para tener un seguimiento
 del número de consultas realizadas.
@@ -148,7 +147,7 @@ end
 \end{lstlisting}
 
 La \gls{term:gema} \texttt{influxdb-rails} viene configurada por defecto para
-apoyarse en el \eng{hook} \lstinline{"process_action.action_controller"} y
+apoyarse en el \eng{hook} \lstinline{process_action.action_controller} y
 enviar a \gls{term:influx} información sobre los tiempos de respuesta de cada
 petición \eng{web}, distinguiendo el tiempo que demora en el \eng{renderizado}
 de las vistas, el procesamiento de los controladores y las consultas a las bases
@@ -193,15 +192,16 @@ archivos con el comando \lstinline{bundle install}.
 
 Finalmente, se copia el contenido de la aplicación al \gls{term:contenedor}
 \gls{term:docker}, se expone el puerto 3000, y se corre la aplicación con el
-comando \lstinline{rails server -b 0.0.0.0}.
+comando \lstinline{rails server -b 0.0.0.0}. En la \autoref{anexo:docker}
+se explica un poco mas de esta herarmienta.
 
 Se mostrará a continuación cómo se puede hacer para correr la aplicación al
-mismo tiempo que se ejecutan sus servicios. Para esta tarea se utilizará Compose
-de \gls{term:docker}. Compose permite definir una configuración de los
-servicios de una aplicación en un archivo, e iniciar todos estos servicios con
-un sólo comando.
+mismo tiempo que se ejecutan sus servicios. Para esta tarea se utilizará
+Compose de \gls{term:docker}. Compose permite definir una
+configuración de los servicios de una aplicación en un archivo, e iniciar todos
+estos servicios con un sólo comando.
 
-Se ha escrito una explicación un poco más detallada de \eng{Compose} en el
+Se ha escrito una explicación un poco más detallada de Compose en el
 \autoref{anexo_compose}.
 
 El siguiente archivo \gls{term:docker} Compose es un ejemplo de cómo configurar
