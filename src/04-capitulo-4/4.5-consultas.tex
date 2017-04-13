@@ -1,10 +1,9 @@
 \subsection{Consultas}
 \label{consultas}
 
-Una vez que tenemos todo configurado, podemos comenzar a realizar consultas
-sobre \gls{term:elasticsearch}. A través del comando \texttt{curl} podemos
-solicitar los datos de los índices creados en la base de datos por nuestras
-herramientas:
+Una vez que se tiene todo configurado, se puede comenzar a realizar consultas
+sobre \gls{term:elasticsearch}. A través del comando \texttt{curl} se pueden
+solicitar los datos de los índices creados en la base de datos:
 
 \begin{lstlisting}
 
@@ -25,7 +24,7 @@ En la respuesta de la consulta se pueden visualizar tres índices:
 \texttt{.kibana}, \text{rails-logs-2017.02.21} y
 \texttt{nginx-logs-2017.02.21}.
 
-Si quisiéramos visualizar la configuración de uno de estos índices, alcanzaría
+Si se quisiera visualizar la configuración de uno de estos índices, alcanzaría
 con hacer una consulta como la siguiente:
 
 \begin{lstlisting}
@@ -127,8 +126,8 @@ curl localhost:9200/rails-logs-2017.02.21
 
 \end{lstlisting}
 
-En el resultado de la consulta se puede ver la estructura de los registros y la
-composición del índice que almacena los \eng{logs} de las aplicaciones
+En el resultado de la consulta es posible ver la estructura de los registros y
+la composición del índice que almacena los \eng{logs} de las aplicaciones
 \gls{term:ror}.
 
 Para visualizar todos los documentos dentro de un índice, se puede ejecutar la
@@ -187,17 +186,17 @@ curl localhost:9200/nginx-logs-2017.02.21/_search
 
 Esta consulta retorna información sobre todos los documentos en el índice
 de requerimientos \eng{web} que han pasado por \gls{term:nginx}. Entre
-otros datos, se pueden ver el identificador y nombre del contenedor, el código
+otros datos, es posible ver el identificador y nombre del contenedor, el código
 de estado \gls{acro:http}, el cliente \eng{web} utilizado y la marca de
 tiempo.
 
-\gls{term:fluentd} nos ha permitido analizar el contenido del mensaje de los
-\eng{logs} y separar aquellos campos importantes. Esto facilitará la realización de
-búsquedas.
+\gls{term:fluentd} ha permitido analizar el contenido del mensaje de los
+\eng{logs} y separar aquellos campos importantes. Esto facilitará la realización
+de búsquedas en el futuro.
 
-A lo largo de este capítulo hemos conseguido configurar varias herramientas
+A lo largo de este capítulo se ha conseguido configurar varias herramientas
 para unificar los \eng{logs} de diferentes fuentes en una base de datos
 centralizada, y utilizar un motor de búsquedas para obtener información
 importante de ellos.
 
-En el siguiente capítulo abordaremos el tema de la visualización de datos.
+En el siguiente capítulo se abordará el tema de la visualización de datos.
