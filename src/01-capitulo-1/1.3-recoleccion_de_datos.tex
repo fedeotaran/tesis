@@ -4,8 +4,8 @@
 El proceso de monitoreo comienza con la acumulación de datos por agentes de
 recolección.
 
-Un agente de recolección es un programa de \eng{software} especializado que capta
-información significativa sobre entidades monitoreadas como pueden ser
+Un agente de recolección es un programa de \eng{software} especializado que
+capta información significativa sobre entidades monitoreadas como pueden ser
 distintos tipos de terminales, bases de datos o dispositivos de red, etc., la
 encapsula en entradas de datos cuantitativos y reporta estas entradas a un
 sistema de monitoreo en intervalos regulares.
@@ -27,22 +27,23 @@ estructura interna de las entidades a monitorear. Entre ellos podemos
 encontrar:
 
 \begin{itemize}
-  \item \textbf{Log Parsers:} los analizadores gramaticales o parsers de logs
-    extraen información específica proveniente de las entradas de los logs,
+  \item \textbf{Log Parsers:} los analizadores gramaticales o parsers de \eng{logs}
+    extraen información específica proveniente de las entradas de los \eng{logs},
     tales como códigos de estado y tiempos de respuesta de las peticiones desde
-    los logs de los servidores \eng{web}.
+    los \eng{logs} de los servidores \eng{web}.
 
-  \item \textbf{Log Scanners:} los escaneadores de logs cuentan las ocurrencias
-    de una cadena de caracteres en las líneas de los archivos de logs definidos
-    por una expresión regular. Por ejemplo, para obtener información de errores
-    regulares y críticos es posible calcular el número de ocurrencias de la
-    expresión regular \texttt{/ERROR|CRITICAL/} dentro de un archivo de logs.
+  \item \textbf{Log Scanners:} los escaneadores de \eng{logs} cuentan las
+    ocurrencias de una cadena de caracteres en las líneas de los archivos de
+    \eng{logs} definidos por una expresión regular. Por ejemplo, para obtener
+    información de errores regulares y críticos es posible calcular el número de
+    ocurrencias de la expresión regular \texttt{/ERROR|CRITICAL/} dentro de un
+    archivo de \eng{logs}.
 
   \item \textbf{Interface readers:} los lectores de interfaces leen e
     interpretan interfaces de sistemas y dispositivos. Un ejemplo son los
     lectores de temperatura y humedad de dispositivos especializados, o el
-    pseudo sistema de ficheros \texttt{/proc}, que permite acceso a información del
-    kernel sobre los procesos en sistemas UNIX.
+    pseudo sistema de ficheros \texttt{/proc}, que permite acceso a información
+    del kernel sobre los procesos en sistemas UNIX.
 \end{itemize}
 
 Los agentes de recolección de caja negra son aquellos que toman información sin
@@ -62,30 +63,29 @@ adentrarse en la implementación de dichas entidades. Entre ellos se encuentran:
     \cite[p.~15-16]{monitoreo:efective_monitoring_and_alerting}
 \end{itemize}
 
-En el marco de una infraestructura de \eng{software}, los datos a recolectar por un
-agente pueden ser obtenidos de varias fuentes. Por ejemplo, de una computadora
-es posible obtener información del uso de \gls{acro:cpu} o espacio de disco utilizado,
-utilización de memoria. A partir del tráfico \eng{web} es posible medir el
-uso del ancho de banda por usuario, aplicación, protocolo y grupo de
-direcciones \gls{acro:ip}. Se puede medir el rendimiento y uso de una
-aplicación \eng{web}, y también reglas de negocio, como por ejemplo
-cantidad de hitos alcanzados.
+En el marco de una infraestructura de \eng{software}, los datos a recolectar por
+un agente pueden ser obtenidos de varias fuentes. Por ejemplo, de una
+computadora es posible obtener información del uso de \gls{acro:cpu}, espacio
+de disco y memoria. A partir del tráfico \eng{web} es posible medir el uso del
+ancho de banda por usuario, aplicación, protocolo y grupo de direcciones
+\gls{acro:ip}. Se puede medir el rendimiento y uso de una aplicación \eng{web},
+y también reglas de negocio, como por ejemplo cantidad de hitos alcanzados.
 
 Estas métricas pueden ser útiles para usuarios con diferentes necesidades. Por
 ejemplo, un sistema de monitoreo podría ser usado por un gerente, un líder de
 proyecto, un desarrollador, un profesional de \gls{acro:it}, un analista de
 datos y un cliente.
 
-Teniendo en cuenta el rol que cumple una persona en un proyecto, podemos
+Teniendo en cuenta el rol que cumple una persona en un proyecto, es posible
 averiguar qué información puede serle útil y a partir de allí elegir el mejor
 método para almacenar esta información, analizar cómo construirla a partir de
-los datos y localizar dónde y cómo obtener dichos datos.
+los datos, localizarlos y estudiar cómo obtenerlos.
 
 Al profesional de \gls{acro:it} le podría servir tener un tablero donde se
 observe la salud de los sistemas en tiempo real. Además podría interesarle
 conocer la disponibilidad de los servicios, la cantidad de tráfico en la red,
 el uso de \gls{acro:cpu} y memoria, el uso de memoria \gls{term:swap} y la
-cantidad de disco utilizado.
+cantidad de espacio de disco utilizado.
 
 Un líder de proyecto puede querer disponer de gráficos donde se visualice la
 cantidad de despliegues por semana, el número de problemas resueltos por los
@@ -97,18 +97,23 @@ de diferentes funcionalidades de la aplicación, la eficiencia en tiempo de los
 accesos a las bases de datos y la cantidad de accesos a la aplicación en
 distintos períodos de tiempo. Además puede interesarle contar con información
 del comportamiento de los recursos del servidor en el ambiente productivo.
-Podemos decir que al desarrollador le interesan principalmente las métricas de
-aplicación.
 
-Las métricas de negocio están por sobre las métricas de la aplicación aunque
-tienen un vínculo bastante estrecho. Por ejemplo, si se piensa medir el tiempo
-de ejecución de una transacción de pago como métrica de aplicación, podrían
-realizarse métricas de negocio con el contenido de estas solicitudes: número de
-nuevos usuarios/clientes, número de ventas, ventas por valor o ubicación, o
-cualquier otra cosa que ayude a medir el estado de un negocio. Estas métricas
-están compuestas del tipo de información que pueden interesarle al propietario
-del sistema \cite[p.~446]{monitoreo:art_of_monitoring}. Hay que tener en
-cuenta, como dice autor en The Art Of Monitoring, que “El primer cliente de su
-sistema de monitoreo es el negocio. El monitoreo existe para apoyar el negocio
-y para asegurarse de que continúa haciendo su trabajo.”
+Se puede decir que al desarrollador le interesan principalmente las métricas de
+aplicación. En cambio, al propietario de un sistema pueden interesarle más las
+métricas de negocio.\cite[p.~446]{monitoreo:art_of_monitoring}
+
+Las métricas de negocio están muy relacionadas con las métricas de la
+aplicación. Por ejemplo, si se piensa medir el tiempo de ejecución de una
+transacción de pago como métrica de aplicación, podrían obtenerse las siguientes
+métricas de negocio con el contenido de estas solicitudes:
+
+\begin{itemize}
+  \item número de nuevos usuarios o clientes
+  \item número de ventas
+  \item ventas por valor o ubicación
+\end{itemize}
+
+Hay que tener en cuenta, como dice autor en The Art Of Monitoring, que “El
+primer cliente de su sistema de monitoreo es el negocio. El monitoreo existe
+para apoyar el negocio y para asegurarse de que continúa haciendo su trabajo.”
 \cite[p.~8]{monitoreo:art_of_monitoring}.
