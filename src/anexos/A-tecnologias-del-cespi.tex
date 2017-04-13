@@ -1,10 +1,10 @@
 \section{Tecnologías del CeSPI}
 \label{anexo:A}
 
-En esta sección describiremos aspectos de algunas herramientas usadas por el
-\gls{acro:cespi}, que si bien no es necesario conocerlas a fondo para entender
-nuestro trabajo, han formado parte de nuestra investigación y creemos que es
-importante que las mencionemos.
+En esta sección se describirán aspectos de algunas herramientas usadas por el
+\gls{acro:cespi}, que si bien no ha sido necesario su conocimiento a fondo para
+entender el trabajo, han formado parte de la investigación y por eso es
+importante que sean mencionadas.
 
 \subsection{Ruby}
 
@@ -58,9 +58,9 @@ sobrecarga de iniciar y mantener máquinas virtuales.
 
 Docker es una herramienta que puede empaquetar una aplicación y sus
 dependencias en un \gls{term:contenedor} virtual que se puede ejecutar en
-cualquier servidor Linux. Esto ayuda a permitir la flexibilidad y portabilidad
-en donde la aplicación se puede ejecutar, por ejemplo en instalaciones físicas,
-la nube pública o nubes privadas.
+cualquier servidor Linux. Esto otorga flexibilidad y portabilidad al espacio
+donde la aplicación se ejecuta, por ejemplo en instalaciones físicas,
+una nube pública o nubes privadas.
 
 Docker implementa una interfaz para proporcionar \glspl{term:contenedor}
 livianos que ejecutan procesos de forma aislada.
@@ -99,15 +99,25 @@ ambientes de desarrollo, y para definir flujos de integración
 continua~\cite{compose}. Para usar Compose, se necesitan seguir los siguientes
 pasos:
 
-Definir el ambiente de una aplicación con un Dockerfile
-\footnote{Cf. \url{https://docs.docker.com/engine/reference/builder/}}, para
-poder reproducirlo en cualquier lugar.  Definir los servicios que constituyen
-la aplicación en un archivo llamado docker-compose.yml
-\footnote{Cf.  \url{https://docs.docker.com/compose/compose-file/}}, de forma
-que puedan ser ejecutados juntos en un ambiente aislado.  Finalmente, ejecutar
-el comando docker-compose up y Compose iniciara y correrá la aplicación en su
-totalidad\footnote{Cf. \url{https://docs.docker.com/compose/reference/up/}}.
+\begin{itemize}
 
+  \item
+    Definir el ambiente de una aplicación con un Dockerfile
+    \footnote{Cf. \url{https://docs.docker.com/engine/reference/builder/}}, para
+    poder reproducirlo en cualquier lugar.
+
+  \item
+    Definir los servicios que constituyen la aplicación en un archivo llamado
+    docker-compose.yml\footnote{Cf. 
+    \url{https://docs.docker.com/compose/compose-file/}}, de forma que puedan
+    ser ejecutados juntos en un ambiente aislado.
+
+  \item
+    Ejecutar el comando \lstinline{docker-compose up} y Compose iniciara y
+    correrá la aplicación en su totalidad\footnote{Cf.
+    \url{https://docs.docker.com/compose/reference/up/}}.
+
+\end{itemize}
 
 \subsection{Rancher}
 
@@ -134,21 +144,23 @@ Rancher consiste en cuatro componentes principales:
     \gls{term:host} que CPU, memoria, almacenamiento en el disco local y
     conectividad en la red.
 
-    Rancher implementa una capa protable de servicios de infraestructura
+    Rancher implementa una capa portable de servicios de infraestructura
     diseñados específicamente para alimentar aplicaciones en contenedores. Los
-    servicios de infraestructura de rancher incluyen servicios de red,
-    almacenamiento, balance de carga, DNS y seguridad. Los servicios de
-    infraestructura de Rancher son típicamente desplegados como contenedores, y
-    de esta forma el mismo servicio de infraestructura de Rancher puede correr
-    en cualquier \gls{term:host} de linux de cualquier nube.
+    servicios de infraestructura de Rancher incluyen servicios de red,
+    almacenamiento, balance de carga, DNS y seguridad.
+
+    Los servicios de infraestructura de Rancher son típicamente desplegados como
+    contenedores, y de esta forma el mismo servicio de infraestructura de
+    Rancher puede correr en cualquier \gls{term:host} de linux en una nube.
 
   \item \textbf{Orquestación y programación de contenedores:}
     Muchos usuarios eligen correr aplicaciones en \glspl{term:contenedor}
     usando un framework de orquestación y programación de contenedores. Rancher
-    incluye una distribución de todos los frameworks populares hoy en día,
-    incluyendo Docker Swarm, Kubernetes y Mesos. Un mismo usuario puede crear
-    múltiples clusters de Swarm o Kubernetes, y luego usar las herramientas
-    nativas de estos frameworks para manejar sus aplicaciones.
+    incluye una distribución de todos los \eng{frameworks} populares hoy en
+    día, incluyendo Docker Swarm, Kubernetes y Mesos. Un mismo usuario puede
+    crear múltiples \eng{clusters} de Swarm o Kubernetes, y luego usar las
+    herramientas nativas de estos \eng{frameworks} para manejar sus
+    aplicaciones.
 
     Además de Swarm, Kubernetes, y Mesos, Rancher soporta su propio framework
     de orquestación y programación de contenedores, llamado Cattle. Cattle fue
@@ -157,19 +169,20 @@ Rancher consiste en cuatro componentes principales:
 
   \item \textbf{Catálogo de aplicación:}
     Un usuario de Rancher puede desplegar una aplicación multicontenedor en
-    clusters desde el catálogo de aplicación presionando un único botón. Los
-    usuario pueden manejar las aplicaciones desplegadas y ejecutar
+    \eng{clusters} desde el catálogo de aplicación presionando un único botón.
+    Los usuarios pueden manejar las aplicaciones desplegadas y ejecutar
     actualizaciones completamente automatizadas cuando nuevas versiones de la
     aplicación se vuelven disponibles. Rancher mantiene un catálogo público que
     consiste en aplicaciones populares creadas por la comunidad de Rancher. Un
     usuario puede crear su propio catálogo privado.
 
   \item \textbf{Control de nivel empresarial:}
-    Rancher soporta plugins de autenticación de usuarios flexibles y viene por
-    defecto con integración de autenticación de usuarios con ActiveDirectory,
-    LDAP y Github. Rancher soporta Control de Acceso basado en Roles (RBAC) a
-    nivel de ambientes, permitiendo a los usuarios y grupos compartir o negar
-    acceso a, por ejemplo, ambientes de desarrollo y producción.
+    Rancher soporta \eng{plugins} de autenticación de usuarios flexibles y
+    viene por defecto con integración de autenticación de usuarios con
+    ActiveDirectory, LDAP y Github. Rancher soporta Control de Acceso basado en
+    Roles (RBAC) a nivel de ambientes, permitiendo a los usuarios y grupos
+    compartir o denegar acceso a, por ejemplo, ambientes de desarrollo y
+    producción.
 
 \end{itemize}
 
