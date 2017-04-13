@@ -1,7 +1,7 @@
 \subsection{Almacenamiento}
 \label{almacenamiento}
 
-En la \autoref{metricas-y-timeseries} hemos descrito las particularidades que
+En la \autoref{metricas-y-timeseries} se han descrito las particularidades que
 tienen los datos de series de tiempo. Una de estas particularidades es que
 todas las series de tiempo comparten entre sí una dimensión: la dimensión de
 tiempo, y por eso son útiles para correlacionar datos de varias fuentes.
@@ -11,7 +11,7 @@ manejar almacenar estos tipos de datos. Una base de datos de series de tiempo
 es un sistema de \eng{software} que está optimizado para manejarlos de forma
 correcta, confiable y eficiente.
 
-Hemos analizado las herramientas \gls{term:influx} y \gls{term:graphite} para
+Se han analizado las herramientas \gls{term:influx} y \gls{term:graphite} para
 almacenar datos de este tipo.
 
 \gls{term:influx} es una base de datos de código abierto implementada en el
@@ -25,7 +25,8 @@ para comenzar a trabajar. \cite{influxdb}
 
 Es posible etiquetar los datos, lo que permite una consulta muy flexible. Esta
 consulta se escribe en un lenguaje similar a SQL, llamado InfluxQL
-\footnote{Documentación oficial: \url{https://docs.influxdata.com/influxdb/v0.9/query_language/query_syntax/}}.
+\footnote{Documentación oficial:
+\url{https://docs.influxdata.com/influxdb/v0.9/query_language/query_syntax/}}.
 
 \gls{term:influx} permite contestar consultas en tiempo real, lo que significa
 que cada valor se indexa a medida que llega y está disponible casi
@@ -86,8 +87,8 @@ miles de millones de valores estadísticos.
 \gls{term:opentsdb} es \eng{software} libre y está disponible en ambas licencias
 LGPLv2.1 + GPLv3. \cite{opentsdb}
 
-Finalmente hemos elegido \gls{term:influx} para nuestra implementación por
-sobre las demás herramientas ya que cuenta con mejor soporte para el lenguaje
+Finalmente se ha elegido \gls{term:influx} para la implementación por sobre las
+demás herramientas ya que cuenta con mejor soporte para el lenguaje
 \gls{term:ruby}. Además, \gls{term:influx} tiene un lenguaje de consulta similar
 a SQL, lo que podría facilitar el desarrollo de consultas al personal de la
 oficina.
@@ -147,5 +148,5 @@ Por defecto, \gls{term:influx} usa los siguientes puertos de red:
 
 \end{itemize}
 
-Además de estos puertos, \gls{term:influx} ofrece múltiples \eng{plugins} que pueden
-requerir puertos personalizados.
+Además de estos puertos, \gls{term:influx} ofrece múltiples \eng{plugins} que
+pueden requerir puertos personalizados.
