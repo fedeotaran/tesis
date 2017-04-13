@@ -2,7 +2,7 @@
 \label{almacenamiento}
 
 Para poder almacenar los \eng{logs} de una forma centralizada, y hacer consultas
-sobre los mismos de una forma sencilla, hemos elegido utilizar
+sobre los mismos de una forma sencilla, se ha elegido utilizar
 \gls{term:elasticsearch}.
 
 \gls{term:elasticsearch} es un servidor que provee un motor de búsqueda de
@@ -22,29 +22,29 @@ métricas en tiempo de ejecución, tiene facilidades para la integración con
 rendimiento incluso al procesar grandes volúmenes de datos.
 
 Además tiene excelente integración con la herramienta de visualización de datos
-Kibana, que permite analizar datos de múltiples fuentes y correlacionar
-métricas almacenadas en ElasticSearch.
+\gls{term:kibana}, que permite analizar datos de múltiples fuentes y
+correlacionar métricas almacenadas en \gls{term:elasticsearch}.
 
-\gls{term:elasticsearch} no es una base de datos relacional. Es orientada a documentos, y
-tiene su propia terminología. Para facilitar la comprensión de su
-funcionamiento, es importante que mencionemos los conceptos de documento e
-índice en \gls{term:elasticsearch}:
+\gls{term:elasticsearch} no es una base de datos relacional. Es orientada a
+documentos, y tiene su propia terminología. Para facilitar la comprensión de su
+funcionamiento, es importante que se mencionen los conceptos de documento,
+índice y tipo en \gls{term:elasticsearch}:
 
 \begin{itemize}
 
 \item
-Un \textbf{documento} es una unidad básica de información que puede ser indexada. Por
-ejemplo, se puede tener un documento por un único cliente, otro documento por
-un producto específico y otro documento por una orden de compras. Estos
-documentos son expresados en formato \gls{acro:json}.
+Un \textbf{documento} es una unidad básica de información que puede ser
+indexada. Por ejemplo, se puede tener un documento por un único cliente, otro
+documento por un producto específico y otro documento por una orden de compras.
+Estos documentos son expresados en formato \gls{acro:json}.
 
 \item
-Un \textbf{índice} es una colección de documentos que tienen características similares.
-Por ejemplo, es posible tener un índice para datos de clientes, otro índice para
-un catálogo de productos y otro índice para datos de órdenes de compras. Un
-índice es identificado por un nombre escrito en minúsculas. Este nombre es usado
-para referirse al índice al realizar operaciones de indexado, búsqueda,
-actualización y eliminación sobre los documentos en el mismo.
+Un \textbf{índice} es una colección de documentos que tienen características
+similares. Por ejemplo, es posible tener un índice para datos de clientes, otro
+índice para un catálogo de productos y otro índice para datos de órdenes de
+compras. Un índice es identificado por un nombre escrito en minúsculas. Este
+nombre es usado para referirse al índice al realizar operaciones de indexado,
+búsqueda, actualización y eliminación sobre los documentos en el mismo.
 
 \item
 Un \textbf{tipo} en \gls{term:elasticsearch} representa una clase de documentos
@@ -65,9 +65,9 @@ Groovy, JavaScript, .NET, PHP, Perl, Python y \gls{term:ruby}, y hay numerosos
 clientes e integraciones provistos por la comunidad, que pueden ser encontrados
 en el sitio \eng{web} de \gls{term:elasticsearch}.
 
-Por ejemplo, si quisiera indexar un documento por cada empleado, de tal forma
+Por ejemplo, si se quisiera indexar un documento por cada empleado, de tal forma
 que cada documento sea de tipo empleado y ese tipo exista en el índice de la
-biblioteca, basta con llamar a la \gls{term:api} de la siguiente manera:
+biblioteca, bastaría con llamar a la \gls{term:api} de la siguiente manera:
 
 \begin{lstlisting}
 
@@ -81,16 +81,16 @@ PUT /biblioteca/empleado/1
 
 \end{lstlisting}
 
-Para nuestra solución, hemos elegido instalar \gls{term:elasticsearch} en un
-servidor aparte. Esto nos da por lo menos dos ventajas:
+Para esta solución, se ha elegido instalar \gls{term:elasticsearch} en un
+servidor aparte. Esto otorga por lo menos dos ventajas:
 
 En primer lugar, guardar los datos de los \eng{logs} en un entorno diferente al
-que corren las aplicaciones, nos permite tener disponibilidad de los datos en
+que corren las aplicaciones, permite tener disponibilidad de los datos en
 caso de que ocurra un error que afecte a la infraestructura completa.
 
 Además, al tener una sola instancia separada, se logra centralizar los datos de
 los \eng{logs} y se tiene una única fuente que consultar.
 
-Antes de continuar con la siguiente sección, creemos importante comentar que en
+Antes de continuar con la siguiente sección, es importante comentar que en
 una solución centralizada es importante poder identificar la fuente de cada uno
 de los \eng{logs}.
