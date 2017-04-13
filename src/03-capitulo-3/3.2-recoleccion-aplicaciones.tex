@@ -1,8 +1,8 @@
 \subsection{Recolección de datos de aplicaciones}
 \label{aplicaciones}
 
-En  esta sección explicaremos cómo enviar datos de las aplicaciones \eng{web} a
-\gls{term:influx}. Para enviar datos hemos usado la \gls{term:gema}
+En  esta sección se explicará cómo enviar datos de las aplicaciones \eng{web} a
+\gls{term:influx}. Para enviar datos se ha usado la \gls{term:gema}
 \texttt{influxdb-rails}. Esta \gls{term:gema} proporciona métodos para vincular
 \gls{term:ror} con \gls{term:influx}.
 
@@ -15,7 +15,7 @@ gem "influxdb-rails"
 
 \end{lstlisting}
 
-Una vez que tenemos instalada la \gls{term:gema}, podemos configurar el
+Una vez que se tiene instalada la \gls{term:gema}, es posible configurar el
 adaptador \texttt{InfluxDB::Rails} en un archivo de configuración de la
 aplicación. La configuración por defecto debería verse de la siguiente manera:
 
@@ -29,9 +29,9 @@ InfluxDB::Rails.configure do |config|
 end
 \end{lstlisting}
 
-El código \gls{term:ruby} anterior configura los datos necesarios para que la aplicación
-pueda comunicarse con la base de datos. Estos datos son el nombre de la base de
-datos, el nombre de usuario, la contraseña del usuario, el nombre del
+El código \gls{term:ruby} anterior configura los datos necesarios para que la
+aplicación pueda comunicarse con la base de datos. Estos datos son el nombre de
+la base de datos, el nombre de usuario, la contraseña del usuario, el nombre del
 \gls{term:host} y el número de puerto por el cual comunicarse con la
 \gls{term:api} de \gls{term:influx}.
 
@@ -47,7 +47,7 @@ InfluxDB::Rails.client.write_point "events",
   values: { value: 0 }
 \end{lstlisting}
 
-A continuación mostraremos un ejemplo concreto de cómo se puede utilizar esta
+A continuación se mostrará un ejemplo concreto de cómo se puede utilizar esta
 herramienta para generar métricas útiles para el equipo de desarrollo y para
 los dueños de un sistema:
 
@@ -65,8 +65,8 @@ información en distintas bases de datos. Además, mantiene información de las
 aplicaciones a las que puede ingresar cada usuario, y el rol que cumplen los
 usuarios en cada una de ellas.
 
-Creemos que puede ser importante mantener un seguimiento de los inicios de
-sesión de usuarios en las diferentes aplicaciones. Podemos utilizar la librería
+Es importante mantener un seguimiento de los inicios de sesión de usuarios en
+las diferentes aplicaciones. Es posible utilizar la librería
 \texttt{influxdb-rails} para cumplir este objetivo, escribiendo el siguiente
 código \gls{term:ruby} para que sea ejecutado cada vez que un usuario inicia
 sesión de forma exitosa:
@@ -88,10 +88,10 @@ contienen respectivamente la dirección \gls{acro:ip} y el identificador único
 del usuario que se encuentra iniciando sesión en alguno de los sistemas de la
 \gls{acro:unlp}. La aplicación a la cual se quiere conectar el usuario es
 obtenida a través de \lstinline{access.application}. El tiempo que demoró la
-petición \eng{web} en resolverse lo encontramos en la variable
+petición \eng{web} en resolverse se puede encontrar en la variable
 \lstinline{request_time}.
 
-A partir de esta información que estamos enviando a \gls{term:influx}, es
+A partir de esta información que se está enviando a \gls{term:influx}, es
 posible obtener varias métricas que pueden ser útiles para los desarrolladores,
 profesionales de \gls{acro:it} y otros. Algunos ejemplos de estas métricas son:
 
@@ -148,14 +148,15 @@ end
 \end{lstlisting}
 
 La \gls{term:gema} \texttt{influxdb-rails} viene configurada por defecto para
-apoyarse en el \eng{hook} \lstinline{"process_action.action_controller"} y enviar a
-\gls{term:influx} información sobre los tiempos de respuesta de cada petición
-\eng{web}, distinguiendo el tiempo que demora en el \eng{renderizado} de las vistas,
-el procesamiento de los controladores y las consultas a las bases de datos.
+apoyarse en el \eng{hook} \lstinline{"process_action.action_controller"} y
+enviar a \gls{term:influx} información sobre los tiempos de respuesta de cada
+petición \eng{web}, distinguiendo el tiempo que demora en el \eng{renderizado}
+de las vistas, el procesamiento de los controladores y las consultas a las bases
+de datos.
 
 Para ejecutar la aplicación \gls{term:ror} usando \glspl{term:contenedor} de
-\gls{term:docker}, agregaremos el archivo \gls{term:dockerfile} en el directorio raíz de
-la aplicación:
+\gls{term:docker}, se agregará el archivo \gls{term:dockerfile} en el directorio
+raíz de la aplicación:
 
 \begin{lstlisting}
 FROM ruby:2.3.1
@@ -180,10 +181,10 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
 \end{lstlisting}
 
-La línea \lstinline{FROM ruby:2.3.1} declara que el \gls{term:contenedor} se basa en la
-imagen de \gls{term:docker} de nombre \lstinline{ruby:2.3.1}. La siguiente
-lìnea se ocupa de instalar las librerías necesarias para usar la aplicación
-\gls{term:ror}.
+La línea \lstinline{FROM ruby:2.3.1} declara que el \gls{term:contenedor} se
+basa en la imagen de \gls{term:docker} de nombre \lstinline{ruby:2.3.1}. La
+siguiente lìnea se ocupa de instalar las librerías necesarias para usar la
+aplicación \gls{term:ror}.
 
 Luego se crea la carpeta de la aplicación, se copian los archivos
 \lstinline{Gemfile} y \lstinline{Gemfile.lock}, donde se describen las
@@ -194,13 +195,13 @@ Finalmente, se copia el contenido de la aplicación al \gls{term:contenedor}
 \gls{term:docker}, se expone el puerto 3000, y se corre la aplicación con el
 comando \lstinline{rails server -b 0.0.0.0}.
 
-Mostraremos a continuación cómo podemos hacer para correr la aplicación al
-mismo tiempo que ejecutamos sus servicios. Para esta tarea utilizaremos Compose
+Se mostrará a continuación cómo se puede hacer para correr la aplicación al
+mismo tiempo que se ejecutan sus servicios. Para esta tarea se utilizará Compose
 de \gls{term:docker}. Compose permite definir una configuración de los
 servicios de una aplicación en un archivo, e iniciar todos estos servicios con
 un sólo comando.
 
-Hemos escrito una explicación un poco más detallada de \eng{Compose} en el
+Se ha escrito una explicación un poco más detallada de \eng{Compose} en el
 \autoref{anexo_compose}.
 
 El siguiente archivo \gls{term:docker} Compose es un ejemplo de cómo configurar
@@ -240,7 +241,7 @@ servicio de nombre \lstinline{app}, y la base de datos \gls{term:influx} es el
 servicio de nombre \lstinline{influx}. Ambos utilizan la red \lstinline{lognet}
 para comunicarse entre sí.
 
-\lstinline{app} usa el \gls{term:dockerfile} que definimos anteriormente para
+\lstinline{app} usa el \gls{term:dockerfile} que se describió anteriormente para
 inicializar el servicio de la aplicación, y define los puertos externo e interno
 \lstinline{3000:3000}.
 

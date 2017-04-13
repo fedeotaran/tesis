@@ -1,37 +1,38 @@
 \subsection{Configuración de las aplicaciones}
 \label{configuracion_de_las_aplicaciones}
 
-Para poder hacer uso de los \eng{logs} de nuestras aplicaciones, debimos tener en
+Para poder hacer uso de los \eng{logs} de las aplicaciones, se debió tener en
 cuenta que la oficina se encuentra en un proceso de migración de
 infraestructura a \glspl{term:contenedor} de \gls{term:docker}.
 
 La manera recomendada en la documentación de \gls{term:docker} para realizar
-logging, es imprimiendo los \eng{logs} de nuestras aplicaciones en \gls{acro:stdout}
+logging, es imprimiendo los \eng{logs} de las aplicaciones en \gls{acro:stdout}
 \footnote{Cf. \url{https://docs.docker.com/engine/admin/logging/view_container_logs/}}.
-Es por ello que debimos configurar los \eng{logs} de nuestras aplicaciones para que sean
-escritos en la salida estándar. Utilizar esta estrategia nos permite contar
-con información del \gls{term:contenedor} en ejecución, como lo son su identificador y su
-nombre.
+Es por ello que se debió configurar los \eng{logs} de las aplicaciones para que
+sean escritos en la salida estándar. Utilizar esta estrategia permite que se
+cuente con información del \gls{term:contenedor} en ejecución, como su
+identificador y su nombre.
 
 \gls{term:docker} tiene soporte para múltiples mecanismos de logging. Al
 iniciar el daemon de \gls{term:docker} se puede usar la bandera
-\texttt{--log-opt NAME=VALUE} para especificar el driver para realizar logging
-que usará por defecto el contenedor.
+\texttt{--log-opt NAME=VALUE} para especificar el \eng{driver} para realizar
+\eng{logging} que usará por defecto el \gls{term:contenedor}.
 
-Para este trabajo utilizaremos otra forma de configurar el driver, que es a
-través de la especificación de la opción \texttt{log-driver=VALUE} durante el
+Para este trabajo se utilizará otra forma de configurar el \eng{driver}, que es
+a través de la especificación de la opción \texttt{log-driver=VALUE} durante el
 comando \lstinline{docker run}\footnote{
 \url{https://docs.docker.com/engine/admin/logging/overview/}}.
 
-Una vez hecho esto, el siguiente paso es configurar nuestras aplicaciones para
-que envíen sus \eng{logs} a la salida estándar.
+Una vez hecho esto, el siguiente paso es configurar las aplicaciones para que
+envíen sus \eng{logs} a la salida estándar.
 
-Por defecto \gls{term:ror} mantiene un archivo separado para los \eng{logs} por cada
-ambiente de ejecución, y para hacer uso de la información de los \eng{logs} utiliza
-de forma predeterminada la clase \texttt{ActiveSupport::Logger}.
+Por defecto \gls{term:ror} mantiene un archivo separado para los \eng{logs} por
+cada ambiente de ejecución, y para hacer uso de la información de los \eng{logs}
+utiliza de forma predeterminada la clase \texttt{ActiveSupport::Logger}.
 
 En \gls{term:ror} es posible cambiar la configuración de la clase que maneja los
-\eng{logs} especificando la alternativa en un archivo de configuración de la siguiente manera:
+\eng{logs} especificando la alternativa en un archivo de configuración de la
+siguiente manera:
 
 \begin{lstlisting}
 
@@ -39,8 +40,8 @@ config.logger = SomeLogger
 
 \end{lstlisting}
 
-Para que \gls{term:docker} capture correctamente los \eng{logs} de \gls{term:ror}
-podemos agregar la siguiente especificación al archivo
+Para que \gls{term:docker} capture correctamente los \eng{logs} de
+\gls{term:ror} es posible agregar la siguiente especificación al archivo
 \texttt{config/application.rb} de la aplicación:
 
 \begin{lstlisting}
@@ -56,14 +57,15 @@ estrategias para recuperar información valiosa. En segundo lugar, un solo
 \eng{log} puede ocupar varias líneas, lo que hace complejo identificar dónde
 termina un \eng{log} y dónde empieza el siguiente.
 
-Para resolver estos problemas utilizamos una \gls{term:gema} llamada
+Para resolver estos problemas se utilizó una \gls{term:gema} llamada
 \gls{term:lograge}\footnote{Cf.\url{https://github.com/roidrage/lograge}}.
 Esta \gls{term:gema} se encarga de transformar complejos \eng{logs} multilínea
 de \gls{term:ror} en simples \eng{logs} con datos importantes bien identificados
 de una sola línea.
 
-Por ejemplo, un \eng{log} de \gls{term:ror}, creado al acceder a la página \eng{home}
-de una de las aplicaciones del \gls{acro:cespi} se ve de la siguiente manera:
+Por ejemplo, un \eng{log} de \gls{term:ror}, creado al acceder a la página
+\eng{home} de una de las aplicaciones del \gls{acro:cespi} se ve de la siguiente
+manera:
 
 \begin{lstlisting}
 
@@ -86,9 +88,10 @@ method=GET path=/jobs/833552.json format=json controller=JobsController action=s
 
 \end{lstlisting}
 
-Para configurar \gls{term:lograge} en \gls{term:ror}, debe incluirse la \gls{term:gema} con
-el mismo nombre a la lista de dependencias de la aplicación. Para hacerlo basta
-con agregar la siguiente línea de código al archivo \texttt{Gemfile}:
+Para configurar \gls{term:lograge} en \gls{term:ror}, debe incluirse la
+\gls{term:gema} con el mismo nombre a la lista de dependencias de la aplicación.
+Para hacerlo basta con agregar la siguiente línea de código al archivo
+\texttt{Gemfile}:
 
 \begin{lstlisting}
 
@@ -117,6 +120,6 @@ end
 
 \end{lstlisting}
 
-Con estas configuraciones ya contamos con una aplicación \gls{term:ror} que
+Con estas configuraciones ya se cuenta con una aplicación \gls{term:ror} que
 envía la información de sus \eng{logs} a la salida estándar en un formato cuyo
 procesamiento se puede realizar de forma más sencilla.

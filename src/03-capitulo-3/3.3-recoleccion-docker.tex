@@ -1,22 +1,22 @@
 \subsection{Recolección de datos de \glspl{term:contenedor} de \gls{term:docker}}
 \label{contenedores}
 
-Como hemos mencionado anteriormente, el \gls{acro:cespi} usa \glspl{term:contenedor}
-de \gls{term:docker} en su infraestructura. Mientras estos
-\glspl{term:contenedor} están en ejecución, es posible tomar información de su
-funcionamiento en tiempo real.
+Como se ha mencionado anteriormente, el \gls{acro:cespi} usa
+\glspl{term:contenedor} de \gls{term:docker} en su infraestructura. Mientras
+estos \glspl{term:contenedor} se encuentran en ejecución, es posible tomar
+información de su funcionamiento en tiempo real.
 
 Para realizar la recolección de datos de los \glspl{term:contenedor}, donde se
-mantienen en ejecución las aplicaciones, hemos investigado las herramientas
+mantienen en ejecución las aplicaciones, se han investigado las herramientas
 \gls{term:cadvisor} y \gls{term:telegraf}.
 
-\gls{term:cadvisor} es un demonio que recolecta, agrega,
-procesa y exporta información de \glspl{term:contenedor} en ejecución.
+\gls{term:cadvisor} es un demonio que recolecta, agrega, procesa y exporta
+información de \glspl{term:contenedor} en ejecución.
 Específicamente, para cada \gls{term:contenedor} guarda parámetros de
 aislamiento de recursos, uso de recursos históricos, histogramas de uso
-completo de recursos históricos y estadísticas de red. Estos datos se exportan
-para la máquina \gls{term:host} donde está corriendo y para cada uno de los
-\glspl{term:contenedor}.
+completo de recursos históricos y estadísticas de red. Estos datos son
+exportados para la máquina \gls{term:host} donde está corriendo y para cada uno
+de los \glspl{term:contenedor}.
 
 \gls{term:cadvisor} facilita a los usuarios el entendimiento del uso de
 recursos y las características de rendimiento de los \glspl{term:contenedor} en
@@ -48,16 +48,17 @@ recolección de métricas de diferentes servicios y \glspl{term:api}.
 
 \end{itemize}
 
-Finalmente hemos elegido la herramienta \gls{term:cadvisor} para nuestra
-implementación por sobre \gls{term:telegraf} porque la primera tenía soporte nativo para
-\glspl{term:contenedor} de \gls{term:docker}, lo cual consideramos una ventaja.
+Finalmente se ha elegido la herramienta \gls{term:cadvisor} para la
+implementación por sobre \gls{term:telegraf} porque la primera cuenta con
+soporte nativo para \glspl{term:contenedor} de \gls{term:docker}, lo cual es
+considerado una gran ventaja.
 
-La recomendación oficial para utilizar \gls{term:cadvisor} es ejecutarlo desde
-un \gls{term:contenedor} de \gls{term:docker} a partir de la imágen oficial
-\footnote{\url{https://hub.docker.com/r/google/cadvisor/}}. Con el siguiente
-comando se puede iniciar la ejecución de la imagen mencionada para monitorizar
-los recursos de una máquina y todos los \glspl{term:contenedor} corriendo en la
-misma:
+La recomendación oficial para utilizar \gls{term:cadvisor} es que sea ejecutado
+desde un \gls{term:contenedor} de \gls{term:docker} a partir de la imágen
+oficial\footnote{\url{https://hub.docker.com/r/google/cadvisor/}}. Con el
+siguiente comando se puede iniciar la ejecución de la imagen mencionada para
+monitorizar los recursos de una máquina y todos los \glspl{term:contenedor}
+corriendo en la misma:
 
 \begin{lstlisting}
   sudo docker run \
@@ -89,11 +90,11 @@ tienen integración oficial con \gls{term:cadvisor} son:
 Además de las herramientas mencionadas, \gls{term:cadvisor} permite la salida
 de información a \gls{acro:stdout}.
 
-Utilizaremos un \eng{plugin} para permitir a \gls{term:cadvisor} enviar la
+Se utilizará un \eng{plugin} para permitir a \gls{term:cadvisor} enviar la
 información recolectada a \gls{term:influx}. Para configurar la comunicación
 con la instancia de \gls{term:influx} que se desea utilizar, se dispone de las
-siguiente opciones
-\footnote{Guía oficial: \url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
+siguiente opciones\footnote{Guía oficial:
+\url{https://github.com/google/cadvisor/blob/master/docs/storage/influxdb.md}}:
 
 \begin{lstlisting}
   # Elección de manejador de almacenamiento
@@ -115,7 +116,7 @@ siguiente opciones
   -storage_driver_secure
 \end{lstlisting}
 
-Para configurar el servicio de \gls{term:cadvisor} agregamos las siguientes
+Para configurar el servicio de \gls{term:cadvisor} se agregan las siguientes
 líneas al archivo \lstinline{docker-compose.yml}:
 
 \begin{lstlisting}
@@ -135,6 +136,6 @@ líneas al archivo \lstinline{docker-compose.yml}:
       - lognet
 \end{lstlisting}
 
-Con estas configuraciones logramos recolectar los datos de los
+Con estas configuraciones se logran recolectar los datos de los
 \glspl{term:contenedor} \gls{term:docker} y configurar \gls{term:cadvisor} para
-enviarlos a nuestra base de datos de series de tiempo.
+enviarlos a la base de datos de series de tiempo.
