@@ -7,15 +7,15 @@ aplicaciones que se desarrollan en la oficina, de forma que permita al equipo
 de trabajo contar con datos duros para tomar decisiones de negocio más
 confiables.
 
-Además, los desarrolladores del \gls{acro:cespi} creen que sería útil contar
-con una herramienta de recolección y análisis de información sobre el
+Además, los desarrolladores del \gls{acro:cespi} manifiestan que sería útil
+contar con una herramienta de recolección y análisis de información sobre el
 rendimiento de las aplicaciones. Esta herramienta podría ayudar a encontrar
 puntos débiles y cuellos de botella en las aplicaciones.
 
 A las personas encargadas de mantener la infraestructura de la oficina les
 interesa tener un seguimiento de datos de uso del sistema operativo y las
-computadoras, como el uso de \gls{acro:cpu}, la cantidad de memoria utilizada y
-disponible, número de tareas en espera, uso de la memoria \gls{term:swap},
+\eng{hardware}, como el uso de \gls{acro:cpu}, la cantidad de memoria utilizada
+y disponible, número de tareas en espera, uso de la memoria \gls{term:swap},
 cantidad de procesos, espacio utilizado en disco.
 
 Anteriormente los desarrolladores no contaban con una implementación formal de
@@ -29,14 +29,17 @@ a través de \gls{term:ssh} al servidor de la aplicación y visualizaba los
 
 Si el desarrollador requería conocer información en tiempo real de los recursos
 del servidor donde estaban corriendo las aplicaciones, éste debía conectarse al
-servidor y ver la información utilizando el comando \gls{term:htop}.
+servidor y ver la información utilizando comandos como:
+\texttt{\gls{term:htop}}, \texttt{atsar},\texttt{iostat}, \texttt{vmstat},
+\texttt{df} y \texttt{uptime}.
 
-Para obtener una devolución del funcionamiento de las consultas a bases de
-datos se utilizaba una herramienta que permitía configurar el envío de reportes
-a través de correo electrónico usando la funcionalidad
-\texttt{slow\_query\_log} provista por \gls{term:mysql}. Esta funcionalidad
-guarda información de consultas que toman mucho tiempo en llevarse a cabo. Este
-tiempo es por defecto de 10 segundos, pero puede ser definido por un usuario.
+Como las aplicaciones en la oficina utilizan mayormente el motor de bases de
+datos \gls{term:mysql} para obtener una devolución del funcionamiento de las consultas se
+utilizaba una herramienta que permitía configurar el envío de reportes a través
+de correo electrónico usando la funcionalidad \texttt{slow\_query\_log}. Esta
+funcionalidad guarda información de consultas que toman mucho tiempo en
+llevarse a cabo. Este tiempo es por defecto de 10 segundos, pero puede ser
+definido por un usuario.
 
 Para ser notificados de errores en producción de las aplicaciones
 \gls{term:ror}, los programadores hacían uso de la \gls{term:gema}
@@ -51,27 +54,16 @@ Algunos ejemplos son el tipo de solicitud, los datos de la sesión del usuario,
 los parámetros de la petición y también el \gls{term:stack_trace}, que contiene
 información de las llamadas a los métodos que dieron origen al error.
 
-Para realizar recolección, análisis de datos y generación de alertas, en la
-oficina se utiliza las herramientas de monitoreo \gls{term:graphite} y
-\gls{term:nagios}.
+Para el monitoreo y alerta de incidentres del ambiente de producción de la
+oficina se utiliza con \gls{term:nagios}.
 
-\gls{term:graphite} es una herramienta libre y de código abierto que sirve para
-monitorear y graficar el rendimiento de sistemas de computadoras.
-\gls{term:graphite} recolecta, almacena y muestra datos de tipo series de
-tiempo en tiempo real.
+\gls{term:nagios} es una aplicación libre y de código abierto que monitorea
+sistemas, redes e infraestructura.
 
-\gls{term:nagios} es una aplicación libre y de código abierto que monitoreo
-sistemas, redes e infraestructura. \gls{term:nagios} ofrece monitoreo y
-servicios de alertas para servidores, \eng{switches}, aplicaciones y servicios.
-
-Una desventaja del uso de estos mecanismos es que generan una notificación cada
-vez que ocurre un error. Por lo que si un error ocurre cientos de veces en un
-día, el usuario recibiría cientos de mensajes idénticos, cuando con avisar una
-vez del error seguramente era suficiente.
-
-Partiendo del conocimiento que se obtuvo con la investigación, puede ver la
-importancia de mejorar la forma en que se implementaba el monitoreo en el
-\gls{acro:cespi}.
+La configuración del monitoreo actual no se encuentra lo suficientemente
+afinada por lo que se reciben notificaciones por cada instancia de un incidente,
+sin correlacionar ni establecer dependencias entre las alertas lo cual termina
+siendo poco útil para los usuarios.
 
 La oficina podría beneficiarse con una infraestructura de monitoreo que brinde
 información útil a los usuarios, sea fácil de utilizar, pueda adaptarse a una
@@ -98,9 +90,9 @@ usuarios, se aplicarán algunas de las técnicas de visualización efectiva
 mencionadas en el capítulo anterior (\autoref{visualizacion-efectiva}) durante
 la creación de tableros con gráficos.
 
-Finalmente, se propondrá una implementación de
+Finalmente, se realizará una propuesta de una implementación de
 alertas de mayor utilidad que evite, en la medida de lo posible, falsos
-positivos y negativos y brinde notificaciones útiles a los usuarios indicando
+positivos y negativos brindando notificaciones útiles a los usuarios indicando
 concretamente el problema y/o ayudándolos a prevenirlos.
 
 En los próximos capítulos se expone la forma en que desarrolló una
