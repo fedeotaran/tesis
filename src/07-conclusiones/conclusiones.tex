@@ -12,8 +12,16 @@ tipo series de tiempo. Se ha mostrado cómo hacer para que las aplicaciones
 \gls{term:docker} y cómo lograr que envíen información a \gls{term:influx} a
 través de la \gls{term:gema} \texttt{influxdb-rails}.
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/conclusiones/influx.png}
+  \caption{\gls{term:cadvisor} toma información de los contenedores de las
+    aplicaciones y se la envía a \gls{term:influx}}
+  \label{fig:diagrama-influx}
+\end{figure}
+
 Además se ha mostrado cómo configurar \gls{term:cadvisor} para
 obtener valiosa información del sistema y enviarla a \gls{term:influx}.
+(\autoref{fig:diagrama-influx})
 
 También se ha descripto cómo configurar \gls{term:nginx} y las aplicaciones
 para recuperar los datos de sus \eng{logs} e imprimirlos en el \gls{acro:stdout}
@@ -35,9 +43,9 @@ Durante el transcurso de la investigación se han explorado otras
 herramientas como \gls{term:logstash}, \gls{term:opentsdb}, \gls{term:graphite}
 y \gls{term:telegraf}, que finalmente no formaron parte de la solución.
 
-Ninguna herramienta cumplía con todas las características que nos interesaban,
-por lo que muchas veces se ha resuelto tomar sólo algunas funcionalidades de
-cada herramienta para resolver el problema.
+Ninguna herramienta cumplía con todas las características que la solución
+propuesta demandaba, por lo que muchas veces se ha resuelto sólo tomar parte de
+las funcionalidades de cada herramienta para resolver el problema.
 
 Se ha logrado construir una solución de monitoreo que se acopla al diseño de la
 infraestructura, y se ha hecho utilizando solamente herramientas gratuitas,
