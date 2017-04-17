@@ -51,22 +51,13 @@ A continuación se mostrará un ejemplo concreto de cómo se puede utilizar esta
 herramienta para generar métricas útiles para el equipo de desarrollo y para
 los dueños de un sistema:
 
-La \gls{acro:unlp} cuenta con un sistema de acceso único, también conocido como
-\gls{term:sso} que brinda el servicio de autenticación y autorización de todos
-sus empleados en los distintos sistemas.
+La \gls{acro:unlp} brinda un servicio para que los alumnos obtengan su libreta
+sanitaria que permite registrar las consultas médicas que realicen y solicitar
+turnos para ir a los consultorios médicos. Este sistema consiste en una
+aplicación desarrollada en el \eng{framework} \gls{term:ror}.
 
-Este sistema consiste en una aplicación desarrollada en el \eng{framework}
-\gls{term:ror}. Esta aplicación ha estado funcionando desde hace
-aproximadamente 2 años.
-
-El \gls{term:sso} centraliza la información de todos los usuarios
-pertenecientes a la universidad, evitando que sea necesario replicar dicha
-información en distintas bases de datos. Además, mantiene información de las
-aplicaciones a las que puede ingresar cada usuario, y el rol que cumplen los
-usuarios en cada una de ellas.
-
-Es importante mantener un seguimiento de los inicios de sesión de usuarios en
-las diferentes aplicaciones. Es posible utilizar la librería
+A la gerencia le parece importante mantener un seguimiento de los inicios de
+sesión de usuarios en la aplicación. Es posible utilizar la librería
 \texttt{influxdb-rails} para cumplir este objetivo, escribiendo el siguiente
 código \gls{term:ruby} para que sea ejecutado cada vez que un usuario inicia
 sesión de forma exitosa:
@@ -74,10 +65,10 @@ sesión de forma exitosa:
 \begin{lstlisting}
 InfluxDB::Rails.client.write_point(
   "logins",
-  tags:   { 
+  tags:   {
     ip: request.remote_ip,
     user_id: current_user.id,
-    application: access.application
+    academic_unit: current_user.academic_unit
   },
   values: { value: request_time }
 )
@@ -86,8 +77,8 @@ InfluxDB::Rails.client.write_point(
 Las expresiones \lstinline{request.remote_ip} y \lstinline{current_user.id}
 contienen respectivamente la dirección \gls{acro:ip} y el identificador único
 del usuario que se encuentra iniciando sesión en alguno de los sistemas de la
-\gls{acro:unlp}. La aplicación a la cual se quiere conectar el usuario es
-obtenida a través de \lstinline{access.application}. El tiempo que demoró la
+\gls{acro:unlp}. La dependencia a la cual pertenece el usuario es obtenida a
+través de \lstinline{current_user.academic_unit}. El tiempo quedemoró la
 petición \eng{web} en resolverse se puede encontrar en la variable
 \lstinline{request_time}.
 
@@ -97,15 +88,9 @@ profesionales de \gls{acro:it} y otros. Algunos ejemplos de estas métricas son:
 
 \begin{itemize}
   \item tiempo de respuesta promedio para la operación de inicio de sesión
-  \item cantidad de accesos por unidad de tiempo al servicio de autentificación
-  \item promedio de accesos a cada aplicación
-  \item accesos a cada aplicación agrupados por aplicación y franja horaria
+  \item promedio de accesos por cada dependencia
+  \item accesos de cada dependencia agrupados por franja horaria
 \end{itemize}
-
-Un usuario con un perfil gerencial podría verse beneficiado al hacer uso de
-estas métricas. Por ejemplo, podría tomar la cantidad de accesos a servicios de
-la Universidad agrupados por aplicación y descubrir cuáles son los servicios
-más y menos utilizados.
 
 Este tipo de información puede ayudar a guiar decisiones dentro de las
 distintas áreas del \gls{acro:cespi}.
@@ -173,7 +158,7 @@ COPY . ./
 
 EXPOSE 3000
 
-# Configure an entry point, so we don't need to specify 
+# Configure an entry point, so we don't need to specify
 # "bundle exec" for each of our commands.
 ENTRYPOINT ["bundle", "exec"]
 
