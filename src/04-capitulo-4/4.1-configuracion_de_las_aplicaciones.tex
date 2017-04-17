@@ -7,8 +7,9 @@ infraestructura a \glspl{term:contenedor} de \gls{term:docker}.
 
 La manera recomendada en la documentación de \gls{term:docker} para realizar
 logging, es imprimiendo los \eng{logs} de las aplicaciones en \gls{acro:stdout}
-\footnote{Cf. \url{https://docs.docker.com/engine/admin/logging/view_container_logs/}}.
-Es por ello que se debió configurar los \eng{logs} de las aplicaciones para que
+\footnote{Cf.
+\url{https://docs.docker.com/engine/admin/logging/view_container_logs/}}.  Es
+por ello que se debió configurar los \eng{logs} de las aplicaciones para que
 sean escritos en la salida estándar. Utilizar esta estrategia permite que se
 cuente con información del \gls{term:contenedor} en ejecución, como su
 identificador y su nombre.
@@ -84,7 +85,8 @@ Usando \gls{term:lograge}, el mismo \eng{log} es transformado en:
 
 \begin{lstlisting}
 
-method=GET path=/jobs/833552.json format=json controller=JobsController action=show status=200 duration=58.33 view=40.43 db=15.26
+method=GET path=/ format=html controller=HomeController action=index status=200
+duration=79.0 view=78.8 db=0.0
 
 \end{lstlisting}
 
