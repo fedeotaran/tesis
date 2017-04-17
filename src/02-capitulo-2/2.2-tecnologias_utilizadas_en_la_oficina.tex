@@ -1,11 +1,12 @@
 \subsection{Tecnologías utilizadas en la oficina}
 \label{tecnologias_utilizadas}
 
-La oficina del \gls{acro:cespi} utiliza el \eng{framework} \eng{web}
-\gls{term:ror}\footnote{Cf.  \url{http://rubyonrails.org/}} como principal
-herramienta de desarrollo. Este \eng{framework} fue elegido por su excelente
-documentación, activa comunidad, facilidad para desarrollar e implementado en
-el lenguaje \gls{term:ruby}.
+En sus comienzos, la oficina del \gls{acro:cespi} ha utilizado el
+\eng{framework} \eng{web} Symfony 1.4 como herramienta de desarrollo. Hace unos
+años comenzó a utilizar \gls{term:ror}\footnote{Cf.
+\url{http://rubyonrails.org/}} como principal herramienta de desarrollo. Este
+\eng{framework} fue elegido por su excelente documentación, activa comunidad,
+facilidad para desarrollar e implementado en el lenguaje \gls{term:ruby}.
 
 \gls{term:ruby}, como se menciona en su sitio oficial, es un lenguaje creado
 con el objetivo de ser “el mejor amigo del desarrollador”. Es orientado a
@@ -17,30 +18,70 @@ expresivo y fácil de mantener.
 utilizan en la oficina. Entre ellas se encuentran \gls{term:mysql},
 \gls{term:mongo}, \gls{term:elasticsearch} y \gls{term:redis}.
 
-La oficina se encuentra en transición a una arquitectura basada en contenedores
-de \gls{term:docker}.
+Inicialmente tanto la administración de los servidores como la instalación de
+las aplicaciones y actualización de las mismas se realizaba en forma manual.
+Cuando el número de servidores y aplicaciones comenzó a crecer se analizaron
+opciones para automatizar su instalación y actualización.
+
+Entre los años 2011 y 2012 se utilizó Capistrano como herramienta de despliegue
+automático.
+
+Luego de in incidente ocurrido en la oficina donde se rompió un componente de
+hardware se tuvieron que instalar manualmente todos los servidores con
+Capistrano.  Es por este motivo que se evaluaron herramientas de automatización
+de la infraestructura y gestión de la misma como código. Es así como hacia el
+año 2014 se automatizó el 100\% de la infraestructura y despliegue utilizando
+Chef.
+
+Con Chef se definieron 3 ambientes:
+
+\begin{itemize}
+  \item \textbf{Testing}: es el ambiente donde se publica el software en fase
+    de pruebas para que sea probado por un grupo definido de personas, entre
+    las que se incluye el usuario final o representantes del mismo.
+  \item \textbf{Pre-producción}: es la instancia previa a producción, y
+    consiste en un ambiente replicado e idéntico al productivo. En este entorno
+    se verifica el correcto funcionamiento de la aplicación y se realizan los
+    ajustes necesarios en caso de no ser ası́, evitando que los problemas se
+    descubran en el pasaje a producción.
+  \item \textbf{Producción}: es el ambiente que tiene todos los servicios
+    productivos. Este ambiente cuenta con polı́ticas estrictas en cuanto al
+    acceso y la administración del mismo.
+\end{itemize}
+
+El ambiente de \eng{Testing} a diferencia del de Producción y Pre-producción
+aún requería el uso de Capistrano por parte de los desarrolladores para
+realizar el despliegue de las aplicaciones, lo cual hacía que el ambiente de
+\eng{Testing} no sea exactamente igual al del resto.
+
+Con el objetivo de minimizar las diferencias entre los ambientes, la oficina
+comenzó la evaluación de la utilización de contenedores \gls{term:docker},
+transición que finalizó de forma integra a comienzos del 2017.
 
 \gls{term:docker} es un proyecto de código abierto para la automatización del
 despliegue de aplicaciones dentro de \glspl{term:contenedor} de \eng{software}
-en \gls{term:linux}. Los contenedores proporcionan una capa adicional de
-abstracción y automatización de virtualización a nivel de sistema operativo.
+en \gls{term:linux} y Windows. Los contenedores proporcionan una capa adicional
+de abstracción y automatización de virtualización a nivel de sistema operativo.
 
-En el marco de la cultura de trabajo \gls{term:devops} del \gls{acro:cespi} se
-decidió utilizar \gls{term:docker} para facilitar la construcción de una
-infraestructura dinámica, escalable y tolerante a fallos que permitiera el
-despliegue seguro y automático de aplicaciones, al mismo tiempo que redujera la
-brecha entre desarrolladores de \eng{software} y profesionales de operaciones
-en tecnologías de información.
+\gls{term:docker} facilita la construcción de una infraestructura dinámica,
+escalable y tolerante a fallos que permite el despliegue seguro y automático
+de aplicaciones, al mismo tiempo que reduce la brecha entre desarrolladores de
+\eng{software} y profesionales de operaciones en tecnologías de información.
 
-El manejo de múltiples \glspl{term:contenedor} de \gls{term:docker} en
-producción no es una tarea sencilla, por lo que se va a utilizar
-\gls{term:rancher}. \gls{term:rancher} es una plataforma de código abierto que
-facilita la orquestación, disponibilidad, configuración y enlace de
+Para lograr que la infraestructura sea realmente escalable y tolerante a fallos
+es necesario utilizar un \eng{cluster} de \gls{term:docker}, como por ejemplo:
+Docker Swarm, Apache Mesos, Kubernetes y Rancher Cattle.
+
+Se ha decidido emplear \gls{term:rancher} ya que permite crear los distintos
+ambientes y definir sobre cada uno de ellos la tecnología de clusterización que
+se utilizará.
+
+\gls{term:rancher} es una plataforma de código abierto que facilita la
+orquestación, disponibilidad, configuración y enlace de
 \glspl{term:contenedor}. Esta herramienta permite resolver gran parte de los
 desafíos críticos presentes al ejecutar aplicaciones en \glspl{term:contenedor}
 de \gls{term:docker}.
 
-\gls{term:rancher} provee un conjunto completo de servicios de infraestructura
-para contenedores, incluyendo herramientas de red, administración de los
-\glspl{term:host} que forman parte de la infraestructura, facilidades para el
-despliegue, \eng{scheduling} y sencillas herramientas de monitoreo.
+\gls{term:rancher} provee un conjunto completo de servicios para los
+contenedores que corren en él, simplificando el \eng{discovery} de servicios,
+\eng{scheduling}, \eng{health checking}, despliegue y el escalado de los mismos.
