@@ -23,21 +23,36 @@ Además se ha mostrado cómo configurar \gls{term:cadvisor} para
 obtener valiosa información del sistema y enviarla a \gls{term:influx}.
 (\autoref{fig:diagrama-influx})
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/conclusiones/elastic.png}
+  \caption{\gls{term:fluentd} recolecta los logs de las
+    aplicaciones y se las envía a \gls{term:elasticsearch}}
+  \label{fig:diagrama-elastic}
+\end{figure}
+
 También se ha descripto cómo configurar \gls{term:nginx} y las aplicaciones
 para recuperar los datos de sus \eng{logs} e imprimirlos en el \gls{acro:stdout}
 del \gls{term:contenedor} de \gls{term:docker} para luego enviarlos a
 través de \gls{term:fluentd} a \gls{term:elasticsearch}. De esta forma se ha
 logrado utilizar toda la información guardada en \eng{logs} que antes era
-desaprovechada.
+desaprovechada. (\autoref{fig:diagrama-elastic})
 
 Se ha demostrado cómo usar \gls{term:kibana} para crear gráficos a partir de la
 información de los \eng{logs} en \gls{term:elasticsearch} y realizar la exploración
 de los \eng{logs} de forma sencilla, y cómo configurar un tablero de
 \gls{term:grafana} para mostrar los datos almacenados en \gls{term:influx}.
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{src/images/conclusiones/alerts.png}
+  \caption{\gls{term:kapacitor} genera alertas a diferentes destinos a partir
+    de información tomada de \gls{term:influx}}
+  \label{fig:diagrama-alerts}
+\end{figure}
+
 Finalmente se ha configurado \gls{term:kapacitor} para generar alertas útiles,
 definiendolas en el lenguaje \gls{term:tick_script} y luego se ha usado la
 herramienta \gls{term:alerta} para resolver el problema de múltiples alertas.
+(\autoref{fig:diagrama-alerts})
 
 Durante el transcurso de la investigación se han explorado otras
 herramientas como \gls{term:logstash}, \gls{term:opentsdb}, \gls{term:graphite}
