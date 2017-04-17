@@ -1,31 +1,32 @@
 Para implementar la nueva infraestructura de monitoreo, y con el objetivo de
 darles uso real a los registros de las aplicaciones, el primer paso será
-intentar utilizar la información que brindan los logs de forma más intensiva.
+intentar utilizar la información que brindan los \eng{logs} de forma más
+intensiva.
 
-En \gls{term:ror}, los logs son complejos. Cada registro puede ocupar varias
-líneas, y cada tipo de log tiene su propio formato. En la
+En \gls{term:ror}, los \eng{logs} son complejos. Cada registro puede ocupar
+varias líneas, y cada tipo de \eng{log} tiene su propio formato. En la
 \autoref{configuracion_de_las_aplicaciones} se explicará cómo extraer valiosa
-información de los logs de las aplicaciones del \gls{acro:cespi}.
+información de los \eng{logs} de las aplicaciones del \gls{acro:cespi}.
 
-Se utilizarán los logs de \gls{term:nginx} para recolectar datos precisos sobre
-la velocidad de respuesta de las aplicaciones ante solicitudes \eng{web}. En
-la \autoref{configuracion_de_nginx} se explicará cómo configurar la herramienta
-para que la información recolectada sea útil en un ambiente de trabajo con
-contenedores de \gls{term:docker}.
+Se utilizarán los \eng{logs} de \gls{term:nginx} para recolectar datos precisos
+sobre la velocidad de respuesta de las aplicaciones ante solicitudes \eng{web}.
+En la \autoref{configuracion_de_nginx} se explicará cómo configurar la
+herramienta para que la información recolectada sea útil en un ambiente de
+trabajo con contenedores de \gls{term:docker}.
 
 Para poder hacer uso de la información de los registros de ambas fuentes,
 se necesitará algún tipo de herramienta de almacenamiento y búsqueda. En la
 \autoref{almacenamiento} se describirá cómo configurar \gls{term:elasticsearch}
-como motor de búsqueda y análisis de logs.
+como motor de búsqueda y análisis de \eng{logs}.
 
-En la \autoref{unificacion_y_recoleccion} se explicará cómo unificar los logs
-de diversas fuentes y cómo centralizarlos en la base de datos descripta en
-el capítulo anterior. Se utilizará \gls{term:fluentd} para lograr que las
-aplicaciones y las instancias de \gls{term:nginx} se comuniquen correctamente
-con \gls{term:elasticsearch}, y se mostrará cómo configurarlo.
+En la \autoref{unificacion_y_recoleccion} se explicará cómo unificar los
+\eng{logs} de diversas fuentes y cómo centralizarlos en la base de datos
+descripta en la \autoref{cap3}. Se utilizará \gls{term:fluentd} para lograr
+que las aplicaciones y las instancias de \gls{term:nginx} se comuniquen
+correctamente con \gls{term:elasticsearch}, y se mostrará cómo configurarlo.
 
 Una vez que se tenga todo el sistema de recolección, unificación,
-centralización y almacenamiento de logs configurado, se demostrará cómo obtener
-información útil a través de una \gls{term:api} y utilizando un lenguaje de
-consultas. En la \autoref{consultas} se darán algunos ejemplos de uso del
-sistema construido en funcionamiento.
+centralización y almacenamiento de \eng{logs} configurado, se demostrará cómo
+obtener información útil a través de una \gls{term:api} y utilizando un
+lenguaje de consultas. En la \autoref{consultas} se darán algunos ejemplos de
+consultas que se podrán obtener al sistema en funcionamiento.
