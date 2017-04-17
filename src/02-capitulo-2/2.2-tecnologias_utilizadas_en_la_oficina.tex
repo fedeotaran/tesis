@@ -23,17 +23,17 @@ las aplicaciones y actualización de las mismas se realizaba en forma manual.
 Cuando el número de servidores y aplicaciones comenzó a crecer se analizaron
 opciones para automatizar su instalación y actualización.
 
-Entre los años 2011 y 2012 se utilizó Capistrano como herramienta de despliegue
+Entre los años 2011 y 2012 se utilizó \gls{term:capistrano} como herramienta de despliegue
 automático.
 
 Luego de in incidente ocurrido en la oficina donde se rompió un componente de
 hardware se tuvieron que instalar manualmente todos los servidores con
-Capistrano.  Es por este motivo que se evaluaron herramientas de automatización
+\gls{term:capistrano}.  Es por este motivo que se evaluaron herramientas de automatización
 de la infraestructura y gestión de la misma como código. Es así como hacia el
 año 2014 se automatizó el 100\% de la infraestructura y despliegue utilizando
-Chef.
+\gls{term:chef}.
 
-Con Chef se definieron 3 ambientes:
+Con \gls{term:chef} se definieron 3 ambientes:
 
 \begin{itemize}
   \item \textbf{Testing}: es el ambiente donde se publica el software en fase
@@ -50,7 +50,7 @@ Con Chef se definieron 3 ambientes:
 \end{itemize}
 
 El ambiente de \eng{Testing} a diferencia del de Producción y Pre-producción
-aún requería el uso de Capistrano por parte de los desarrolladores para
+aún requería el uso de \gls{term:capistrano} por parte de los desarrolladores para
 realizar el despliegue de las aplicaciones, lo cual hacía que el ambiente de
 \eng{Testing} no sea exactamente igual al del resto.
 
